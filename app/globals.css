@@ -1,26 +1,130 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+body {
+  font-family: var(--font-playfair); /* Default body font */
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 400;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  background-color: #f9fafb;
+  color: #363636;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+button,
+a {
+  cursor: pointer;
+  user-select: none;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+.toaster {
+  z-index: 9999 !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000080; /* Secondary color */
+  border-radius: 5px;
+}
+
+/* Responsive Widths */
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Full-Width for Smaller Screens */
+@media (max-width: 575px) {
+  .container {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+/* Centering Content */
+.container-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.font-primary {
+  font-family: var(--font-playfair);
+}
+
+.font-secondary {
+  font-family: var(--font-montserrat);
+}
+
+/* Updated Colors */
+.text-primary {
+  color: #363636;
+}
+
+.text-secondary {
+  color: #000080;
+}
+
+.bg-primary {
+  background-color: #363636;
+}
+
+.bg-secondary {
+  background-color: #000080;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
