@@ -8,7 +8,7 @@ function Hero() {
   return (
     <section className="lg:min-h-screen min-h-[550px] text-secondary flex flex-col justify-between">
       {/* ================= NAVBAR ================= */}
-      <header className="border-b border-black relative">
+      <header className="border-b border-black relative font-secondary">
         <div className="max-w-7xl mx-auto flex items-stretch justify-between px-6">
           {/* Logo */}
           <div className="flex items-center py-6 pr-20 lg:border-r border-black">
@@ -120,7 +120,7 @@ function Hero() {
       </div>
 
       {/* ================= FOOTER INFO ================= */}
-      <div className="hidden lg:block border-t border-black">
+      <div className="hidden lg:block border-t border-black font-secondary border-b">
         <div className="max-w-7xl mx-auto flex items-stretch justify-between text-[14px]">
           {/* Column 1 */}
           <div className="flex-1 pr-16 border-r border-black text-left py-8">
