@@ -1,8 +1,13 @@
 import React from 'react'
+import Hero from '../components/home/Hero'
+import About from '../components/home/About'
 
 function page() {
   return (
-    <div>page</div>
+    <div>
+      <Hero/>
+      <About/>
+    </div>
   )
 }
 
