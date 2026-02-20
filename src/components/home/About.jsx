@@ -28,19 +28,19 @@ function About() {
               About Me
             </span>
 
-            <h2 className="text-3xl md:text-4xl font-bold mt-4 leading-tight text-black">
-              Im <span className="text-secondary">Muhammed Salman</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-4 leading-tight text-black font-primary">
+              Im <span className="text-secondary ">Muhammed Salman</span>
               <br />
               Full Stack Developer
             </h2>
 
-            <p className="mt-6 text-primary leading-relaxed">
+            <p className="mt-6 text-primary leading-relaxed font-secondary">
               I am a passionate Full Stack Developer specializing in building
               modern, scalable, and high-performance web applications using
               React, Next.js, and Tailwind CSS.
             </p>
 
-            <p className="mt-4 text-primary leading-relaxed">
+            <p className="mt-4 text-primary leading-relaxed font-secondary">
               I focus on creating clean user interfaces combined with powerful
               backend systems. My goal is to deliver smooth user experiences,
               write clean maintainable code, and continuously improve my
