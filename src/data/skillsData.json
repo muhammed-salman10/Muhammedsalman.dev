@@ -1,0 +1,100 @@
+{
+  "technical": [
+    {
+      "name": "HTML5",
+      "icon": "html",
+      "description": "Semantic and accessible markup for building structured and SEO-friendly web pages."
+    },
+    {
+      "name": "CSS3",
+      "icon": "css",
+      "description": "Modern styling using Flexbox, Grid, animations, and responsive design techniques."
+    },
+    {
+      "name": "JavaScript",
+      "icon": "js",
+      "description": "Strong understanding of ES6+, DOM manipulation, APIs, and async programming."
+    },
+    {
+      "name": "React.js",
+      "icon": "react",
+      "description": "Building reusable components and dynamic user interfaces with efficient state management."
+    },
+    {
+      "name": "Next.js",
+      "icon": "next",
+      "description": "Server-side rendering and optimized performance for scalable applications."
+    },
+    {
+      "name": "Tailwind CSS",
+      "icon": "tailwind",
+      "description": "Utility-first CSS framework for building modern and responsive UI rapidly."
+    },
+    {
+      "name": "Node.js",
+      "icon": "node",
+      "description": "Basic backend development knowledge including APIs and server-side logic."
+    }
+  ],
+
+  "tools": [
+    {
+      "name": "Git",
+      "icon": "git",
+      "description": "Version control system for tracking changes and collaboration."
+    },
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "description": "Code hosting platform for managing repositories and teamwork."
+    },
+    {
+      "name": "Figma",
+      "icon": "figma",
+      "description": "UI/UX design tool for creating wireframes and prototypes."
+    },
+    {
+      "name": "Vercel",
+      "icon": "vercel",
+      "description": "Deployment platform optimized for Next.js applications."
+    },
+    {
+      "name": "VS Code",
+      "icon": "vscode",
+      "description": "Primary code editor for writing, debugging, and managing modern web applications efficiently."
+    },
+    {
+      "name": "Chrome DevTools",
+      "icon": "chrome",
+      "description": "Used for debugging, performance optimization, and inspecting responsive layouts in real-time."
+    }
+  ],
+
+  "soft": [
+    {
+      "name": "Problem Solving",
+      "icon": "brain",
+      "description": "Breaking complex problems into manageable solutions."
+    },
+    {
+      "name": "Communication",
+      "icon": "comments",
+      "description": "Clear and professional interaction with teams and clients."
+    },
+    {
+      "name": "Team Collaboration",
+      "icon": "users",
+      "description": "Working efficiently in collaborative environments."
+    },
+    {
+      "name": "Time Management",
+      "icon": "clock",
+      "description": "Delivering quality work within deadlines."
+    },
+    {
+      "name": "Continuous Learning",
+      "icon": "rocket",
+      "description": "Constantly upgrading technical knowledge and skills."
+    }
+  ]
+}

@@ -41,7 +41,7 @@ function Education() {
             Academic and Professional Journey
           </h2>
 
-          <p className="text-gray-600 mt-4 text-[15px] md:text-[18px] leading-relaxed font-secondary">
+          <p className="text-primary mt-4 text-[15px] md:text-[18px] leading-relaxed font-secondary">
             My academic and professional journey has been a continuous path of
             learning, growth, and practical experience. From building a solid
             foundation in computer science to applying those skills in
