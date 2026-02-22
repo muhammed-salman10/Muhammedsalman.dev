@@ -1,0 +1,176 @@
+[
+    {
+        "id": 1,
+        "title": "Caropticz-Automotive",
+        "company": "WebEyeCraft",
+        "description": "Automotive booking platform with real-time scheduling and service management. Designed for seamless customer experience and operational efficiency.",
+        "tech": [
+            "Next.js",
+            "Tailwind CSS",
+            "Node.js"
+        ],
+        "image": "/assets/images/projects/caropticz.png",
+        "liveUrl": "https://www.caropticz.com/"
+    },
+    {
+        "id": 2,
+        "title": "Nad Al Hiba Furniture",
+        "company": "WebEyeCraft",
+        "description": "High-quality furniture solutions by Nad Al Hiba. Modern, functional, and stylish office, educational, and storage systems built for comfort and performance.",
+        "tech": [
+            "Next.js",
+            "Tailwind CSS",
+            "GSAP"
+        ],
+        "image": "/assets/images/projects/hiba.png",
+        "liveUrl": "https://hibafurniture.com/"
+    },
+    {
+        "id": 3,
+        "title": "Kungfu Association UAE",
+        "company": "WebEyeCraft",
+        "description": "Official UAE body promoting Kung Fu, Tai Chi & Qigong through training, initiatives and events nationwide. Explore our programs and get involved today.",
+        "tech": [
+            "Vite",
+            "Bootstrap",
+            "Framer Motion",
+            "TSX"
+        ],
+        "image": "/assets/images/projects/kunfu.png",
+        "liveUrl": "https://admin-demo.webeyecraft.com"
+    },
+    {
+        "id": 4,
+        "title": "Maxplus Logistics Solutions",
+        "company": "WebEyeCraft",
+        "description": "UAE's #1 logistics and freight partner for air, sea, and land cargo. Secure, compliant, and on time for every shipment. Contact Maxplus for a quote now.",
+        "tech": [
+            "Next.js",
+            "GSAP",
+            "Tailwind CSS"
+        ],
+        "image": "/assets/images/projects/maxplus.png",
+        "liveUrl": "https://maxplusuae.com/"
+    },
+    {
+        "id": 5,
+        "title": "MetaMedicx",
+        "company": "WebEyeCraft",
+        "description": "Modern medical website showcasing healthcare services and patient-focused solutions. Designed with responsive UI for clarity, accessibility, and professional presentation.",
+        "tech": [
+            "React",
+            "Tailwind CSS",
+            "GSAP"
+        ],
+        "image": "/assets/images/projects/meta-medicx.png",
+        "liveUrl": "https://metamedicx.com/"
+    },
+    {
+        "id": 6,
+        "title": "PowerMec",
+        "company": "WebEyeCraft",
+        "description": "Powermec is the best auto garage in Dubai, offering expert car care services and complete car maintenance service to keep your vehicle running at its best.",
+        "tech": [
+            "Next.js",
+            "GSAP",
+            "Tailwind CSS"
+        ],
+        "image": "/assets/images/projects/powermec.png",
+        "liveUrl": "https://powermec.ae/"
+    },
+    {
+        "id": 7,
+        "title": "SEO Pro Hub",
+        "company": "WebEyeCraft",
+        "description": "Drive growth with expert SEO, PPC, and digital marketing solutions in the UAE. Boost visibility, attract leads, and achieve measurable results.",
+        "tech": [
+            "Next.js",
+            "Tailwind CSS",
+            "GSAP",
+            "Email js"
+        ],
+        "image": "/assets/images/projects/seo-prohub.png",
+        "liveUrl": "https://seoprohub.ae/"
+    },
+    {
+        "id": 8,
+        "title": "Sinolink International Logistics",
+        "company": "WebEyeCraft",
+        "description": "Your trusted partner for sea, air, and land freight, contract logistics, and customs services — delivering efficiency worldwide.",
+        "tech": [
+            "Next.js",
+            "Tailwind CSS",
+            "GSAP"
+        ],
+        "image": "/assets/images/projects/sino-link.png",
+        "liveUrl": "https://sinolinkinternational.com/"
+    },
+    {
+        "id": 9,
+        "title": "TalentCore",
+        "company": "WebEyeCraft",
+        "description": "A web-based Employee-Employer Platform MVP designed to help candidates connect, apply, and grow their careers.",
+        "tech": [
+            "Next.js",
+            "Tailwind CSS",
+            "Node.js",
+            "MongoDB",
+            "JWT"
+        ],
+        "image": "/assets/images/projects/talent-core.png",
+        "liveUrl": "https://automotive2-demo.webeyecraft.com"
+    },
+    {
+        "id": 10,
+        "title": "Vaitafe Technical Services",
+        "company": "WebEyeCraft",
+        "description": "Vaitafe is a leading interior design company in Dubai offering modern interior design services, home and office interiors, custom furniture, and turnkey solutions for commercial and residential spaces.",
+        "tech": [
+            "Next.js",
+            "Tailwind CSS",
+            "GSAP"
+        ],
+        "image": "/assets/images/projects/vaitafe.png",
+        "liveUrl": "https://vaitafe.com/"
+    },
+    {
+        "id": 11,
+        "title": "Voxbridge Academy",
+        "company": "WebEyeCraft",
+        "description": "Modern academic website promoting lifelong learning, institutional excellence, and accessible education with a clean and responsive design.",
+        "tech": [
+            "Vite",
+            "Tailwind CSS",
+            "Email js"
+        ],
+        "image": "/assets/images/projects/voxy.png",
+        "liveUrl": "https://voxbridgeacademy.com/"
+    },
+    {
+        "id": 12,
+        "title": "Webeyecraft Technologies",
+        "company": "WebEyeCraft",
+        "description": "Webeyecraft  is a digital transformation services company providing IT solutions, web development, and strategies that drive growth and success for businesses.",
+        "tech": [
+            "Next.js",
+            "GSAP",
+            "Tailwind CSS",
+            "Email js"
+        ],
+        "image": "/assets/images/projects/wec.png",
+        "liveUrl": "https://webeyecraft.com/"
+    },
+    {
+        "id": 13,
+        "title": "Westline Technical Service llc",
+        "company": "WebEyeCraft",
+        "description": "Corporate website showcasing interior fit-out services, project portfolio, and turnkey solutions with a modern and responsive design.",
+        "tech": [
+            "Next.js",
+            "Tailwind CSS",
+            "GSAP"
+        ],
+        "image": "/assets/images/projects/westline.png",
+        "liveUrl": "https://westline-demo.webeyecraft.com"
+    }
+]
