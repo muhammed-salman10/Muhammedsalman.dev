@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "type": "featured",
+    "image": "/assets/images/blogs/ai-code-assistant.webp",
+    "category": "Artificial Intelligence",
+    "date": "12 Dec, 2022",
+    "saves": "23 saves",
+    "title": "How Artificial Intelligence is Transforming Modern Development",
+    "description": "Discover how AI-powered tools are enhancing productivity, automating debugging, and revolutionizing code generation in modern web development workflows.",
+    "buttonText": "Read More"
+  },
+  {
+    "id": 2,
+    "type": "stack",
+    "image": "/assets/images/blogs/react-ai.webp",
+    "category": "React+AI",
+    "date": "15 Jan, 2023",
+    "saves": "18 saves",
+    "title": "Boosting Website Performance in 2026",
+    "description": "Learn advanced optimization strategies to improve Core Web Vitals, reduce load times, and deliver lightning-fast user experiences.",
+    "buttonText": "Read More"
+  },
+  {
+    "id": 3,
+    "type": "stack",
+    "image": "/assets/images/blogs/tailwind-css.webp",
+    "category": "Frontend Development",
+    "date": "10 Feb, 2023",
+    "saves": "30 saves",
+    "title": "User Interfaces with Tailwind CSS",
+    "description": "Explore how Tailwind CSS enables rapid UI development while maintaining scalability, consistency, and clean design systems.",
+    "buttonText": "Read More"
+  },
+  {
+    "id": 4,
+    "type": "grid",
+    "image": "/assets/images/blogs/app-router.webp",
+    "category": "Next.js",
+    "date": "22 Mar, 2023",
+    "saves": "12 saves",
+    "title": "Understanding the Next.js App Router Architecture",
+    "description": "A complete guide to the Next.js App Router, covering layouts, nested routes, server components, and performance improvements.",
+    "buttonText": "Read More"
+  },
+  {
+    "id": 5,
+    "type": "grid",
+    "image": "/assets/images/blogs/react-19.webp",
+    "category": "React",
+    "date": "30 Mar, 2023",
+    "saves": "16 saves",
+    "title": "What’s New in React 19 for Frontend Developers",
+    "description": "Explore the latest features in React 19, including performance enhancements, improved hooks, and better developer tooling.",
+    "buttonText": "Read More"
+  },
+  {
+    "id": 6,
+    "type": "grid",
+    "image": "/assets/images/blogs/next-js.webp",
+    "category": "Next.js",
+    "date": "05 Apr, 2023",
+    "saves": "20 saves",
+    "title": "Why Next.js Dominates Modern Web Development",
+    "description": "Understand why Next.js continues to lead the frontend ecosystem with hybrid rendering, built-in optimization, and scalable architecture.",
+    "buttonText": "Read More"
+  }
+]
