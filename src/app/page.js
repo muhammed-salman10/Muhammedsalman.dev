@@ -5,6 +5,7 @@ import Education from "../components/home/Education";
 import Skills from "../components/home/Skills";
 import Projects from "../components/home/Projects";
 import Blogs from "../components/home/Blogs";
+import Contact from "../components/home/Contact";
 
 function page() {
   return (
@@ -15,6 +16,7 @@ function page() {
       <Skills />
       <Projects />
       <Blogs />
+      <Contact/>
     </div>
   );
 }
