@@ -6,6 +6,7 @@ import Skills from "../components/home/Skills";
 import Projects from "../components/home/Projects";
 import Blogs from "../components/home/Blogs";
 import Contact from "../components/home/Contact";
+import Footer from "../components/common/footer/Footer";
 
 function page() {
   return (
@@ -17,6 +18,7 @@ function page() {
       <Projects />
       <Blogs />
       <Contact/>
+      <Footer/>
     </div>
   );
 }
