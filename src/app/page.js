@@ -7,6 +7,7 @@ import Projects from "../components/home/Projects";
 import Blogs from "../components/home/Blogs";
 import Contact from "../components/home/Contact";
 import Footer from "../components/common/footer/Footer";
+import Services from "../components/home/services/Services";
 
 function page() {
   return (
@@ -15,6 +16,7 @@ function page() {
       <About />
       <Education />
       <Skills />
+      <Services/>
       <Projects />
       <Blogs />
       <Contact/>
