@@ -8,6 +8,7 @@ import Blogs from "../components/home/Blogs";
 import Contact from "../components/home/Contact";
 import Footer from "../components/common/footer/Footer";
 import Services from "../components/home/services/Services";
+import Achievements from "../components/home/Achievements";
 
 function page() {
   return (
@@ -18,6 +19,7 @@ function page() {
       <Skills />
       <Services/>
       <Projects />
+      <Achievements/>
       <Blogs />
       <Contact/>
       <Footer/>

@@ -173,3 +173,20 @@ a {
 .animate-slideUp {
   animation: slideUp 0.3s ease-out;
 }
+
+
+@keyframes floatX {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(-15px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.animate-floatX {
+  animation: floatX 3s ease-in-out infinite;
+}
