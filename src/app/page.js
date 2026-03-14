@@ -1,4 +1,9 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+
+import TerminalIntro from "@/components/TerminalIntro";
+
 import Hero from "../components/home/Hero";
 import About from "../components/home/About";
 import Education from "../components/home/Education";
@@ -10,21 +15,45 @@ import Footer from "../components/common/footer/Footer";
 import Services from "../components/home/services/Services";
 import Achievements from "../components/home/Achievements";
 
-function page() {
+function Page() {
+
+  const [showIntro, setShowIntro] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
+
+  const handleIntroFinish = () => {
+    setFadeOut(true);
+
+    setTimeout(() => {
+      setShowIntro(false);
+    }, 800);
+  };
+
   return (
     <div>
+
+      {showIntro && (
+        <div
+          className={`fixed inset-0 z-50 transition-opacity duration-700 ${
+            fadeOut ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <TerminalIntro onFinish={handleIntroFinish} />
+        </div>
+      )}
+
       <Hero />
       <About />
       <Education />
       <Skills />
-      <Services/>
+      <Services />
       <Projects />
-      <Achievements/>
+      <Achievements />
       <Blogs />
-      <Contact/>
-      <Footer/>
+      <Contact />
+      <Footer />
+
     </div>
   );
 }
 
-export default page;
+export default Page;

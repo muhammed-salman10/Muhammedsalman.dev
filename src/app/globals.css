@@ -190,3 +190,18 @@ a {
 .animate-floatX {
   animation: floatX 3s ease-in-out infinite;
 }
+
+
+
+@keyframes loadingBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-loadingBar {
+  animation: loadingBar 3s linear forwards;
+}
