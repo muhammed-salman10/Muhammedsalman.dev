@@ -1,6 +1,6 @@
 // src/components/home/services/MovableCards.jsx
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,8 +12,10 @@ export default function MovableCards() {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
   const contentRef = useRef(null);
-  const mainHeadingRef = useRef(null); // 🔥 new
+  const mainHeadingRef = useRef(null);
   const textAnimationRef = useRef(null);
+
+  const [isMobile, setIsMobile] = useState(false);
 
   const services = [
     {
@@ -38,25 +40,40 @@ export default function MovableCards() {
     },
   ];
 
+  // Detect mobile
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.set(cardsRef.current, { willChange: "transform, opacity" });
       gsap.set([contentRef.current, mainHeadingRef.current], {
         willChange: "transform, opacity",
       });
-      gsap.set(textAnimationRef.current, { x: "100%", opacity: 0 });
+
+      if (!isMobile) {
+        gsap.set(textAnimationRef.current, { x: "100%", opacity: 0 });
+      }
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "+=2500",
+          end: isMobile ? "+=900" : "+=2500",
           scrub: true,
           pin: true,
         },
       });
 
-      // 🔥 Cards go up
+      // Cards move up
       tl.to(cardsRef.current, {
         y: -500,
         opacity: 0,
@@ -64,7 +81,7 @@ export default function MovableCards() {
         ease: "power2.inOut",
       });
 
-      // 🔥 Top content + Main heading move together
+      // Content + Heading move
       tl.to(
         [contentRef.current, mainHeadingRef.current],
         {
@@ -76,38 +93,40 @@ export default function MovableCards() {
         "-=0.4",
       );
 
-      // 🔥 New animated text enters
-      tl.to(
-        textAnimationRef.current,
-        {
-          x: "0%",
-          opacity: 1,
-          ease: "power3.out",
-          duration: 1.2,
-        },
-        "-=0.2",
-      );
+      // Text animation only desktop
+      if (!isMobile && textAnimationRef.current) {
+        tl.to(
+          textAnimationRef.current,
+          {
+            x: "0%",
+            opacity: 1,
+            ease: "power3.out",
+            duration: 1.2,
+          },
+          "-=0.2",
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <section
       ref={sectionRef}
       className="relative flex flex-col items-center justify-center 
-      md:min-h-[100vh] min-h-[80vh] overflow-hidden px-4 sm:px-6 lg:px-8"
+      lg:min-h-[100vh] min-h-[90vh] overflow-hidden px-4 sm:px-6 lg:px-8"
     >
-      {/* 🔥 Top Content */}
+      {/* Top Content */}
       <div
         ref={contentRef}
         className="absolute top-8 flex flex-col items-center text-center px-4 py-6"
       >
-        <span className="text-[38px] font-bold text-[#000080] font-primary tracking-wide">
+        <span className="lg:text-[38px] text-[26px] font-bold text-[#000080] font-primary tracking-wide ">
           Our Services
         </span>
 
-        <p className="mt-3 max-w-2xl text-primary text-[15px] md:text-[18px] leading-relaxed font-secondary">
+        <p className="mt-3 lg:max-w-2xl text-primary text-[15px] md:text-[18px] leading-relaxed font-secondary">
           I design and develop modern, high-performance web applications that
           blend creativity with functionality. From responsive interfaces to
           scalable front-end architectures, I transform ideas into seamless
@@ -115,20 +134,20 @@ export default function MovableCards() {
         </p>
       </div>
 
-      {/* 🔥 Main Heading (Now Animated Too) */}
+      {/* Main Heading */}
       <h2
         ref={mainHeadingRef}
         className="text-center font-primary select-none font-semibold text-[#000080] leading-tight
-        md:text-[clamp(2rem,7vw,6rem)] text-[50px] mt-20"
+        md:text-[clamp(2rem,7vw,6rem)] lg:text-[50px] text-[30px] lg:mt-10 mt-24"
       >
         Delivering Digital <br /> Solutions
       </h2>
 
-      {/* 🔥 Image Stack */}
+      {/* Image Stack */}
       <div
         className="
           absolute 
-          top-[400px] sm:top-[450px] md:top-[400px] 
+          top-[380px] md:top-[380px] 
           left-1/2 -translate-x-1/2 -translate-y-1/2
           w-[160px] h-[160px]
           sm:w-[190px] sm:h-[190px]
@@ -147,7 +166,7 @@ export default function MovableCards() {
             }}
             className="
               absolute 
-              w-[160px] h-[200px]
+              w-[180px] h-[230px]
               sm:w-[180px] sm:h-[220px]
               md:w-[250px] md:h-[290px]
             "
@@ -171,13 +190,15 @@ export default function MovableCards() {
         ))}
       </div>
 
-      {/* 🔥 Text Animation Section */}
-      <div
-        ref={textAnimationRef}
-        className="absolute w-full h-full flex items-center justify-center"
-      >
-        <TextAnimation />
-      </div>
+      {/* Text Animation (Desktop only) */}
+      {!isMobile && (
+        <div
+          ref={textAnimationRef}
+          className="absolute w-full h-full flex items-center justify-center"
+        >
+          <TextAnimation />
+        </div>
+      )}
     </section>
   );
 }

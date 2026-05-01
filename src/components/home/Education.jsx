@@ -37,7 +37,7 @@ function Education() {
     <section className="lg:py-20 md:py-10 md:mb-46 ">
       <div className="container relative">
         <div className="text-center mb-14 max-w-4xl mx-auto">
-          <h2 className="lg:text-[36px] md:text-[28px] text-[24px] font-bold text-[#000080] font-primary">
+          <h2 className=" md:text-4xl text-2xl font-bold text-[#000080] font-primary mt-16 lg:mt-0">
             Academic and Professional Journey
           </h2>
 

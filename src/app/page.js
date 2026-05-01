@@ -16,7 +16,6 @@ import Services from "../components/home/services/Services";
 import Achievements from "../components/home/Achievements";
 
 function Page() {
-
   const [showIntro, setShowIntro] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
 
@@ -30,7 +29,6 @@ function Page() {
 
   return (
     <div>
-
       {showIntro && (
         <div
           className={`fixed inset-0 z-50 transition-opacity duration-700 ${
@@ -51,7 +49,6 @@ function Page() {
       <Blogs />
       <Contact />
       <Footer />
-
     </div>
   );
 }

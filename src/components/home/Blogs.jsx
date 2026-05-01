@@ -115,14 +115,14 @@ function Blogs() {
   if (!featured) return null;
 
   return (
-    <section className="py-20">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="lg:py-20">
+      <div className="max-w-7xl mx-auto lg:px-6 px-4">
         {/* ================= SECTION HEADER ================= */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary font-primary mb-6">
+          <h2 className="text-[22px] md:text-4xl font-[700] mb-3 lg:mb-6 text-secondary font-primary">
             Insights and Technical Articles
           </h2>
-          <p className="mt-4 text-primary text-[15px] md:text-[18px] font-secondary leading-relaxed">
+          <p className=" text-primary text-[15px] md:text-[18px] font-secondary leading-relaxed">
             Discover in-depth tutorials, development strategies, and industry
             insights covering modern frontend technologies, performance
             optimization, and scalable architecture patterns.

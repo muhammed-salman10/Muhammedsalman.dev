@@ -4,12 +4,29 @@ import React, { useEffect, useRef, useState } from "react";
 
 function TextAnimation() {
   const [animate, setAnimate] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef(null);
 
+  // 🔥 Detect screen size
   useEffect(() => {
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
+  // 🔥 Intersection Observer (only for desktop)
+  useEffect(() => {
+    if (isMobile) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
+
         if (entry.isIntersecting) {
           setTimeout(() => setAnimate(true), 500);
         } else {
@@ -20,10 +37,14 @@ function TextAnimation() {
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
+
     return () => {
       if (sectionRef.current) observer.unobserve(sectionRef.current);
     };
-  }, []);
+  }, [isMobile]);
+
+  // 🔥 Hide completely on mobile
+  if (isMobile) return null;
 
   return (
     <section
@@ -51,13 +72,16 @@ function TextAnimation() {
                 priority
               />
             </span>
+
             <span className="text-[#000080] ml-2">Performance,</span>
           </span>
+
           <span className="text-[#000080]">Scalability</span>
+
           <span
             className={`relative ml-2 transition-all duration-700 ease-out origin-left ${
               animate
-                ? "opacity-100 scale-100  w-[60px] h-[30px] sm:w-[80px] sm:h-[40px] md:w-[100px] md:h-[50px] animate-fade-in-left"
+                ? "opacity-100 scale-100 w-[60px] h-[30px] sm:w-[80px] sm:h-[40px] md:w-[100px] md:h-[50px] animate-fade-in-left"
                 : "opacity-0 scale-0 w-0 h-0"
             }`}
           >
@@ -69,6 +93,7 @@ function TextAnimation() {
               priority
             />
           </span>
+
           <span className="text-[#000080] ml-2">Modern Interfaces.</span>
         </p>
 
@@ -83,13 +108,13 @@ function TextAnimation() {
             <div
               key={i}
               className={`relative rounded-full overflow-hidden transition-all duration-700 ease-out origin-right
-        ${
-          animate
-            ? "opacity-100 scale-100 w-[60px] h-[60px] sm:w-[75px] sm:h-[75px] md:w-[90px] md:h-[90px] animate-fade-in-right"
-            : "opacity-0 scale-0 w-0 h-0"
-        }`}
+              ${
+                animate
+                  ? "opacity-100 scale-100 w-[60px] h-[60px] sm:w-[75px] sm:h-[75px] md:w-[90px] md:h-[90px] animate-fade-in-right"
+                  : "opacity-0 scale-0 w-0 h-0"
+              }`}
               style={{
-                marginLeft: i === 0 ? "0px" : "-20px", // 🔥 Overlap all except first
+                marginLeft: i === 0 ? "0px" : "-20px",
                 transitionDelay: animate ? `${i * 150}ms` : "0ms",
               }}
             >

@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 
 export default function TerminalIntro({ onFinish }) {
-
   const terminalLines = [
     "salman@portfolio:~$ npm run start",
     "",
@@ -25,7 +24,7 @@ export default function TerminalIntro({ onFinish }) {
     "",
     "✔ Server ready",
     "",
-    "Launching Developer Portfolio..."
+    "Launching Developer Portfolio...",
   ];
 
   const [displayedLines, setDisplayedLines] = useState([]);
@@ -34,7 +33,6 @@ export default function TerminalIntro({ onFinish }) {
   const [charIndex, setCharIndex] = useState(0);
 
   useEffect(() => {
-
     if (lineIndex >= terminalLines.length) {
       setTimeout(() => {
         onFinish();
@@ -61,12 +59,10 @@ export default function TerminalIntro({ onFinish }) {
     }, 200);
 
     return () => clearTimeout(nextLineTimeout);
-
   }, [charIndex, lineIndex, currentLine, terminalLines, onFinish]);
 
   return (
     <div className="fixed inset-0 bg-black text-green-400 font-mono p-6 md:p-10 text-sm md:text-base overflow-hidden">
-
       {displayedLines.map((line, index) => (
         <p key={index}>{line}</p>
       ))}
@@ -75,7 +71,6 @@ export default function TerminalIntro({ onFinish }) {
         {currentLine}
         <span className="animate-pulse">█</span>
       </p>
-
     </div>
   );
 }

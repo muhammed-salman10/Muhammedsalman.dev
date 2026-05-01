@@ -201,10 +201,12 @@ export default function GridCards() {
               </div>
 
               <div className="flex-1">
-                <h4 className="text-lg font-semibold text-[#000080]">
+                <h4 className="lg:text-lg text-[15px] font-bold text-[#000080]">
                   {service.title}
                 </h4>
-                <p className="text-sm text-gray-600">{service.description}</p>
+                <p className="lg:text-sm text-[13px] text-gray-600">
+                  {service.description}
+                </p>
               </div>
 
               <button
@@ -235,7 +237,7 @@ export default function GridCards() {
               ✕
             </button>
 
-            <div className="relative w-full h-82 rounded-xl overflow-hidden mb-4 mt-5">
+            <div className="relative w-full lg:h-82 h-55 rounded-xl overflow-hidden mb-4 mt-5">
               <Image
                 key={currentImageIndex}
                 src={activeCard.images[currentImageIndex]}
@@ -257,15 +259,15 @@ export default function GridCards() {
               ))}
             </div>
 
-            <h3 className="text-2xl font-bold text-[#000080] mt-4 mb-3">
+            <h3 className="lg:text-2xl font-bold text-[#000080] mt-4 mb-3">
               {activeCard.title}
             </h3>
 
-            <p className="text-base text-gray-700 mb-4 leading-relaxed">
+            <p className="lg:text-base text-[14px] text-gray-700 mb-4 leading-relaxed">
               {activeCard.details}
             </p>
 
-            <ul className="list-disc pl-5 space-y-2 text-base text-gray-600">
+            <ul className="list-disc pl-5 space-y-2 lg:text-base text-[14px] text-gray-600">
               {activeCard.features.map((feature, i) => (
                 <li key={i}>{feature}</li>
               ))}

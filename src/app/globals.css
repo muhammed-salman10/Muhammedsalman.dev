@@ -175,7 +175,7 @@ a {
 }
 
 
-@keyframes floatX {
+/* @keyframes floatX {
   0% {
     transform: translateX(0px);
   }
@@ -189,9 +189,29 @@ a {
 
 .animate-floatX {
   animation: floatX 3s ease-in-out infinite;
+} */
+
+/* global.css */
+
+@keyframes floatX {
+  0%, 100% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(15px);
+  }
 }
 
-
+/* animation class */
+.animate-floatX {
+  animation: floatX 3s ease-in-out infinite;
+}
+/* disable on small screens */
+@media (max-width: 767px) {
+  .animate-floatX {
+    animation: none;
+  }
+}
 
 @keyframes loadingBar {
   0% {

@@ -27,25 +27,14 @@ export default function Achievements() {
   ];
 
   return (
-    <section className="w-full  mt-8 mb-18 px-6 md:px-16">
+    <section className="w-full mt-8 mb-16 px-2 md:px-16">
       <div className="container">
-        {/* Section Title */}
-        {/* <div className="mb-12 text-center md:text-left">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-black">
-            Awards & Achievements
-          </h2>
-          <p className="text-gray-600 max-w-2xl">
-            Recognitions and milestones achieved through dedication, creativity,
-            and consistent performance in development and design.
-          </p>
-        </div> */}
-
         {/* Top Layout */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-16 px-6 md:px-16 py-16 ">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 py-10 md:py-16">
           {/* Left Images */}
-          <div className="relative w-full md:w-1/2 flex justify-center md:justify-start">
+          <div className="relative w-full md:w-1/2 flex flex-col md:flex-row items-center md:justify-start gap-6 md:gap-0">
             {/* Main Image */}
-            <div className="relative hidden md:block w-full max-w-[480px] h-[460px]">
+            <div className="relative w-full lg:block hidden md:max-w-[480px] h-[350px] md:h-[460px] lg:translate-x-10">
               <Image
                 src="/assets/images/contact-1.jpeg"
                 alt="Mechanic working on car"
@@ -55,29 +44,35 @@ export default function Achievements() {
               />
             </div>
 
-            {/* Overlapping Image */}
-            <div className=" lg:absolute bottom-16 -right-6 w-[280px] h-[290px] animate-floatX">
+            {/* Second Image */}
+            <div
+              className="
+    relative w-full h-[350px] 
+    md:absolute md:bottom-16 md:-right-6 md:w-[280px] md:h-[290px]
+    animate-floatX
+  "
+            >
               <Image
                 src="/assets/images/contact-2.jpeg"
                 alt="Mechanic with customer"
                 fill
-                className="object-cover   border-8 border-[#e9eae5]"
+                className="object-cover rounded-2xl md:rounded-none border-0 md:border-8 border-[#e9eae5]"
               />
             </div>
           </div>
 
           {/* Right Content */}
-          <div className="w-full md:w-1/2 space-y-6 text-3xl md:text-[34px]  leading-tight text-black">
-            <p className="text-secondary font-primary font-bold  tracking-wide">
+          <div className="w-full md:w-1/2 space-y-4 md:space-y-6 text-center md:text-left">
+            <p className="text-secondary font-primary font-bold tracking-wide text-[22px] md:text-[22px]">
               Achievements and Awards
             </p>
 
-            <h2 className=" font-secondary text-secondary md:text-[30px]">
+            <h2 className="font-secondary text-secondary text-xl md:text-[30px] leading-snug">
               Milestones that reflect <br className="hidden md:block" />
               dedication and growth
             </h2>
 
-            <p className="text-primary font-secondary text-lg leading-relaxed">
+            <p className="text-primary font-secondary text-[14px] md:text-lg leading-relaxed">
               Over the years, I have consistently focused on improving my
               skills, delivering high-quality projects, and pushing creative
               boundaries. From successfully completing real-world client
@@ -92,14 +87,14 @@ export default function Achievements() {
         </div>
 
         {/* Achievement Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {achievements.map((item, index) => (
             <div
               key={index}
               className="bg-secondary border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
             >
               {/* Image */}
-              <div className="relative w-full h-48">
+              <div className="relative w-full h-55 md:h-48">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -109,13 +104,13 @@ export default function Achievements() {
               </div>
 
               {/* Content */}
-              <div className="p-5">
-                <h4 className="text-lg font-semibold mb-3 text-white">
+              <div className="p-4 md:p-5">
+                <h4 className="text-base md:text-lg font-semibold mb-2 md:mb-3 text-white">
                   {item.title}
                 </h4>
 
                 {!item.comingSoon && (
-                  <div className="flex gap-4 text-white text-sm">
+                  <div className="flex gap-4 text-white text-sm justify-start">
                     <FaInstagram className="hover:text-black cursor-pointer transition" />
                     <FaLinkedinIn className="hover:text-black cursor-pointer transition" />
                     <FaTwitter className="hover:text-black cursor-pointer transition" />
@@ -123,7 +118,7 @@ export default function Achievements() {
                 )}
 
                 {item.comingSoon && (
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-gray-400 text-xs md:text-sm text-center md:text-left">
                     More achievements on the way...
                   </p>
                 )}

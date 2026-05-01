@@ -56,8 +56,8 @@ function Skills() {
     <section className="w-full py-16 md:py-20">
       <div className="container mx-auto px-4 sm:px-6 font-secondary">
         {/* HEADING */}
-        <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-[700] mb-6 text-secondary font-primary">
+        <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16 mt-10 lg:mt-0">
+          <h2 className="text-2xl md:text-4xl font-[700] mb-6 text-secondary font-primary">
             Skills and Expertise
           </h2>
           <p className="text-primary leading-relaxed text-[15px] md:text-[18px]">

@@ -48,11 +48,11 @@ function Portfolio() {
   };
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="lg:py-16 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* ================= Heading ================= */}
         <div className="text-center mb-10 sm:mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary font-primary mb-6">
+          <h2 className="lg:text-[38px] text-[22px] font-bold text-[#000080] font-primary tracking-wide mb-6 ">
             Professional Client Projects
           </h2>
 

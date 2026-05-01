@@ -44,7 +44,7 @@ export default function FormSubmission() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8 ">
       {/* Name */}
       <div>
         <label className="block text-secondary font-secondary text-sm mb-2">
@@ -94,7 +94,7 @@ export default function FormSubmission() {
         </label>
         <textarea
           name="message"
-          rows="4"
+          rows="3"
           required
           value={formData.message}
           onChange={handleChange}
