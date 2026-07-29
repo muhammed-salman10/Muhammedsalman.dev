@@ -51,8 +51,13 @@ export default function SocialMediaIcons() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={item.name}
-            className={`w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white transition hover:scale-110 ${item.hover}`}
-          >
+className={`w-9 h-9 flex items-center justify-center rounded-full
+bg-[var(--social-bg)]
+text-[var(--social-text)]
+hover:text-white
+transition-all duration-300
+hover:scale-110
+${item.hover}`}          >
             <Icon size={16} />
           </Link>
         );

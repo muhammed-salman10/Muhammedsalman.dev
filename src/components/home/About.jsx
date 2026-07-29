@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { FaDownload } from "react-icons/fa";
+import Link from "next/link";
 
 function About() {
   return (
@@ -28,8 +29,8 @@ function About() {
               About Me
             </span>
 
-            <h2 className="text-2xl md:text-4xl font-bold mt-4 leading-tight text-black font-primary">
-              Im <span className="text-secondary ">Muhammed Salman</span>
+            <h2 className="text-2xl md:text-4xl font-bold mt-4 leading-tight text-primary font-primary">
+              Im <span className="text-secondary">Muhammed Salman</span>
               <br />
               Full Stack Developer
             </h2>
@@ -50,14 +51,14 @@ function About() {
             {/* ================= BUTTON + SOCIAL ================= */}
             <div className="mt-6 flex flex-wrap justify-center lg:justify-start items-center gap-6">
               {/* Download CV Button */}
-              <a
+              <Link
                 href="/Salman-CV.pdf"
                 download
-                className="flex items-center lg:text-[14px] text-[12px] gap-2 bg-secondary text-white lg:px-6 px-4 lg:py-3 py-3 rounded-xl shadow-md hover:bg-secondary transition duration-300"
+                className="flex items-center lg:text-[14px] text-[12px] gap-2 bg-secondary text-on-secondary  lg:px-6 px-4 lg:py-3 py-3 rounded-xl shadow-md hover:bg-secondary transition duration-300"
               >
                 <FaDownload />
                 Download CV
-              </a>
+              </Link>
             </div>
           </div>
         </div>

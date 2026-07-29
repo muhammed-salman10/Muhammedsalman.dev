@@ -52,7 +52,7 @@ function Portfolio() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* ================= Heading ================= */}
         <div className="text-center mb-10 sm:mb-14">
-          <h2 className="lg:text-[38px] text-[22px] font-bold text-[#000080] font-primary tracking-wide mb-6 ">
+          <h2 className="lg:text-[38px] text-[22px] font-bold text-secondary font-primary tracking-wide mb-6 ">
             Professional Client Projects
           </h2>
 
@@ -108,7 +108,7 @@ function Portfolio() {
                 </div>
 
                 {/* BACK SIDE */}
-                <div className="absolute inset-0 rotate-y-180 backface-hidden bg-secondary text-white rounded-2xl p-6 flex flex-col justify-between shadow-lg">
+                <div className="absolute inset-0 rotate-y-180 backface-hidden bg-[#000080] text-white rounded-2xl p-6 flex flex-col justify-between shadow-lg">
                   <div>
                     <h3 className="text-lg sm:text-xl font-bold mb-3 font-primary">
                       {project.title}
@@ -124,7 +124,7 @@ function Portfolio() {
                       {project.tech.map((tech, index) => (
                         <span
                           key={index}
-                          className="bg-white text-secondary px-3 py-1 rounded-full text-xs font-medium"
+                          className="bg-white text-[#000080] px-3 py-1 rounded-full text-xs font-medium"
                         >
                           {tech}
                         </span>
@@ -136,7 +136,7 @@ function Portfolio() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block bg-white  text-secondary px-4 py-2 rounded-full text-[12px] font-semibold hover:opacity-90 transition"
+                        className="inline-block bg-white  text-[#000080] px-4 py-2 rounded-full text-[12px] font-semibold hover:opacity-90 transition"
                       >
                         Visit Website →
                       </a>
@@ -168,8 +168,8 @@ function Portfolio() {
               className={`w-8 h-8 text-sm rounded-full transition
                 ${
                   currentPage === index + 1
-                    ? "bg-secondary text-white shadow-md"
-                    : "border border-gray-300 text-gray-600 hover:border-secondary hover:text-secondary"
+                    ? "bg-[#000080] text-white shadow-md"
+                    : "border border-gray-300 text-gray-600  hover:border-secondary hover:text-secondary"
                 }`}
             >
               {index + 1}

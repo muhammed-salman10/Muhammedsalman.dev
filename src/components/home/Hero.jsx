@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import navbarLinks from "../common/header/navbarLinks";
+import ThemeToggle from "../theme/ThemeToggle";
 
 function Hero() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,16 +10,16 @@ function Hero() {
     <section className="lg:min-h-screen min-h-[642px] text-secondary flex flex-col justify-between">
 
       {/* ================= NAVBAR ================= */}
-      <header className="border-b border-black relative font-secondary">
+      <header className="border-b border-primary relative font-secondary">
         <div className="max-w-7xl mx-auto flex items-stretch justify-between px-4 sm:px-6">
           
           {/* Logo */}
-          <div className="flex items-center py-4 sm:py-6 pr-6 lg:pr-20 lg:border-r border-black">
+          <div className="flex items-center py-4 sm:py-6 pr-6 lg:pr-20 lg:border-r ">
             <div className="text-xs sm:text-sm tracking-widest uppercase">plortal</div>
           </div>
 
           {/* Desktop Nav (UNCHANGED visually) */}
-          <nav className="hidden md:flex items-center gap-10 text-[14px] font-[500] tracking-wider px-10 border-r border-black pr-36">
+          <nav className="hidden md:flex items-center gap-10 text-[14px] font-[500] tracking-wider px-10 border-r  pr-36">
             {navbarLinks.map((link) => (
               <a
                 key={link.id}
@@ -33,9 +34,10 @@ function Hero() {
 
           {/* Desktop Button */}
           <div className="hidden md:flex items-center py-6 pl-10">
-            <button className="border border-black rounded-full px-6 py-2 text-sm hover:bg-black hover:text-white transition">
+            <button className="border border-primary rounded-full px-6 py-2 text-sm hover:bg-black hover:text-white transition">
               LETS TALK
             </button>
+              <ThemeToggle />
           </div>
 
           {/* Mobile Hamburger */}
@@ -125,25 +127,25 @@ function Hero() {
       </div>
 
       {/* ================= FOOTER INFO ================= */}
-      <div className="border-t border-black font-secondary border-b">
+      <div className="border-t border-primary font-secondary border-b">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row text-[14px]">
 
-          <div className="flex-1 px-5 sm:px-6 lg:pr-16 py-5 lg:py-8 lg:border-b lg:border-b-0 lg:border-r border-black text-left">
-            <p className="mb-3 uppercase tracking-wider text-black">Expertise</p>
+          <div className="flex-1 px-5 sm:px-6 lg:pr-16 py-5 lg:py-8 lg:border-b lg:border-b-0 lg:border-r  text-left">
+            <p className="mb-3 uppercase tracking-wider text-primary">Expertise</p>
             <p className="leading-relaxed text-sm lg:text-[14px]">
               2D / 3D Animation, VFX, Motion Design, and more — Just name it
             </p>
           </div>
 
-          <div className="flex-1 px-5 sm:px-6 lg:px-16 py-5 lg:py-8 lg:border-b lg:border-b-0 lg:border-r border-black text-left lg:text-center">
-            <p className="mb-3 uppercase tracking-wider text-black">Our Clients</p>
+          <div className="flex-1 px-5 sm:px-6 lg:px-16 py-5 lg:py-8 lg:border-b lg:border-b-0 lg:border-r  text-left lg:text-center">
+            <p className="mb-3 uppercase tracking-wider text-primary">Our Clients</p>
             <p className="leading-relaxed text-sm lg:text-[14px]">
               LG, William Lawsons, Formula-1, Post-Script, Kappa, Image+Noise, etc.
             </p>
           </div>
 
           <div className="flex-1 px-5 sm:px-6 lg:pl-16 py-5 lg:py-8 text-left lg:text-center">
-            <p className="mb-3 uppercase tracking-wider text-black">Social</p>
+            <p className="mb-3 uppercase tracking-wider text-primary">Social</p>
             <p className="text-sm lg:text-[14px]">Email → tony@portalcg.us</p>
             <p className="text-sm lg:text-[14px]">IG → portal.graphics</p>
           </div>

@@ -122,7 +122,7 @@ export default function MovableCards() {
         ref={contentRef}
         className="absolute top-8 flex flex-col items-center text-center px-4 py-6"
       >
-        <span className="lg:text-[38px] text-[26px] font-bold text-[#000080] font-primary tracking-wide ">
+        <span className="lg:text-[38px] text-[26px] font-bold text-secondary font-primary tracking-wide ">
           Our Services
         </span>
 

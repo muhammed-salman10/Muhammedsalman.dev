@@ -91,7 +91,7 @@ export default function Achievements() {
           {achievements.map((item, index) => (
             <div
               key={index}
-              className="bg-secondary border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+              className="bg-[#000080] border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
             >
               {/* Image */}
               <div className="relative w-full h-55 md:h-48">

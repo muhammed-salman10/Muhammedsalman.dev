@@ -16,6 +16,7 @@ import {
   FaUsers,
   FaClock,
   FaRocket,
+  FaSyncAlt,
 } from "react-icons/fa";
 
 import {
@@ -23,9 +24,11 @@ import {
   SiTailwindcss,
   SiVercel,
   SiGooglechrome,
+  SiNetlify,
 } from "react-icons/si";
 
 import { BiLogoVisualStudio } from "react-icons/bi";
+import { FaLightbulb } from "react-icons/fa6";
 
 function Skills() {
   const [activeTab, setActiveTab] = useState("technical");
@@ -50,6 +53,9 @@ function Skills() {
     users: <FaUsers className="text-green-400 text-4xl" />,
     clock: <FaClock className="text-yellow-400 text-4xl" />,
     rocket: <FaRocket className="text-pink-400 text-4xl" />,
+    adaptability: <FaSyncAlt className="text-indigo-400 text-4xl" />,
+    creativity: <FaLightbulb className="text-yellow-300 text-4xl" />,
+    netlify: <SiNetlify className="text-cyan-400 text-4xl" />
   };
 
   return (
@@ -74,12 +80,16 @@ function Skills() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`whitespace-nowrap px-5 py-2 text-sm font-medium border lg:border-none rounded-full transition-all duration-300 ${index === 2 ? "max-md:col-span-2 max-md:justify-self-center" : ""}
-                ${
-                  activeTab === tab
-                    ? "bg-secondary text-white shadow-md"
-                    : "text-primary hover:bg-secondary/10"
-                }`}
+                className={`whitespace-nowrap px-5 py-2 text-sm font-medium  rounded-full transition-all duration-300 ${
+                  index === 2
+                    ? "max-md:col-span-2 max-md:justify-self-center"
+                    : ""
+                }
+  ${
+    activeTab === tab
+      ? "bg-secondary text-on-secondary shadow-md"
+      : "text-primary hover:bg-secondary/10"
+  }`}
               >
                 {tab === "technical"
                   ? "Technical Skills"
@@ -96,7 +106,7 @@ function Skills() {
           {skillsData[activeTab].map((skill, index) => (
             <div
               key={index}
-              className="bg-secondary text-white p-6 md:p-8 rounded-2xl transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-secondary/40 border-2 border-black"
+              className="bg-secondary text-on-secondary p-6 md:p-8 rounded-2xl transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-secondary/40 border-2 border-primary"
             >
               <div className="mb-4 flex items-center justify-center">
                 {iconMap[skill.icon]}
@@ -106,7 +116,7 @@ function Skills() {
                 {skill.name}
               </h3>
 
-              <p className="text-white/80 text-sm leading-relaxed text-center">
+              <p className="text-on-secondary/80 text-sm leading-relaxed text-center">
                 {skill.description}
               </p>
             </div>

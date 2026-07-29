@@ -67,7 +67,12 @@
       "name": "Chrome DevTools",
       "icon": "chrome",
       "description": "Used for debugging, performance optimization, and inspecting responsive layouts in real-time."
-    }
+    },
+    {
+  "name": "Netlify",
+  "icon": "netlify",
+  "description": "Modern deployment platform for hosting fast and scalable web applications."
+}
   ],
 
   "soft": [
@@ -95,6 +100,16 @@
       "name": "Continuous Learning",
       "icon": "rocket",
       "description": "Constantly upgrading technical knowledge and skills."
-    }
+    },
+     {
+    "name": "Adaptability",
+    "icon": "adaptability",
+    "description": "Quickly adjusting to new technologies and project requirements."
+  },
+  {
+    "name": "Creativity",
+    "icon": "creativity",
+    "description": "Creating modern, user-friendly, and visually engaging solutions."
+  }
   ]
 }

@@ -1,14 +1,66 @@
 @import "tailwindcss";
 
+/* ================= THEME VARIABLES ================= */
+
+/* LIGHT THEME (default) */
+:root {
+  --bg-color: #e9eae5;
+  --text-color: #363636;
+  --secondary-color: #000080;
+  --scrollbar-track: #ffffff;
+  --scrollbar-thumb: #000080;
+}
+
+/* DARK MODE */
+body.dark {
+  --bg-color: #0f0f0f;
+  --text-color: #ffffff;
+  --border-color: #ffffff;
+  --card-bg: #1e3a8a; /* BLUE CARD 🔥 */
+  --secondary-color: #ffffff;
+}
+
+/* Button text color */
+.text-on-secondary {
+  color: #ffffff;
+}
+
+/* Optional (for better control in dark) */
+body.dark .text-on-secondary {
+  color: #000080;
+}
+
+:root {
+  --border-color: #000000; /* light → black */
+}
+
+body.dark {
+  --border-color: #ffffff; /* dark → white */
+}
+
+/* universal border class */
+.border-primary {
+  border: 1px solid var(--border-color);
+}
+
+/* ================= GLOBAL STYLES ================= */
+
 body {
-  font-family: var(--font-playfair); /* Default body font */
+  font-family: var(--font-playfair);
   font-size: clamp(1rem, 2vw, 1.2rem);
   font-weight: 400;
   overflow-x: hidden;
   box-sizing: border-box;
-  background-color: #e9eae5;
-  color: #363636;
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
+
+/* ================= FORM ================= */
 
 input:focus,
 textarea:focus,
@@ -23,6 +75,8 @@ a {
   user-select: none;
 }
 
+/* ================= CONTAINER ================= */
+
 .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -32,25 +86,6 @@ a {
   width: 100%;
 }
 
-.toaster {
-  z-index: 9999 !important;
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #000080; /* Secondary color */
-  border-radius: 5px;
-}
-
-/* Responsive Widths */
 @media (min-width: 576px) {
   .container {
     max-width: 540px;
@@ -77,7 +112,6 @@ a {
   }
 }
 
-/* Full-Width for Smaller Screens */
 @media (max-width: 575px) {
   .container {
     width: 100%;
@@ -86,7 +120,8 @@ a {
   }
 }
 
-/* Centering Content */
+/* ================= CENTER ================= */
+
 .container-center {
   display: flex;
   justify-content: center;
@@ -94,6 +129,8 @@ a {
   min-height: 100vh;
   text-align: center;
 }
+
+/* ================= FONTS ================= */
 
 .font-primary {
   font-family: var(--font-playfair);
@@ -103,32 +140,51 @@ a {
   font-family: var(--font-montserrat);
 }
 
-/* Updated Colors */
+/* ================= COLORS (DYNAMIC) ================= */
+
 .text-primary {
-  color: #363636;
+  color: var(--text-color);
 }
 
 .text-secondary {
-  color: #000080;
+  color: var(--secondary-color);
 }
 
 .bg-primary {
-  background-color: #363636;
+  background-color: var(--text-color);
 }
 
 .bg-secondary {
-  background-color: #000080;
+  background-color: var(--secondary-color);
 }
+
+/* ================= SCROLLBAR ================= */
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+}
+
+/* ================= UTILITIES ================= */
 
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
+/* ================= 3D ================= */
 
 .perspective {
   perspective: 1000px;
@@ -146,6 +202,8 @@ a {
   backface-visibility: hidden;
 }
 
+/* ================= ANIMATIONS ================= */
+
 @keyframes marquee {
   0% {
     transform: translateX(100%);
@@ -158,8 +216,6 @@ a {
 .animate-marquee {
   animation: marquee 12s linear infinite;
 }
-
-
 
 @keyframes slideUp {
   from {
@@ -174,27 +230,10 @@ a {
   animation: slideUp 0.3s ease-out;
 }
 
-
-/* @keyframes floatX {
-  0% {
-    transform: translateX(0px);
-  }
-  50% {
-    transform: translateX(-15px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
-}
-
-.animate-floatX {
-  animation: floatX 3s ease-in-out infinite;
-} */
-
-/* global.css */
-
+/* FLOAT ANIMATION */
 @keyframes floatX {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0px);
   }
   50% {
@@ -202,17 +241,17 @@ a {
   }
 }
 
-/* animation class */
 .animate-floatX {
   animation: floatX 3s ease-in-out infinite;
 }
-/* disable on small screens */
+
 @media (max-width: 767px) {
   .animate-floatX {
     animation: none;
   }
 }
 
+/* LOADING BAR */
 @keyframes loadingBar {
   0% {
     width: 0%;
@@ -224,4 +263,24 @@ a {
 
 .animate-loadingBar {
   animation: loadingBar 3s linear forwards;
+}
+
+:root {
+  --footer-bg: black;
+  --footer-text: white;
+}
+
+.dark {
+  --footer-bg: white;
+  --footer-text: black;
+}
+
+:root {
+  --social-bg: rgba(0, 0, 0, 0.08);
+  --social-text: white;
+}
+
+.dark {
+  --social-bg: rgba(255, 255, 255, 0.1);
+  --social-text: black;
 }

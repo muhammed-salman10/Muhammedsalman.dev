@@ -24,7 +24,7 @@ export default function Contact() {
                 w-full md:w-[75%] order-2 md:order-1
                 p-8 sm:p-10
                 rounded-3xl
-                bg-white/60 
+                bg-white/80
                 backdrop-blur-2xl
                 border border-white/40
                 shadow-2xl
@@ -33,11 +33,11 @@ export default function Contact() {
           >
             <div className="absolute -top-6 -left-6 w-20 h-20 bg-black/10 rounded-full blur-2xl" />
 
-            <h2 className="lg:text-3xl text-[22px] font-semibold mb-4 font-primary text-secondary">
+            <h2 className="lg:text-3xl text-[22px] font-semibold mb-4 font-primary text-[#000080]">
               Let’s Talk !
             </h2>
 
-            <p className="text-secondary mb-8 font-secondary lg:text-[18px] text-[14px]">
+            <p className="text-[#000080] mb-8 font-secondary lg:text-[18px] text-[14px]">
               Have a project in mind? Feel free to send a message.
             </p>
             <FormSubmission />

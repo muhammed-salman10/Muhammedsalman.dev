@@ -47,7 +47,7 @@ export default function FormSubmission() {
     <form onSubmit={handleSubmit} className="space-y-8 ">
       {/* Name */}
       <div>
-        <label className="block text-secondary font-secondary text-sm mb-2">
+        <label className="block text-[#000080] font-secondary text-sm mb-2">
           Your Name
         </label>
         <input
@@ -61,14 +61,14 @@ export default function FormSubmission() {
             w-full bg-transparent font-secondary
             border-b border-gray-400/50
             focus:border-[#000080] outline-none
-            text-primary py-2 transition text-[16px]
+            text-gray-800 py-2 transition text-[16px]
           "
         />
       </div>
 
       {/* Email */}
       <div>
-        <label className="block text-secondary font-secondary text-sm mb-2">
+        <label className="block text-[#000080] font-secondary text-sm mb-2">
           Your Email
         </label>
         <input
@@ -82,14 +82,14 @@ export default function FormSubmission() {
             w-full bg-transparent font-secondary
             border-b border-gray-400/50
             focus:border-[#000080] outline-none
-            text-primary py-2 transition text-[16px]
+            text-gray-800 py-2 transition text-[16px]
           "
         />
       </div>
 
       {/* Message */}
       <div>
-        <label className="block text-secondary font-secondary text-sm mb-2">
+        <label className="block text-[#000080] font-secondary text-sm mb-2">
           Share your thoughts
         </label>
         <textarea
@@ -103,7 +103,7 @@ export default function FormSubmission() {
             w-full bg-transparent font-secondary
             border-b border-gray-400/50
             focus:border-[#000080] outline-none
-            text-primary py-2 transition resize-none text-[16px]
+            text-gray-800 py-2 transition resize-none text-[16px]
           "
         />
       </div>
@@ -114,7 +114,7 @@ export default function FormSubmission() {
         disabled={loading}
         className="
           w-full py-3 mt-6
-          bg-secondary font-secondary text-[16px] text-white
+          bg-[#000080] font-secondary text-[16px] text-white
           rounded-xl
           hover:scale-[1.02]
           active:scale-[0.98]

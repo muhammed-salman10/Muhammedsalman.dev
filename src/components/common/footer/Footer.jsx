@@ -8,7 +8,7 @@ import { FaEnvelope, FaPhone } from "react-icons/fa6";
 
 function Footer() {
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-[var(--footer-bg)] text-[var(--footer-text)]">
       <div className="max-w-7xl mx-auto px-6">
         {/* Title */}
         <h1 className="text-center text-2xl md:text-3xl py-10 font-semibold tracking-wide font-primary">
@@ -21,7 +21,7 @@ function Footer() {
             <a
               key={link.id}
               href={link.href}
-              className="relative group transition duration-300 hover:text-gray-400"
+              className="relative group transition duration-300 hover:text-gray-600"
             >
               {link.label}
               <span className="absolute left-0 -bottom-1 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
@@ -34,7 +34,7 @@ function Footer() {
           {/* Email */}
           <Link
             href="mailto:salmanmuhammed827@gmail.com"
-            className="flex items-center gap-2 hover:text-white transition block lg:hidden"
+            className="flex items-center gap-2 hover:text-gray-600 transition block lg:hidden"
           >
             <FaEnvelope className="text-lg" />
             <span className="break-all text-[12px]">
@@ -61,7 +61,7 @@ function Footer() {
           {/* Email – Desktop only */}
           <Link
             href="mailto:salmanmuhammed827@gmail.com"
-            className="hidden lg:flex items-center gap-2 hover:text-white transition"
+            className="hidden lg:flex items-center gap-2  transition"
           >
             <FaEnvelope className="text-lg" />
             <span className="break-all text-[12px]">
@@ -83,7 +83,7 @@ function Footer() {
           {/* Phone – Desktop only */}
           <Link
             href="tel:+919539717792"
-            className="hidden lg:flex items-center gap-2 hover:text-white transition"
+            className="hidden lg:flex items-center gap-2  transition"
           >
             <FaPhone className="text-lg" />
             <span className="text-[12px]">+91 95397 17792</span>

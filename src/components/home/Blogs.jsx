@@ -141,19 +141,19 @@ function Blogs() {
                   fill
                   className="object-cover"
                 />
-                <span className="absolute bottom-4 left-4 bg-white text-sm px-4 py-1 rounded-md shadow">
+                <span className="absolute bottom-4 left-4 bg-white text-black text-sm px-4 py-1 rounded-md shadow">
                   {featured.category}
                 </span>
               </div>
 
               <div className="mt-6">
-                <div className="flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-4 text-sm text-gray-500">
                   <span>{featured.date}</span>
                   <span>•</span>
                   <span>{featured.saves}</span>
                 </div>
 
-                <h3 className="mt-3 text-[22px] font-semibold text-secondary">
+                <h3 className="mt-3 text-[22px] font-semibold text-black">
                   {featured.title}
                 </h3>
 
@@ -161,7 +161,7 @@ function Blogs() {
                   {featured.description}
                 </p>
 
-                <button className="mt-9 bg-secondary text-white text-[12px] px-4 py-2 rounded-full hover:bg-secondary/90 transition">
+                <button className="mt-9 bg-[#000080] text-white text-[12px] px-4 py-2 rounded-full hover:bg-secondary/90 transition">
                   {featured.buttonText}
                 </button>
               </div>
@@ -181,7 +181,7 @@ function Blogs() {
                       fill
                       className="object-cover"
                     />
-                    <span className="absolute bottom-3 left-3 bg-white text-xs px-3 py-1 rounded shadow">
+                    <span className="absolute bottom-3 left-3 bg-white text-black text-xs px-3 py-1 rounded shadow">
                       {blog.category}
                     </span>
                   </div>
@@ -193,11 +193,11 @@ function Blogs() {
                       <span>{blog.saves}</span>
                     </div>
 
-                    <h4 className="mt-2 font-semibold text-secondary text-[16px]">
+                    <h4 className="mt-2 font-semibold text-[#000080] text-[16px]">
                       {blog.title}
                     </h4>
 
-                    <button className="mt-4 bg-secondary text-white text-[12px] px-4 py-2 rounded-full hover:bg-secondary/90 transition">
+                    <button className="mt-4 bg-[#000080] text-white text-[12px] px-4 py-2 rounded-full hover:bg-secondary/90 transition">
                       {blog.buttonText}
                     </button>
                   </div>
@@ -220,16 +220,16 @@ function Blogs() {
                     fill
                     className="object-cover"
                   />
-                  <span className="absolute bottom-3 left-3 bg-white text-xs px-3 py-1 rounded shadow">
+                  <span className="absolute bottom-3 left-3 bg-white text-black text-xs px-3 py-1 rounded shadow">
                     {blog.category}
                   </span>
                 </div>
 
-                <h4 className="mt-8 text-[16px] font-semibold text-secondary">
+                <h4 className="mt-8 text-[16px] font-semibold text-[#000080]">
                   {blog.title}
                 </h4>
 
-                <button className="mt-5 bg-secondary text-white text-[12px] px-4 py-2 rounded-full hover:bg-secondary/90 transition">
+                <button className="mt-5 bg-[#000080] text-white text-[12px] px-4 py-2 rounded-full hover:bg-secondary/90 transition">
                   {blog.buttonText}
                 </button>
               </div>
@@ -237,7 +237,7 @@ function Blogs() {
           </div>
 
           <div className="flex items-center justify-center mt-10">
-            <button className="bg-secondary text-white text-[16px] px-6 py-2.5 rounded-full hover:bg-secondary/90 transition">
+            <button className="bg-[#000080] text-white text-[16px] px-6 py-2.5 rounded-full hover:bg-secondary/90 transition">
               Explore More
             </button>
           </div>
