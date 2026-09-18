@@ -1,6 +1,7 @@
 "use client";
 
 import { Playfair_Display, Montserrat } from "next/font/google";
+import FloatingButton from "../components/common/buttons/FloatingButton";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -20,6 +21,7 @@ export default function LayoutWrapper({ children, className = "" }) {
       className={`${playfair.variable} ${montserrat.variable} antialiased relative min-h-screen overflow-x-hidden ${className}`}
     >
       <main>{children}</main>
+      <FloatingButton />
     </div>
   );
 }

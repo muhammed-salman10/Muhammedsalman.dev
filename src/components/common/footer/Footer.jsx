@@ -30,14 +30,14 @@ function Footer() {
         </div>
 
         {/* Contact + Social Section */}
-        <div className="flex flex-col md:flex-row items-center  justify-center gap-8 md:gap-20 mt-12 pb-8 border-b border-gray-700 text-sm md:text-base text-gray-300 font-secondary">
+        <div className="flex flex-col md:flex-row items-center  justify-center gap-8 md:gap-20 mt-12 pb-8 border-b border-gray-700 text-sm md:text-base text-gray-400 font-secondary">
           {/* Email */}
           <Link
             href="mailto:salmanmuhammed827@gmail.com"
             className="flex items-center gap-2 hover:text-gray-600 transition block lg:hidden"
           >
-            <FaEnvelope className="text-lg" />
-            <span className="break-all text-[12px]">
+            <FaEnvelope className="text-lg " />
+            <span className="break-all text-[12px] ">
               salmanmuhammed827@gmail.com
             </span>
           </Link>

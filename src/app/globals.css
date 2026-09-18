@@ -284,3 +284,15 @@ a {
   --social-bg: rgba(255, 255, 255, 0.1);
   --social-text: black;
 }
+
+@keyframes loader-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.animate-loader-progress {
+  animation: loader-progress 1.4s ease-in-out forwards;
+}

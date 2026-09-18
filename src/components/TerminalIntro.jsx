@@ -4,27 +4,30 @@ import React, { useEffect, useState } from "react";
 
 export default function TerminalIntro({ onFinish }) {
   const terminalLines = [
-    "salman@portfolio:~$ npm run start",
+    "salman@developer:~$ initialize portfolio",
     "",
-    "> salman-portfolio@1.0.0 start",
-    "> next build",
+    "Initializing Developer Environment...",
+    "Loading personal profile.................. ✓",
+    "Loading technical expertise............... ✓",
+    "Loading selected projects.................. ✓",
+    "Loading experience & achievements.......... ✓",
     "",
-    "▲ Next.js 14.0.0",
-    "- Creating optimized production build...",
-    "✓ Compiled successfully",
+    // "Environment",
+    // "→ Frontend Development",
+    // "→ React / Next.js",
+    // "→ JavaScript / Tailwind CSS",
+    // "→ GSAP / Modern Web Animation",
+    // "",
+    "Optimizing visual experience............... ✓",
+    "Initializing interactive interface........ ✓",
+    "Checking responsive layouts................ ✓",
     "",
-    "Collecting page data...",
-    "Generating static pages (6/6)",
-    "Finalizing page optimization...",
+    "Portfolio system ready.",
     "",
-    "✔ Build completed successfully",
+    "Welcome to Salman.dev",
+    "Frontend Developer • Creative Developer",
     "",
-    "Starting development server...",
-    "Local: http://localhost:3000",
-    "",
-    "✔ Server ready",
-    "",
-    "Launching Developer Portfolio...",
+    "Launching portfolio...",
   ];
 
   const [displayedLines, setDisplayedLines] = useState([]);
@@ -34,10 +37,11 @@ export default function TerminalIntro({ onFinish }) {
 
   useEffect(() => {
     if (lineIndex >= terminalLines.length) {
-      setTimeout(() => {
+      const finishTimeout = setTimeout(() => {
         onFinish();
-      }, 1200);
-      return;
+      }, 1000);
+
+      return () => clearTimeout(finishTimeout);
     }
 
     const line = terminalLines[lineIndex];
@@ -45,8 +49,8 @@ export default function TerminalIntro({ onFinish }) {
     if (charIndex < line.length) {
       const timeout = setTimeout(() => {
         setCurrentLine((prev) => prev + line[charIndex]);
-        setCharIndex(charIndex + 1);
-      }, 25);
+        setCharIndex((prev) => prev + 1);
+      }, 20);
 
       return () => clearTimeout(timeout);
     }
@@ -55,22 +59,36 @@ export default function TerminalIntro({ onFinish }) {
       setDisplayedLines((prev) => [...prev, currentLine]);
       setCurrentLine("");
       setCharIndex(0);
-      setLineIndex(lineIndex + 1);
-    }, 200);
+      setLineIndex((prev) => prev + 1);
+    }, 150);
 
     return () => clearTimeout(nextLineTimeout);
-  }, [charIndex, lineIndex, currentLine, terminalLines, onFinish]);
+  }, [charIndex, lineIndex, currentLine, onFinish]);
 
   return (
-    <div className="fixed inset-0 bg-black text-green-400 font-mono p-6 md:p-10 text-sm md:text-base overflow-hidden">
-      {displayedLines.map((line, index) => (
-        <p key={index}>{line}</p>
-      ))}
+    <div className="fixed inset-0 z-[9999] bg-black text-green-400 font-mono p-6 md:p-10 text-sm md:text-base overflow-hidden">
+      <div className="max-w-4xl">
+        {displayedLines.map((line, index) => (
+          <p
+            key={index}
+            className={
+              line === "Portfolio system ready."
+                ? "text-white font-semibold"
+                : line === "Welcome to Salman.dev"
+                ? "text-cyan-400 font-semibold"
+                : ""
+            }
+          >
+            {line || "\u00A0"}
+          </p>
+        ))}
 
-      <p>
-        {currentLine}
-        <span className="animate-pulse">█</span>
-      </p>
+        <p>
+          {currentLine}
+          <span className="animate-pulse">█</span>
+        </p>
+      </div>
     </div>
   );
 }
+

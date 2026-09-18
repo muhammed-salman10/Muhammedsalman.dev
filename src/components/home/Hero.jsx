@@ -1,21 +1,39 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import navbarLinks from "../common/header/navbarLinks";
 import ThemeToggle from "../theme/ThemeToggle";
 
 function Hero() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  useEffect(() => {
+    const updateTheme = () => {
+      setIsDarkTheme(document.body.classList.contains("dark"));
+    };
+
+    updateTheme();
+
+    const observer = new MutationObserver(updateTheme);
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section className="lg:min-h-screen min-h-[642px] text-secondary flex flex-col justify-between">
-
       {/* ================= NAVBAR ================= */}
       <header className="border-b border-primary relative font-secondary">
         <div className="max-w-7xl mx-auto flex items-stretch justify-between px-4 sm:px-6">
-          
           {/* Logo */}
           <div className="flex items-center py-4 sm:py-6 pr-6 lg:pr-20 lg:border-r ">
-            <div className="text-xs sm:text-sm tracking-widest uppercase">plortal</div>
+            <div className="text-xs sm:text-sm tracking-widest uppercase">
+              plortal
+            </div>
           </div>
 
           {/* Desktop Nav (UNCHANGED visually) */}
@@ -37,11 +55,13 @@ function Hero() {
             <button className="border border-primary rounded-full px-6 py-2 text-sm hover:bg-black hover:text-white transition">
               LETS TALK
             </button>
-              <ThemeToggle />
+            <ThemeToggle />
           </div>
 
           {/* Mobile Hamburger */}
-          <div className="md:hidden flex items-center py-4">
+          <div className="md:hidden flex items-center justify-between py-4 gap-4">
+            <ThemeToggle />
+
             <button className="text-2xl" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? "✕" : "☰"}
             </button>
@@ -50,26 +70,49 @@ function Hero() {
 
         {/* ================= MOBILE MENU ================= */}
         {isOpen && (
-          <div className="md:hidden fixed inset-0 z-50 bg-white overflow-auto">
-            <div className="flex justify-end px-6 py-4">
-              <button className="text-2xl" onClick={() => setIsOpen(false)}>
+          <div
+            className={`md:hidden fixed inset-0 z-50 overflow-auto transition-all duration-300 ${
+              isDarkTheme ? "bg-[#0f0f0f] text-white" : "bg-white text-black"
+            }`}
+          >
+            {/* Header */}
+            <div
+              className={`flex items-center justify-between px-6 py-5 border-b ${
+                isDarkTheme ? "border-gray-700" : "border-gray-200"
+              }`}
+            >
+              <div className="text-xs tracking-widest uppercase">plortal</div>
+
+              <button
+                className="text-2xl hover:opacity-70 transition"
+                onClick={() => setIsOpen(false)}
+              >
                 ✕
               </button>
             </div>
 
-            <div className="flex flex-col px-6 py-6 gap-6 text-sm tracking-wider">
+            {/* Menu */}
+            <div className="flex flex-col px-6 py-8 gap-6 text-sm tracking-wider">
               {navbarLinks.map((link) => (
                 <a
                   key={link.id}
                   href={link.href}
-                  className="hover:text-gray-600 transition"
+                  className={`transition-colors duration-300 ${
+                    isDarkTheme ? "hover:text-gray-300" : "hover:text-gray-600"
+                  }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
                 </a>
               ))}
 
-              <button className="border border-black rounded-full px-6 py-2 text-sm hover:bg-black hover:text-white transition">
+              <button
+                className={`mt-2 rounded-full px-6 py-3 text-sm border transition-all duration-300 ${
+                  isDarkTheme
+                    ? "border-white hover:bg-white hover:text-black"
+                    : "border-black hover:bg-black hover:text-white"
+                }`}
+              >
                 LETS TALK
               </button>
             </div>
@@ -79,7 +122,6 @@ function Hero() {
 
       {/* ================= HERO CENTER ================= */}
       <div className="flex-1 flex items-center justify-center relative overflow-hidden px-4 ">
-
         {/* Responsive Heading */}
         <h1 className="relative text-[10vw] sm:text-[11vw] lg:text-[9vw] leading-none font-[900] tracking-[-0.04em] font-primary text-primary text-center">
           PORTFOLIO
@@ -129,18 +171,22 @@ function Hero() {
       {/* ================= FOOTER INFO ================= */}
       <div className="border-t border-primary font-secondary border-b">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row text-[14px]">
-
           <div className="flex-1 px-5 sm:px-6 lg:pr-16 py-5 lg:py-8 lg:border-b lg:border-b-0 lg:border-r  text-left">
-            <p className="mb-3 uppercase tracking-wider text-primary">Expertise</p>
+            <p className="mb-3 uppercase tracking-wider text-primary">
+              Expertise
+            </p>
             <p className="leading-relaxed text-sm lg:text-[14px]">
               2D / 3D Animation, VFX, Motion Design, and more — Just name it
             </p>
           </div>
 
           <div className="flex-1 px-5 sm:px-6 lg:px-16 py-5 lg:py-8 lg:border-b lg:border-b-0 lg:border-r  text-left lg:text-center">
-            <p className="mb-3 uppercase tracking-wider text-primary">Our Clients</p>
+            <p className="mb-3 uppercase tracking-wider text-primary">
+              Our Clients
+            </p>
             <p className="leading-relaxed text-sm lg:text-[14px]">
-              LG, William Lawsons, Formula-1, Post-Script, Kappa, Image+Noise, etc.
+              LG, William Lawsons, Formula-1, Post-Script, Kappa, Image+Noise,
+              etc.
             </p>
           </div>
 
@@ -149,10 +195,8 @@ function Hero() {
             <p className="text-sm lg:text-[14px]">Email → tony@portalcg.us</p>
             <p className="text-sm lg:text-[14px]">IG → portal.graphics</p>
           </div>
-
         </div>
       </div>
-
     </section>
   );
 }

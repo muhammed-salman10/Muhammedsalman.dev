@@ -1,85 +1,18 @@
 // src/components/home/Blogs.jsx
 "use client";
-import React, { useEffect, useRef } from "react";
+
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import blogs from "@/src/data/blogs.json";
-// const blogs = [
-//   {
-//     id: 1,
-//     type: "featured",
-//     image: "/assets/images/blogs/ai-code-assistant.webp",
-//     category: "Artificial Intelligence",
-//     date: "12 Dec, 2022",
-//     saves: "23 saves",
-//     title: "How Artificial Intelligence is Transforming Modern Development",
-//     description:
-//       "Discover how AI-powered tools are enhancing productivity, automating debugging, and revolutionizing code generation in modern web development workflows.",
-//     buttonText: "Read More",
-//   },
-//   {
-//     id: 2,
-//     type: "stack",
-//     image: "/assets/images/blogs/react-ai.webp",
-//     category: "React+AI",
-//     date: "15 Jan, 2023",
-//     saves: "18 saves",
-//     title: "Boosting Website Performance in 2026",
-//     description:
-//       "Learn advanced optimization strategies to improve Core Web Vitals, reduce load times, and deliver lightning-fast user experiences.",
-//     buttonText: "Read More",
-//   },
-//   {
-//     id: 3,
-//     type: "stack",
-//     image: "/assets/images/blogs/tailwind-css.webp",
-//     category: "Frontend Development",
-//     date: "10 Feb, 2023",
-//     saves: "30 saves",
-//     title: "User Interfaces with Tailwind CSS",
-//     description:
-//       "Explore how Tailwind CSS enables rapid UI development while maintaining scalability, consistency, and clean design systems.",
-//     buttonText: "Read More",
-//   },
-//   {
-//     id: 4,
-//     type: "grid",
-//     image: "/assets/images/blogs/app-router.webp",
-//     category: "Next.js",
-//     date: "22 Mar, 2023",
-//     saves: "12 saves",
-//     title: "Understanding the Next.js App Router Architecture",
-//     description:
-//       "A complete guide to the Next.js App Router, covering layouts, nested routes, server components, and performance improvements.",
-//     buttonText: "Read More",
-//   },
-//   {
-//     id: 5,
-//     type: "grid",
-//     image: "/assets/images/blogs/react-19.webp",
-//     category: "React",
-//     date: "30 Mar, 2023",
-//     saves: "16 saves",
-//     title: "What’s New in React 19 for Frontend Developers",
-//     description:
-//       "Explore the latest features in React 19, including performance enhancements, improved hooks, and better developer tooling.",
-//     buttonText: "Read More",
-//   },
-//   {
-//     id: 6,
-//     type: "grid",
-//     image: "/assets/images/blogs/next-js.webp",
-//     category: "Next.js",
-//     date: "05 Apr, 2023",
-//     saves: "20 saves",
-//     title: "Why Next.js Dominates Modern Web Development",
-//     description:
-//       "Understand why Next.js continues to lead the frontend ecosystem with hybrid rendering, built-in optimization, and scalable architecture.",
-//     buttonText: "Read More",
-//   },
-// ];
 
 function Blogs() {
   const sliderRef = useRef(null);
+  const positionRef = useRef(0);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const startPosition = useRef(0);
+
+  const [isPaused, setIsPaused] = useState(false);
 
   const featured = blogs.find((blog) => blog.type === "featured");
   const stacked = blogs.filter((blog) => blog.type === "stack");
@@ -87,30 +20,79 @@ function Blogs() {
 
   const mobileBlogs = blogs.filter((blog) => [1, 2, 3, 5].includes(blog.id));
 
-  /* ================= SMOOTH INFINITE MOBILE SCROLL ================= */
+  /* ================= SMOOTH INFINITE MOBILE SCROLL + MANUAL DRAG ================= */
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider) return;
 
     let animationFrame;
-    let position = 0;
-    const speed = 0.8; // lower = smoother
+    const speed = 1.5; // lower = smoother
 
     const animate = () => {
-      position += speed;
+      if (!isDragging.current && !isPaused) {
+        positionRef.current += speed;
 
-      if (position >= slider.scrollWidth / 2) {
-        position = 0;
+        const half = slider.scrollWidth / 2;
+        if (positionRef.current >= half) {
+          positionRef.current = 0;
+        }
       }
 
-      slider.style.transform = `translate3d(-${position}px, 0, 0)`;
+      slider.style.transform = `translate3d(-${positionRef.current}px, 0, 0)`;
       animationFrame = requestAnimationFrame(animate);
     };
 
     animationFrame = requestAnimationFrame(animate);
 
-    return () => cancelAnimationFrame(animationFrame);
-  }, []);
+    /* ---------- Drag handlers (touch + mouse) ---------- */
+    const getX = (e) => (e.touches ? e.touches[0].clientX : e.clientX);
+
+    const handleStart = (e) => {
+      isDragging.current = true;
+      setIsPaused(true);
+      startX.current = getX(e);
+      startPosition.current = positionRef.current;
+    };
+
+    const handleMove = (e) => {
+      if (!isDragging.current) return;
+      const currentX = getX(e);
+      const delta = startX.current - currentX;
+      let newPosition = startPosition.current + delta;
+
+      const half = slider.scrollWidth / 2;
+
+      // wrap around so infinite-loop feel is preserved while dragging
+      if (newPosition < 0) newPosition += half;
+      if (newPosition >= half) newPosition -= half;
+
+      positionRef.current = newPosition;
+    };
+
+    const handleEnd = () => {
+      isDragging.current = false;
+      // short delay before auto-scroll resumes, feels more natural
+      setTimeout(() => setIsPaused(false), 800);
+    };
+
+    slider.addEventListener("touchstart", handleStart, { passive: true });
+    slider.addEventListener("touchmove", handleMove, { passive: true });
+    slider.addEventListener("touchend", handleEnd);
+
+    slider.addEventListener("mousedown", handleStart);
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseup", handleEnd);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      slider.removeEventListener("touchstart", handleStart);
+      slider.removeEventListener("touchmove", handleMove);
+      slider.removeEventListener("touchend", handleEnd);
+      slider.removeEventListener("mousedown", handleStart);
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleEnd);
+    };
+  }, [isPaused]);
 
   if (!featured) return null;
 
@@ -243,9 +225,12 @@ function Blogs() {
           </div>
         </div>
 
-        {/* ================= MOBILE AUTO SCROLL ================= */}
+        {/* ================= MOBILE AUTO SCROLL + MANUAL DRAG ================= */}
         <div className="lg:hidden mt-8 overflow-hidden">
-          <div ref={sliderRef} className="flex gap-5 will-change-transform">
+          <div
+            ref={sliderRef}
+            className="flex gap-5 will-change-transform cursor-grab active:cursor-grabbing select-none"
+          >
             {[...mobileBlogs, ...mobileBlogs].map((blog, index) => (
               <div
                 key={index}
@@ -256,18 +241,20 @@ function Blogs() {
                     src={blog.image}
                     alt={blog.title}
                     fill
-                    className="object-cover"
+                    className="object-cover pointer-events-none"
+                    draggable={false}
                   />
-                  <span className="absolute bottom-2 left-2 bg-white text-[10px] px-2 py-1 rounded shadow">
+
+                  <span className="absolute bottom-2 left-2 bg-white text-black text-[10px] px-2 py-1 rounded shadow">
                     {blog.category}
                   </span>
                 </div>
 
-                <h4 className="mt-4 text-[14px] font-semibold text-secondary leading-snug">
+                <h4 className="mt-4 text-[14px] font-semibold text-[#000080] leading-snug">
                   {blog.title}
                 </h4>
 
-                <button className="mt-4 bg-secondary text-white text-[11px] px-4 py-1.5 rounded-full">
+                <button className="mt-4 bg-[#000080] text-white text-[11px] px-4 py-1.5 rounded-full hover:bg-secondary/90 transition">
                   {blog.buttonText}
                 </button>
               </div>
@@ -275,7 +262,7 @@ function Blogs() {
           </div>
 
           <div className="flex justify-center mt-10">
-            <button className="bg-secondary text-white text-[14px] px-5 py-2 rounded-full">
+            <button className="bg-[#000080] text-white text-[14px] px-5 py-2 rounded-full hover:bg-secondary/90 transition">
               Explore More
             </button>
           </div>
