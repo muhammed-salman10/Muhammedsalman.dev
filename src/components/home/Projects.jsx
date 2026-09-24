@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import projectsData from "@/src/data/projectsData.json";
 import Image from "next/image";
 
@@ -7,6 +7,7 @@ function Portfolio() {
   const [currentPage, setCurrentPage] = useState(1);
   const [flippedId, setFlippedId] = useState(null);
   const [projectsPerPage, setProjectsPerPage] = useState(6);
+  const projectsTopRef = useRef(null);
 
   /* ================= Responsive Cards Count ================= */
   useEffect(() => {
@@ -46,6 +47,21 @@ function Portfolio() {
   const handleFlip = (id) => {
     setFlippedId((prev) => (prev === id ? null : id));
   };
+  useEffect(() => {
+  setTimeout(() => {
+    if (projectsTopRef.current) {
+      const y =
+        projectsTopRef.current.getBoundingClientRect().top +
+        window.scrollY -
+        80;
+
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
+    }
+  }, 50);
+}, [currentPage]);
 
   return (
     <section className="lg:py-16 ">
@@ -67,7 +83,10 @@ function Portfolio() {
         </div>
 
         {/* ================= Projects Grid ================= */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div
+          ref={projectsTopRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+        >
           {currentProjects.map((project) => (
             <div
               key={project.id}
@@ -75,7 +94,7 @@ function Portfolio() {
               onClick={() => handleFlip(project.id)}
             >
               <div
-                className={`relative w-full h-[300px]  lg:h-[310px]
+                className={`relative w-full h-[320px]  lg:h-[310px]
                 transition-transform duration-700
                 transform-style-preserve-3d
                 cursor-pointer

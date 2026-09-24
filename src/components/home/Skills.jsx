@@ -74,20 +74,20 @@ function Skills() {
         </div>
 
         {/* TABS */}
-        <div className="flex justify-center mb-10 md:mb-14">
+        <div className="flex justify-center mb-10 md:mb-14 ">
           <div className="flex gap-6 lg:border border-secondary rounded-full p-2 max-md:grid max-md:grid-cols-2 max-md:gap-3 max-md:rounded-2xl max-md:p-3 max-md:w-full max-md:max-w-md">
             {["technical", "tools", "soft"].map((tab, index) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`whitespace-nowrap px-5 py-2 text-sm font-medium  rounded-full transition-all duration-300 ${
+                className={`whitespace-nowrap px-5 py-2 text-sm font-medium border lg:border-none  rounded-full transition-all duration-300 ${
                   index === 2
                     ? "max-md:col-span-2 max-md:justify-self-center"
                     : ""
                 }
   ${
     activeTab === tab
-      ? "bg-secondary text-on-secondary shadow-md"
+      ? "bg-secondary text-on-secondary shadow-md "
       : "text-primary hover:bg-secondary/10"
   }`}
               >

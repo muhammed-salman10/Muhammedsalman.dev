@@ -19,9 +19,9 @@ export default function GridCards() {
     {
       title: "Front-End Development",
       images: [
-        "/assets/images/services/front-end-development.jpg",
-        "/assets/images/services/front-end-1.jpg",
-        "/assets/images/services/front-end-2.jpg",
+        "/assets/images/services/f3.png",
+        "/assets/images/services/f2.png",
+        "/assets/images/services/f1.png",
       ],
       description: "Modern, scalable web applications using React & Next.js.",
       details:
@@ -36,8 +36,8 @@ export default function GridCards() {
     {
       title: "Responsive UI Development",
       images: [
-        "/assets/images/services/responsive.jpg",
-        "/assets/images/services/responsive-3.jpg",
+        "/assets/images/services/r1.png",
+        "/assets/images/services/resppp.png",
         "/assets/images/services/responsive-2.jpg",
       ],
       description: "Mobile-first responsive interfaces across all devices.",

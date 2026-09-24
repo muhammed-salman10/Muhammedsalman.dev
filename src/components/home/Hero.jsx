@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from "react";
 import navbarLinks from "../common/header/navbarLinks";
 import ThemeToggle from "../theme/ThemeToggle";
+import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import Link from "next/link";
 
 function Hero() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,14 +28,14 @@ function Hero() {
   }, []);
 
   return (
-    <section className="lg:min-h-screen min-h-[642px] text-secondary flex flex-col justify-between">
+    <section className="lg:min-h-screen min-h-[736px] text-secondary flex flex-col justify-between">
       {/* ================= NAVBAR ================= */}
       <header className="border-b border-primary relative font-secondary">
         <div className="max-w-7xl mx-auto flex items-stretch justify-between px-4 sm:px-6">
           {/* Logo */}
           <div className="flex items-center py-4 sm:py-6 pr-6 lg:pr-20 lg:border-r ">
             <div className="text-xs sm:text-sm tracking-widest uppercase">
-              plortal
+              Salman.dev
             </div>
           </div>
 
@@ -81,7 +84,9 @@ function Hero() {
                 isDarkTheme ? "border-gray-700" : "border-gray-200"
               }`}
             >
-              <div className="text-xs tracking-widest uppercase">plortal</div>
+              <div className="text-xs tracking-widest uppercase">
+                Salman.dev
+              </div>
 
               <button
                 className="text-2xl hover:opacity-70 transition"
@@ -176,24 +181,55 @@ function Hero() {
               Expertise
             </p>
             <p className="leading-relaxed text-sm lg:text-[14px]">
-              2D / 3D Animation, VFX, Motion Design, and more — Just name it
+              Frontend Development · UI Implementation · Responsive Design · Web
+              Animation · SEO Fundamentals
             </p>
           </div>
 
           <div className="flex-1 px-5 sm:px-6 lg:px-16 py-5 lg:py-8 lg:border-b lg:border-b-0 lg:border-r  text-left lg:text-center">
             <p className="mb-3 uppercase tracking-wider text-primary">
-              Our Clients
+              WHAT I BUILD
             </p>
             <p className="leading-relaxed text-sm lg:text-[14px]">
-              LG, William Lawsons, Formula-1, Post-Script, Kappa, Image+Noise,
-              etc.
+              Modern websites and digital experiences for businesses, brands,
+              and ideas that deserve a strong online presence.
             </p>
           </div>
 
           <div className="flex-1 px-5 sm:px-6 lg:pl-16 py-5 lg:py-8 text-left lg:text-center">
-            <p className="mb-3 uppercase tracking-wider text-primary">Social</p>
-            <p className="text-sm lg:text-[14px]">Email → tony@portalcg.us</p>
-            <p className="text-sm lg:text-[14px]">IG → portal.graphics</p>
+            <p className="mb-3 uppercase tracking-wider text-primary">
+              LET'S CONNECT
+            </p>
+
+            <div className="flex flex-col gap-2">
+              <Link
+                href="mailto:salmanmuhammed827@gmail.com"
+                className="flex items-center gap-2 text-sm lg:text-[14px] hover:opacity-80 transition-opacity"
+              >
+                <MdEmail size={17} className="text-[#EA4335]" />
+                <span>salmanmuhammed827@gmail.com</span>
+              </Link>
+
+              <Link
+                href="https://www.instagram.com/freekicker_10/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm lg:text-[14px] hover:opacity-80 transition-opacity"
+              >
+                <FaInstagram size={16} className="text-[#E4405F]" />
+                <span>freekicker_10</span>
+              </Link>
+
+              <Link
+                href="https://www.linkedin.com/in/muhammed-salman-dev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm lg:text-[14px] hover:opacity-80 transition-opacity"
+              >
+                <FaLinkedinIn size={16} className="text-[#0A66C2]" />
+                <span>muhammed-salman-dev</span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

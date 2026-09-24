@@ -30,12 +30,12 @@ export default function MovableCards() {
     },
     {
       title: "Responsive UI Design",
-      image: "/assets/images/services/responsive.jpg",
+      image: "/assets/images/services/resppp.png",
       rotate: "-10deg",
     },
     {
       title: "Front-End Web Development",
-      image: "/assets/images/services/front-end-development.jpg",
+      image: "/assets/images/services/f1.png",
       rotate: "-2deg",
     },
   ];
