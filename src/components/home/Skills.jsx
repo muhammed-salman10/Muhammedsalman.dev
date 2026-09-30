@@ -55,11 +55,11 @@ function Skills() {
     rocket: <FaRocket className="text-pink-400 text-4xl" />,
     adaptability: <FaSyncAlt className="text-indigo-400 text-4xl" />,
     creativity: <FaLightbulb className="text-yellow-300 text-4xl" />,
-    netlify: <SiNetlify className="text-cyan-400 text-4xl" />
+    netlify: <SiNetlify className="text-cyan-400 text-4xl" />,
   };
 
   return (
-    <section className="w-full py-16 md:py-20">
+    <section id="skills" className="w-full py-8 md:py-20">
       <div className="container mx-auto px-4 sm:px-6 font-secondary">
         {/* HEADING */}
         <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16 mt-10 lg:mt-0">

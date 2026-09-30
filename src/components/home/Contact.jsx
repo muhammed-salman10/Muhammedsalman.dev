@@ -5,7 +5,7 @@ import FormSubmission from "../common/contact-form/FormSubmission";
 import SocialMediaIcons from "../common/social-media/SocialMediaIcons";
 export default function Contact() {
   return (
-    <section className=" py-16 lg:py-10">
+    <section id="contact-us" className=" py-16 lg:py-10">
       <div className="text-center max-w-2xl mx-auto">
         <h2 className="text-[24px] md:text-4xl font-[700] mb-6 text-secondary font-primary">
           Let’s Work Together

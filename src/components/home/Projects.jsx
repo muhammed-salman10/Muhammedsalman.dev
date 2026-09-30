@@ -48,23 +48,23 @@ function Portfolio() {
     setFlippedId((prev) => (prev === id ? null : id));
   };
   useEffect(() => {
-  setTimeout(() => {
-    if (projectsTopRef.current) {
-      const y =
-        projectsTopRef.current.getBoundingClientRect().top +
-        window.scrollY -
-        80;
+    setTimeout(() => {
+      if (projectsTopRef.current) {
+        const y =
+          projectsTopRef.current.getBoundingClientRect().top +
+          window.scrollY -
+          80;
 
-      window.scrollTo({
-        top: y,
-        behavior: "smooth",
-      });
-    }
-  }, 50);
-}, [currentPage]);
+        window.scrollTo({
+          top: y,
+          behavior: "smooth",
+        });
+      }
+    }, 50);
+  }, [currentPage]);
 
   return (
-    <section className="lg:py-16 ">
+    <section id="projects" className="lg:py-16 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* ================= Heading ================= */}
         <div className="text-center mb-10 sm:mb-14">

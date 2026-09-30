@@ -34,7 +34,9 @@ function Education() {
   ];
 
   return (
-    <section className="lg:py-20 md:py-10 md:mb-46 ">
+    <section
+    id="education"
+     className="lg:py-20 md:py-10 md:mb-46 py-5">
       <div className="container relative">
         <div className="text-center mb-14 max-w-4xl mx-auto">
           <h2 className=" md:text-4xl text-2xl font-bold text-secondary font-primary mt-16 lg:mt-0">

@@ -296,3 +296,7 @@ a {
 .animate-loader-progress {
   animation: loader-progress 1.4s ease-in-out forwards;
 }
+
+html {
+  scroll-behavior: smooth;
+}

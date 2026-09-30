@@ -7,7 +7,7 @@ import Link from "next/link";
 
 function About() {
   return (
-    <section className="">
+    <section id="about">
       <div className="container">
         <div className="flex flex-col lg:flex-row items-center">
           {/* ================= LEFT SIDE IMAGE ================= */}
@@ -54,9 +54,10 @@ function About() {
             <div className="mt-6 flex flex-wrap justify-center lg:justify-start items-center gap-6">
               {/* Download CV Button */}
               <Link
-                href="/Salman-CV.pdf"
-                download
-                className="flex items-center lg:text-[14px] text-[12px] gap-2 bg-secondary text-on-secondary  lg:px-6 px-4 lg:py-3 py-3 rounded-xl shadow-md hover:bg-secondary transition duration-300"
+                href="/resume/muhammed_salman_.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center lg:text-[14px] text-[12px] gap-2 bg-secondary text-on-secondary lg:px-6 px-4 lg:py-3 py-3 rounded-xl shadow-md hover:bg-secondary transition duration-300"
               >
                 <FaDownload />
                 Download CV

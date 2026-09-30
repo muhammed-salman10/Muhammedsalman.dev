@@ -13,28 +13,28 @@ export default function SocialMediaIcons() {
       id: 1,
       name: "GitHub",
       icon: FaGithub,
-      url: "https://github.com/yourusername",
+      url: "https://github.com/muhammed-salman10",
       hover: "hover:bg-black",
     },
     {
       id: 2,
       name: "LinkedIn",
       icon: FaLinkedinIn,
-      url: "https://linkedin.com/in/yourusername",
+      url: "https://www.linkedin.com/in/muhammed-salman-dev/",
       hover: "hover:bg-[#0A66C2]/80",
     },
     {
       id: 3,
       name: "Instagram",
       icon: FaInstagram,
-      url: "https://instagram.com/yourusername",
+      url: "https://www.instagram.com/freekicker_10/",
       hover: "hover:bg-[#E4405F]/80",
     },
     {
       id: 4,
       name: "WhatsApp",
       icon: FaWhatsapp,
-      url: "https://wa.me/919999999999",
+      url: "https://wa.me/919539717792",
       hover: "hover:bg-[#25D366]/80",
     },
   ];
@@ -51,13 +51,8 @@ export default function SocialMediaIcons() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={item.name}
-className={`w-9 h-9 flex items-center justify-center rounded-full
-bg-[var(--social-bg)]
-text-[var(--social-text)]
-hover:text-white
-transition-all duration-300
-hover:scale-110
-${item.hover}`}          >
+            className={`w-9 h-9 flex items-center justify-center rounded-full bg-[var(--social-bg)] text-[var(--social-text)] hover:text-white transition-all duration-300 hover:scale-110 ${item.hover}`}
+          >
             <Icon size={16} />
           </Link>
         );

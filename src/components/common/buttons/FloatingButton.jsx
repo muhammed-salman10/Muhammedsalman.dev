@@ -34,14 +34,14 @@ function FloatingButton() {
     {
       title: "whatsapp",
       icon: <FaWhatsapp size={18} />,
-      link: "https://wa.me/971505731274",
+      link: "https://wa.me/919539717792",
       className: "bg-[#25D366] text-white border-[#25D366]",
       position: "bottom-[150px]",
     },
     {
       title: "call-us",
       icon: <IoCall size={18} />,
-      link: "tel:+971501714733",
+      link: "tel:+919539717792",
       className: isDark
         ? "bg-[#3B82F6] text-white border-[#3B82F6]"
         : "bg-[#2563EB] text-white border-[#2563EB]",
@@ -51,7 +51,7 @@ function FloatingButton() {
     {
       title: "Email Us",
       icon: <MdEmail size={18} />,
-      link: "mailto:your@email.com",
+      link: "mailto:salmanmuhammed827@gmail.com",
       className: isDark
         ? "bg-[#EA4335] text-white border-[#EA4335]"
         : "bg-[#D93025] text-white border-[#D93025]",

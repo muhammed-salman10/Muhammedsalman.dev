@@ -2,33 +2,34 @@ const navbarLinks = [
   {
     id: 1,
     label: "ABOUT",
-    url: "/about",
+    href: "#about",
   },
   {
     id: 2,
     label: "EDUCATION",
-    url: "/work",
+    href: "#education",
   },
   {
     id: 3,
     label: "SKILLS",
-    url: "/jobs",
+    href: "#skills",
   },
   {
     id: 4,
     label: "SERVICES",
-    url: "/contact",
+    href: "#services",
   },
   {
     id: 5,
     label: "PROJECTS",
-    url: "/contact",
+    href: "#projects",
   },
   {
     id: 6,
     label: "BLOGS",
-    url: "/contact",
+    href: "#blogs",
   },
+ 
   
 ];
 
