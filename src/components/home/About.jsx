@@ -1,18 +1,42 @@
-// src/components/home/About.jsx
 "use client";
-import React from "react";
+
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { FaDownload } from "react-icons/fa";
 import Link from "next/link";
 
 function About() {
+  const triggerRef = useRef(null);
+
+  useEffect(() => {
+    const trigger = triggerRef.current;
+
+    if (!trigger) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          trigger.closest(".about-section")?.classList.add("about-animate");
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.7,
+      },
+    );
+
+    observer.observe(trigger);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="about">
+    <section id="about" className="about-section about-pre">
       <div className="container">
         <div className="flex flex-col lg:flex-row items-center">
-          {/* ================= LEFT SIDE IMAGE ================= */}
+          {/* IMAGE */}
           <div className="w-full lg:w-1/2 flex justify-center">
-            <div className="relative w-[280px] h-[350px] md:w-[420px] md:h-[600px]">
+            <div className="about-image relative w-[280px] h-[350px] md:w-[420px] md:h-[600px]">
               <Image
                 src="/assets/images/idcard-1.png"
                 alt="Developer Salman"
@@ -23,41 +47,59 @@ function About() {
             </div>
           </div>
 
-          {/* ================= RIGHT SIDE CONTENT ================= */}
+          {/* CONTENT */}
           <div className="w-full lg:w-1/2 text-center lg:text-left lg:py-10">
-            <span className="text-[16px] uppercase tracking-widest text-secondary font-[600]">
+            {/* THIS IS THE TRIGGER LINE */}
+            <span
+              ref={triggerRef}
+              className="about-item text-[16px] uppercase tracking-widest text-secondary font-[600]"
+              style={{ "--about-delay": "0ms" }}
+            >
               About Me
             </span>
 
-            <h2 className="text-2xl md:text-4xl font-bold mt-4 leading-tight text-primary font-primary">
-              Im <span className="text-secondary">Muhammed Salman</span>
+            <h2
+              className="about-item text-2xl md:text-4xl font-bold mt-4 leading-tight text-primary font-primary"
+              style={{ "--about-delay": "350ms" }}
+            >
+              Im{" "}
+              <span className="text-secondary about-typing">
+                Muhammed Salman
+              </span>
               <br />
               Web Developer
             </h2>
 
-            <p className="mt-6 text-primary leading-relaxed font-secondary lg:text-[19px] text-[15px]  ">
+            <p
+              className="about-item mt-6 text-primary leading-relaxed font-secondary lg:text-[19px] text-[15px]"
+              style={{ "--about-delay": "700ms" }}
+            >
               I am a passionate Web Developer specializing in frontend
               development, building modern, responsive, and high-performance
               websites and digital experiences using React, Next.js, JavaScript,
               and Tailwind CSS.
             </p>
 
-            <p className="mt-4 text-primary leading-relaxed font-secondary lg:text-[19px] text-[15px]">
+            <p
+              className="about-item mt-4 text-primary leading-relaxed font-secondary lg:text-[19px] text-[15px]"
+              style={{ "--about-delay": "1050ms" }}
+            >
               I focus on creating clean, intuitive user interfaces with a strong
-              emphasis on performance. responsiveness, and user experience. My
+              emphasis on performance, responsiveness, and user experience. My
               goal is to write clean, maintainable code, turn designs into
               engaging web experiences, and continuously improve my technical
-              expertise
+              expertise.
             </p>
 
-            {/* ================= BUTTON + SOCIAL ================= */}
-            <div className="mt-6 flex flex-wrap justify-center lg:justify-start items-center gap-6">
-              {/* Download CV Button */}
+            <div
+              className="about-item mt-6 flex flex-wrap justify-center lg:justify-start items-center gap-6"
+              style={{ "--about-delay": "1400ms" }}
+            >
               <Link
                 href="/resume/muhammed_salman_.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center lg:text-[14px] text-[12px] gap-2 bg-secondary text-on-secondary lg:px-6 px-4 lg:py-3 py-3 rounded-xl shadow-md hover:bg-secondary transition duration-300"
+                className="flex items-center gap-2 bg-secondary text-on-secondary px-4 lg:px-6 py-3 rounded-xl shadow-md hover:bg-secondary transition duration-300"
               >
                 <FaDownload />
                 Download CV

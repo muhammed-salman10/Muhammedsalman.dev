@@ -1,9 +1,19 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import blogs from "@/src/data/blogs.json";
 import Link from "next/link";
+import { gsap } from "gsap";
+
+/* Hidden start states:
+   .bl-hd = heading text, all screens
+   .bl-h  = cards/button, DESKTOP ONLY (mobile slider is untouched) */
+const blogsCSS = `
+.bl-pre .bl-hd { opacity: 0; }
+@media (min-width: 1024px) {
+  .bl-pre .bl-h { opacity: 0; }
+}
+`;
 
 function Blogs() {
   const sliderRef = useRef(null);
@@ -12,6 +22,12 @@ function Blogs() {
   const startX = useRef(0);
   const startPosition = useRef(0);
 
+  const sectionRef = useRef(null);
+  const headRef = useRef(null);
+  const topGridRef = useRef(null);
+  const bottomGridRef = useRef(null);
+  const btnRef = useRef(null);
+
   const [isPaused, setIsPaused] = useState(false);
 
   const featured = blogs.find((blog) => blog.type === "featured");
@@ -19,6 +35,123 @@ function Blogs() {
   const gridBlogs = blogs.filter((blog) => blog.type === "grid");
 
   const mobileBlogs = blogs.filter((blog) => [1, 2, 3, 5].includes(blog.id));
+
+  /* ================= DESKTOP ENTRANCE ANIMATION (GSAP) =================
+     featured card  -> from the LEFT
+     stacked cards  -> from the RIGHT
+     bottom grid    -> from the BOTTOM
+     Starts when each part actually appears on screen (IntersectionObserver). */
+
+  useEffect(() => {
+    const root = sectionRef.current;
+    if (!root) return;
+
+    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    // Reduced motion: no animation, just make sure nothing is hidden
+    if (reduce) {
+      root.classList.remove("bl-pre");
+      return;
+    }
+
+    const q = (sel) => Array.from(root.querySelectorAll(sel));
+    const observers = [];
+
+    const ctx = gsap.context(() => {
+      try {
+        const head = q('[data-bl="head"]');
+        const left = q('[data-bl="left"]');
+        const right = q('[data-bl="right"]');
+        const up = q('[data-bl="up"]');
+        const btn = q('[data-bl="btn"]');
+
+        /* ---------- Initial states ---------- */
+        gsap.set(head, { opacity: 0, y: 40 });
+        if (isDesktop) {
+          gsap.set(left, { opacity: 0, x: -140 });
+          gsap.set(right, { opacity: 0, x: 140 });
+          gsap.set(up, { opacity: 0, y: 100 });
+          gsap.set(btn, { opacity: 0, y: 30 });
+        }
+        root.classList.remove("bl-pre");
+
+        /* ---------- Paused animations, played when visible ---------- */
+        const headTween = gsap.to(head, {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.15,
+          paused: true,
+        });
+
+        const topTl = gsap
+          .timeline({ paused: true, defaults: { ease: "power3.out" } })
+          .to(left, { opacity: 1, x: 0, duration: 1.1 })
+          .to(
+            right,
+            { opacity: 1, x: 0, duration: 1.1, stagger: 0.2 },
+            "<0.15",
+          );
+
+        const bottomTween = gsap.to(up, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          stagger: 0.18,
+          paused: true,
+        });
+
+        const btnTween = gsap.to(btn, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          paused: true,
+        });
+
+        /* ---------- Triggers ---------- */
+        const watch = (el, cb, threshold = 0.1, margin = "-8%") => {
+          if (!el) return;
+          const io = new IntersectionObserver(
+            (entries) => {
+              if (entries.some((e) => e.isIntersecting)) {
+                io.disconnect();
+                cb();
+              }
+            },
+            { threshold, rootMargin: `0px 0px ${margin} 0px` },
+          );
+          io.observe(el);
+          observers.push(io);
+        };
+
+        // Heading text: mobile + desktop
+        watch(headRef.current, () => headTween.play(), 0, "-5%");
+
+        // Cards + button: desktop only (mobile cards keep their own slider)
+        if (isDesktop) {
+          watch(topGridRef.current, () => topTl.play());
+          watch(bottomGridRef.current, () => bottomTween.play());
+          watch(btnRef.current, () => btnTween.play(), 0, "-5%");
+        }
+      } catch (err) {
+        // Failsafe: never leave the section hidden
+        console.error("Blogs animation failed:", err);
+        gsap.set(root.querySelectorAll("*"), { clearProps: "all" });
+        root.classList.remove("bl-pre");
+      }
+    }, root);
+
+    return () => {
+      observers.forEach((o) => o.disconnect());
+      ctx.revert();
+    };
+  }, []);
 
   /* ================= SMOOTH INFINITE MOBILE SCROLL + MANUAL DRAG ================= */
 
@@ -128,16 +261,24 @@ function Blogs() {
   if (!featured) return null;
 
   return (
-    <section id="blogs" className="lg:py-20 py-10">
+    <section id="blogs" ref={sectionRef} className="bl-pre lg:py-20 py-10">
+      <style>{blogsCSS}</style>
+
       <div className="max-w-7xl mx-auto lg:px-6 px-4">
         {/* ================= SECTION HEADER ================= */}
 
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <h2 className="text-[22px] md:text-4xl font-[700] mb-3 lg:mb-6 text-secondary font-primary">
+        <div ref={headRef} className="text-center max-w-3xl mx-auto mb-14">
+          <h2
+            data-bl="head"
+            className="bl-hd text-[22px] md:text-4xl font-[700] mb-3 lg:mb-6 text-secondary font-primary"
+          >
             Insights and Technical Articles
           </h2>
 
-          <p className="text-primary text-[15px] md:text-[18px] font-secondary leading-relaxed">
+          <p
+            data-bl="head"
+            className="bl-hd text-primary text-[15px] md:text-[18px] font-secondary leading-relaxed"
+          >
             Discover in-depth tutorials, development strategies, and industry
             insights covering modern frontend technologies, performance
             optimization, and scalable architecture patterns.
@@ -149,16 +290,19 @@ function Blogs() {
         ========================================================= */}
 
         <div className="hidden lg:block">
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* ================= FEATURED ================= */}
+          <div ref={topGridRef} className="grid lg:grid-cols-3 gap-6">
+            {/* ================= FEATURED (from the left) ================= */}
 
-            <div className="lg:col-span-2 bg-white rounded-3xl border border-[#000080] p-6 shadow-sm">
+            <div
+              data-bl="left"
+              className="bl-h group lg:col-span-2 bg-white rounded-3xl border border-[#000080] p-6 shadow-sm hover:shadow-xl transition-shadow duration-300"
+            >
               <div className="relative w-full h-[420px] rounded-2xl overflow-hidden">
                 <Image
                   src={featured.image}
                   alt={featured.title}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
                 <span className="absolute bottom-4 left-4 bg-white text-black text-sm px-4 py-1 rounded-md shadow">
@@ -194,20 +338,21 @@ function Blogs() {
               </div>
             </div>
 
-            {/* ================= STACKED BLOGS ================= */}
+            {/* ================= STACKED BLOGS (from the right) ================= */}
 
             <div className="flex flex-col gap-6">
               {stacked.map((blog) => (
                 <div
                   key={blog.id}
-                  className="bg-white rounded-3xl border border-[#000080] p-6 shadow-sm"
+                  data-bl="right"
+                  className="bl-h group bg-white rounded-3xl border border-[#000080] p-6 shadow-sm hover:shadow-xl transition-shadow duration-300"
                 >
                   <div className="relative w-full h-[180px] rounded-xl overflow-hidden">
                     <Image
                       src={blog.image}
                       alt={blog.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
 
                     <span className="absolute bottom-3 left-3 bg-white text-black text-xs px-3 py-1 rounded shadow">
@@ -244,20 +389,21 @@ function Blogs() {
             </div>
           </div>
 
-          {/* ================= BOTTOM GRID ================= */}
+          {/* ================= BOTTOM GRID (from the bottom) ================= */}
 
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
+          <div ref={bottomGridRef} className="grid md:grid-cols-3 gap-6 mt-8">
             {gridBlogs.map((blog) => (
               <div
                 key={blog.id}
-                className="bg-white rounded-3xl border border-[#000080] p-6 shadow-sm"
+                data-bl="up"
+                className="bl-h group bg-white rounded-3xl border border-[#000080] p-6 shadow-sm hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="relative w-full h-[240px] rounded-xl overflow-hidden">
                   <Image
                     src={blog.image}
                     alt={blog.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
 
                   <span className="absolute bottom-3 left-3 bg-white text-black text-xs px-3 py-1 rounded shadow">
@@ -285,20 +431,22 @@ function Blogs() {
 
           {/* ================= EXPLORE MORE ================= */}
 
-          <div className="flex items-center justify-center mt-10">
-            <Link
-              href="https://medium.com/@salmanmuhammed827"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#000080] text-white text-[16px] px-6 py-2.5 rounded-full hover:bg-secondary/90 transition"
-            >
-              Explore More
-            </Link>
+          <div ref={btnRef} className="flex items-center justify-center mt-10">
+            <div data-bl="btn" className="bl-h">
+              <Link
+                href="https://medium.com/@salmanmuhammed827"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#000080] text-white text-[16px] px-6 py-2.5 rounded-full hover:bg-secondary/90 transition"
+              >
+                Explore More
+              </Link>
+            </div>
           </div>
         </div>
 
         {/* =========================================================
-            MOBILE AUTO SCROLL + MANUAL DRAG
+            MOBILE AUTO SCROLL + MANUAL DRAG (unchanged)
         ========================================================= */}
 
         <div className="lg:hidden mt-8 overflow-hidden">

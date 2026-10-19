@@ -1,9 +1,10 @@
-//src/components/about-us/TimeLine.jsx
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useRef, useState } from "react";
 
 function Education() {
   const [activeYear, setActiveYear] = useState(2025.5);
+  const sectionRef = useRef(null);
 
   const timelineData = [
     {
@@ -33,17 +34,49 @@ function Education() {
     },
   ];
 
+  /* =========================================================
+     SECTION SCROLL ANIMATION
+  ========================================================= */
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          section.classList.add("timeline-animate");
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+      },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
-    id="education"
-     className="lg:py-20 md:py-10 md:mb-46 py-5">
+      id="education"
+      ref={sectionRef}
+      className="timeline-section timeline-pre lg:py-20 md:py-10 md:mb-46 py-5"
+    >
       <div className="container relative">
+        {/* =====================================================
+            HEADING
+        ===================================================== */}
+
         <div className="text-center mb-14 max-w-4xl mx-auto">
-          <h2 className=" md:text-4xl text-2xl font-bold text-secondary font-primary mt-16 lg:mt-0">
+          <h2 className="timeline-heading md:text-4xl text-2xl font-bold text-secondary font-primary mt-16 lg:mt-0">
             Academic and Professional Journey
           </h2>
 
-          <p className="text-primary mt-4 text-[15px] md:text-[18px] leading-relaxed font-secondary">
+          <p className="timeline-description text-primary mt-4 text-[15px] md:text-[18px] leading-relaxed font-secondary">
             My academic and professional journey has been a continuous path of
             learning, growth, and practical experience. From building a solid
             foundation in computer science to applying those skills in
@@ -53,42 +86,68 @@ function Education() {
             a developer committed to delivering meaningful digital solutions.
           </p>
         </div>
-        {/* Timeline Line */}
+
+        {/* =====================================================
+            TIMELINE
+        ===================================================== */}
+
         <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between lg:max-w-[95%] mx-auto font-secondary">
-          {/* Horizontal line (desktop) */}
-          <div className="hidden md:block absolute top-3 left-0 w-full h-[2px] bg-gray-300"></div>
+          {/* -----------------------------------------------------
+              DESKTOP TIMELINE LINE
+          ----------------------------------------------------- */}
 
-          {/* Vertical line (mobile) */}
-          <div className="block md:hidden absolute left-[22px] top-0 w-[2px] h-full bg-gray-300"></div>
+          <div className="hidden md:block absolute top-3 left-0 w-full h-[2px] bg-gray-300">
+            <div className="timeline-progress-desktop"></div>
+          </div>
 
-          {/* Start dot */}
-          <div className="relative z-10 flex flex-col items-center md:items-center mb-10 md:mb-0">
+          {/* -----------------------------------------------------
+              MOBILE TIMELINE LINE
+          ----------------------------------------------------- */}
+
+          <div className="block md:hidden absolute left-[22px] top-0 w-[2px] h-full bg-gray-300">
+            <div className="timeline-progress-mobile"></div>
+          </div>
+
+          {/* -----------------------------------------------------
+              START DOT
+          ----------------------------------------------------- */}
+
+          <div className="timeline-dot-start relative z-10 flex flex-col items-center md:items-center mb-10 md:mb-0">
             <div className="w-3 h-3 bg-[#000080] border-[3px] border-gray-200 rounded-full md:translate-y-[-19px] translate-x-[17px] md:translate-x-0"></div>
           </div>
 
-          {/* Timeline Items */}
-          {timelineData.map((item) => (
+          {/* -----------------------------------------------------
+              TIMELINE ITEMS
+          ----------------------------------------------------- */}
+
+          {timelineData.map((item, index) => (
             <div
               key={item.year}
-              className="relative z-10 flex flex-col md:flex-col items-start md:items-center cursor-pointer mb-12 md:mb-0 md:min-w-[140px]"
+              className="timeline-item relative z-10 flex flex-col md:flex-col items-start md:items-center cursor-pointer mb-12 md:mb-0 md:min-w-[140px]"
+              style={{
+                "--timeline-delay": `${550 + index * 250}ms`,
+              }}
               onMouseEnter={() => setActiveYear(item.year)}
               onClick={() => setActiveYear(item.year)}
             >
-              {/* Dot */}
+              {/* DOT */}
+
               <div className="relative mt-1 ml-[16px] md:ml-0">
                 <div
-                  className={`w-4 h-4 border-[3px] border-gray-200  rounded-full relative z-10 transition-all duration-300 ${
+                  className={`w-4 h-4 border-[3px] border-gray-200 rounded-full relative z-10 transition-all duration-300 ${
                     activeYear === item.year ? "bg-[#000080]" : "bg-gray-400"
                   }`}
                 ></div>
+
                 {activeYear === item.year && (
                   <span className="absolute -inset-1 rounded-full bg-[#000080] opacity-50 animate-ping"></span>
                 )}
               </div>
 
-              {/* Year Label */}
+              {/* YEAR */}
+
               <div
-                className={`mt-3 md:mt-3 ml-10 md:ml-0 px-4 py-1 rounded-md font-semibold transition-all duration-300 text-sm md:text-base ${
+                className={`timeline-year mt-3 md:mt-3 ml-10 md:ml-0 px-4 py-1 rounded-md font-semibold transition-all duration-300 text-sm md:text-base ${
                   activeYear === item.year
                     ? "bg-[#000080] text-white"
                     : "bg-gray-200 text-[#000080]"
@@ -97,16 +156,19 @@ function Education() {
                 {item.year}
               </div>
 
-              {/* Info Box (active year only) */}
+              {/* INFO BOX */}
+
               {activeYear === item.year && (
-                <div className="relative md:absolute md:top-full md:mt-5 lg:left-1/2 md:left-[56px] md:-translate-x-1/2  w-full lg:w-[400px] md:w-[200px] mt-5 md:mb-10">
-                  <div className="bg-[#000080] text-white  rounded-lg p-5 relative">
-                    {/* Arrow (desktop only) */}
+                <div className="timeline-info relative md:absolute md:top-full md:mt-5 lg:left-1/2 md:left-[56px] md:-translate-x-1/2 w-full lg:w-[400px] md:w-[200px] mt-5 md:mb-10">
+                  <div className="bg-[#000080] text-white rounded-lg p-5 relative">
+                    {/* Arrow */}
+
                     <div className="hidden md:block absolute -top-5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[15px] border-r-[15px] border-b-[12px] border-l-transparent border-r-transparent border-b-[#000080]"></div>
 
                     <h3 className="font-semibold text-lg lg:text-[18px] md:text-[14px]">
                       {item.title}
                     </h3>
+
                     <p className="text-[14px] lg:text-[14px] md:text-[10px] mt-2 leading-relaxed">
                       {item.desc}
                     </p>
@@ -116,8 +178,11 @@ function Education() {
             </div>
           ))}
 
-          {/* End dot */}
-          <div className="relative z-10 flex flex-col items-center">
+          {/* -----------------------------------------------------
+              END DOT
+          ----------------------------------------------------- */}
+
+          <div className="timeline-dot-end relative z-10 flex flex-col items-center">
             <div className="w-3 h-3 bg-[#000080] border-[3px] border-gray-200 rounded-full lg:translate-y-[-19px] md:translate-y-[-20px] translate-x-[17px] lg:translate-x-0 md:translate-x-[-22px]"></div>
           </div>
         </div>

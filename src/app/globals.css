@@ -300,3 +300,587 @@ a {
 html {
   scroll-behavior: smooth;
 }
+
+/* =========================================================
+   HERO ANIMATIONS
+========================================================= */
+
+@keyframes heroUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroPop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroLetter {
+  from {
+    opacity: 0;
+    transform: translateY(105%) rotate(4deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+@keyframes heroMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatA {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes floatB {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* =========================================================
+   HERO INITIAL STATE
+   Hidden until hero-anim is added by IntersectionObserver
+========================================================= */
+
+.hero-pre .h-up,
+.hero-pre .h-down,
+.hero-pre .h-letter,
+.hero-pre .h-float-a,
+.hero-pre .h-float-b {
+  opacity: 0;
+}
+
+/* =========================================================
+   HERO ENTRANCE ANIMATIONS
+========================================================= */
+
+.hero-anim .h-up {
+  animation: heroUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.hero-anim .h-down {
+  animation: heroDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.hero-anim .h-letter {
+  display: inline-block;
+  animation: heroLetter 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.h-menu {
+  animation: heroMenu 0.3s ease both;
+}
+
+/* =========================================================
+   FLOATING ELEMENTS
+========================================================= */
+
+.hero-anim .h-float-a {
+  animation:
+    heroPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0ms) both,
+    floatA 6s ease-in-out calc(var(--d, 0ms) + 0.8s) infinite;
+}
+
+.hero-anim .h-float-b {
+  animation:
+    heroPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0ms) both,
+    floatB 7s ease-in-out calc(var(--d, 0ms) + 0.8s) infinite;
+}
+
+/* =========================================================
+   MOUSE PARALLAX
+========================================================= */
+
+.h-parallax {
+  transform: translate3d(
+    calc(var(--mx, 0) * var(--depth, 14) * 1px),
+    calc(var(--my, 0) * var(--depth, 14) * 1px),
+    0
+  );
+
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+  will-change: transform;
+}
+
+/* =========================================================
+   MOBILE MENU SCROLLBAR
+========================================================= */
+
+.hero-mobile-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.hero-mobile-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hero-mobile-menu::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.4);
+  border-radius: 999px;
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim .h-up,
+  .hero-anim .h-down,
+  .hero-anim .h-menu,
+  .hero-anim .h-letter,
+  .hero-anim .h-float-a,
+  .hero-anim .h-float-b {
+    animation: none !important;
+  }
+
+  .h-parallax {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* =========================================================
+   ABOUT ANIMATION
+========================================================= */
+
+@keyframes aboutReveal {
+  from {
+    opacity: 0;
+    transform: translateY(45px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aboutImageReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-60px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Initial state */
+
+.about-pre .about-item,
+.about-pre .about-image {
+  opacity: 0;
+}
+
+/* Text one by one */
+
+.about-animate .about-item {
+  animation: aboutReveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--about-delay);
+}
+
+/* Image */
+
+.about-animate .about-image {
+  animation: aboutImageReveal 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+  .about-animate .about-item {
+    animation-duration: 1.3s;
+  }
+
+  .about-animate .about-image {
+    animation-duration: 1.1s;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .about-pre .about-item,
+  .about-pre .about-image {
+    opacity: 1;
+  }
+
+  .about-animate .about-item,
+  .about-animate .about-image {
+    animation: none !important;
+  }
+}
+/* =========================================================
+   MUHAMMED SALMAN - INFINITE TYPING
+========================================================= */
+
+.about-typing {
+  display: inline-block;
+  width: 0;
+  max-width: max-content;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  border-right: 3px solid currentColor;
+
+  animation:
+    typingLoop 5.5s steps(16, end) infinite,
+    typingCursor 0.7s step-end infinite;
+}
+
+@keyframes typingLoop {
+  0% {
+    width: 0;
+  }
+
+  40% {
+    width: 16ch;
+  }
+
+  60% {
+    width: 16ch;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes typingCursor {
+  0%,
+  100% {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: currentColor;
+  }
+}
+/* =========================================================
+   EDUCATION / TIMELINE ANIMATION
+========================================================= */
+
+@keyframes timelineFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(45px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes timelineDotReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  70% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes timelineLineDesktop {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes timelineLineMobile {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: 100%;
+  }
+}
+
+@keyframes timelineInfoReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(25px) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+.timeline-pre .timeline-heading,
+.timeline-pre .timeline-description,
+.timeline-pre .timeline-item,
+.timeline-pre .timeline-dot-start,
+.timeline-pre .timeline-dot-end {
+  opacity: 0;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.timeline-animate .timeline-heading {
+  animation:
+    timelineFadeUp
+    0.9s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0ms
+    forwards;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.timeline-animate .timeline-description {
+  animation:
+    timelineFadeUp
+    1s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    180ms
+    forwards;
+}
+
+
+/* =========================================================
+   DESKTOP LINE
+========================================================= */
+
+.timeline-progress-desktop {
+  width: 0;
+  height: 100%;
+  background: #000080;
+
+  animation:
+    timelineLineDesktop
+    1.8s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    400ms
+    forwards;
+}
+
+
+/* =========================================================
+   MOBILE LINE
+========================================================= */
+
+.timeline-progress-mobile {
+  width: 100%;
+  height: 0;
+  background: #000080;
+
+  animation:
+    timelineLineMobile
+    2.4s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    400ms
+    forwards;
+}
+
+
+/* =========================================================
+   START / END DOTS
+========================================================= */
+
+.timeline-animate .timeline-dot-start,
+.timeline-animate .timeline-dot-end {
+  animation:
+    timelineDotReveal
+    0.7s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    400ms
+    forwards;
+}
+
+
+/* =========================================================
+   TIMELINE ITEMS
+========================================================= */
+
+.timeline-animate .timeline-item {
+  animation:
+    timelineFadeUp
+    0.85s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    var(--timeline-delay)
+    forwards;
+}
+
+
+/* =========================================================
+   YEAR HOVER
+========================================================= */
+
+.timeline-year {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.timeline-item:hover .timeline-year {
+  transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   INFO BOX
+========================================================= */
+
+.timeline-info {
+  animation:
+    timelineInfoReveal
+    0.65s
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+  .timeline-animate .timeline-heading {
+    animation-duration: 1s;
+  }
+
+  .timeline-animate .timeline-description {
+    animation-duration: 1.15s;
+  }
+
+  .timeline-animate .timeline-item {
+    animation-duration: 1s;
+  }
+
+  .timeline-progress-mobile {
+    animation-duration: 2.5s;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .timeline-animate .timeline-item {
+    animation-duration: 0.9s;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-pre .timeline-heading,
+  .timeline-pre .timeline-description,
+  .timeline-pre .timeline-item,
+  .timeline-pre .timeline-dot-start,
+  .timeline-pre .timeline-dot-end {
+    opacity: 1;
+  }
+
+  .timeline-progress-desktop {
+    width: 100%;
+    animation: none !important;
+  }
+
+  .timeline-progress-mobile {
+    height: 100%;
+    animation: none !important;
+  }
+
+  .timeline-animate .timeline-heading,
+  .timeline-animate .timeline-description,
+  .timeline-animate .timeline-item,
+  .timeline-animate .timeline-dot-start,
+  .timeline-animate .timeline-dot-end {
+    animation: none !important;
+  }
+}
+

@@ -37,7 +37,7 @@
             "TSX"
         ],
         "image": "/assets/images/projects/kunfu.png",
-        "liveUrl": "https://admin-demo.webeyecraft.com"
+        "liveUrl": "https://www.uaekungfuassociation.ae/"
     },
     {
         "id": 4,
@@ -54,19 +54,6 @@
     },
     {
         "id": 5,
-        "title": "MetaMedicx",
-        "company": "WebEyeCraft",
-        "description": "Modern medical website showcasing healthcare services and patient-focused solutions. Designed with responsive UI for clarity, accessibility, and professional presentation.",
-        "tech": [
-            "React",
-            "Tailwind CSS",
-            "GSAP"
-        ],
-        "image": "/assets/images/projects/meta-medicx.png",
-        "liveUrl": "https://metamedicx.com/"
-    },
-    {
-        "id": 6,
         "title": "PowerMec",
         "company": "WebEyeCraft",
         "description": "Powermec is the best auto garage in Dubai, offering expert car care services and complete car maintenance service to keep your vehicle running at its best.",
@@ -79,7 +66,33 @@
         "liveUrl": "https://powermec.ae/"
     },
     {
+        "id": 6,
+        "title": "MetaMedicx",
+        "company": "WebEyeCraft",
+        "description": "Modern medical website showcasing healthcare services and patient-focused solutions. Designed with responsive UI for clarity, accessibility, and professional presentation.",
+        "tech": [
+            "React",
+            "Tailwind CSS",
+            "GSAP"
+        ],
+        "image": "/assets/images/projects/meta-medicx.png",
+        "liveUrl": "https://metamedicx.com/"
+    },
+    {
         "id": 7,
+        "title": "Sinolink International Logistics",
+        "company": "WebEyeCraft",
+        "description": "Your trusted partner for sea, air, and land freight, contract logistics, and customs services — delivering efficiency worldwide.",
+        "tech": [
+            "Next.js",
+            "Tailwind CSS",
+            "GSAP"
+        ],
+        "image": "/assets/images/projects/sino-link.png",
+        "liveUrl": "https://sinolink-demo.vercel.app/"
+    },
+    {
+        "id": 8,
         "title": "SEO Pro Hub",
         "company": "WebEyeCraft",
         "description": "Drive growth with expert SEO, PPC, and digital marketing solutions in the UAE. Boost visibility, attract leads, and achieve measurable results.",
@@ -93,35 +106,7 @@
         "liveUrl": "https://seoprohub.ae/"
     },
     {
-        "id": 8,
-        "title": "Sinolink International Logistics",
-        "company": "WebEyeCraft",
-        "description": "Your trusted partner for sea, air, and land freight, contract logistics, and customs services — delivering efficiency worldwide.",
-        "tech": [
-            "Next.js",
-            "Tailwind CSS",
-            "GSAP"
-        ],
-        "image": "/assets/images/projects/sino-link.png",
-        "liveUrl": "https://sinolinkinternational.com/"
-    },
-    {
         "id": 9,
-        "title": "TalentCore",
-        "company": "WebEyeCraft",
-        "description": "A web-based Employee-Employer Platform MVP designed to help candidates connect, apply, and grow their careers.",
-        "tech": [
-            "Next.js",
-            "Tailwind CSS",
-            "Node.js",
-            "MongoDB",
-            "JWT"
-        ],
-        "image": "/assets/images/projects/talent-core.png",
-        "liveUrl": "https://automotive2-demo.webeyecraft.com"
-    },
-    {
-        "id": 10,
         "title": "Vaitafe Technical Services",
         "company": "WebEyeCraft",
         "description": "Vaitafe is a leading interior design company in Dubai offering modern interior design services, home and office interiors, custom furniture, and turnkey solutions for commercial and residential spaces.",
@@ -134,20 +119,22 @@
         "liveUrl": "https://vaitafe.com/"
     },
     {
-        "id": 11,
-        "title": "Voxbridge Academy",
+        "id": 10,
+        "title": "TalentCore",
         "company": "WebEyeCraft",
-        "description": "Modern academic website promoting lifelong learning, institutional excellence, and accessible education with a clean and responsive design.",
+        "description": "A web-based Employee-Employer Platform MVP designed to help candidates connect, apply, and grow their careers.",
         "tech": [
-            "Vite",
+            "Next.js",
             "Tailwind CSS",
-            "Email js"
+            "Node.js",
+            "MongoDB",
+            "JWT"
         ],
-        "image": "/assets/images/projects/voxy.png",
-        "liveUrl": "https://voxbridgeacademy.com/"
+        "image": "/assets/images/projects/talent-core.png",
+        "liveUrl": "https:/demo.webeyecraft.com"
     },
     {
-        "id": 12,
+        "id": 11,
         "title": "Webeyecraft Technologies",
         "company": "WebEyeCraft",
         "description": "Webeyecraft  is a digital transformation services company providing IT solutions, web development, and strategies that drive growth and success for businesses.",
@@ -161,6 +148,19 @@
         "liveUrl": "https://webeyecraft.com/"
     },
     {
+        "id": 12,
+        "title": "Voxbridge Academy",
+        "company": "WebEyeCraft",
+        "description": "Modern academic website promoting lifelong learning, institutional excellence, and accessible education with a clean and responsive design.",
+        "tech": [
+            "Vite",
+            "Tailwind CSS",
+            "Email js"
+        ],
+        "image": "/assets/images/projects/voxy.png",
+        "liveUrl": "https://voxbridgeacademy.com/"
+    },
+    {
         "id": 13,
         "title": "Westline Technical Service llc",
         "company": "WebEyeCraft",
@@ -171,6 +171,6 @@
             "GSAP"
         ],
         "image": "/assets/images/projects/westline.png",
-        "liveUrl": "https://westline-demo.webeyecraft.com"
+        "liveUrl": "https://www.westline.ae/"
     }
 ]

@@ -8,6 +8,30 @@ import TextAnimation from "./TextAnimation";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* Entrance animations. They run on INNER elements only, so they never clash
+   with the GSAP scroll timeline that moves the outer elements. */
+const movableCSS = `
+@keyframes mvUp   { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes mvLine { from { transform: translateY(110%); } to { transform: none; } }
+@keyframes mvCard { from { opacity: 0; transform: translateY(90px) scale(.8) rotate(-6deg); } to { opacity: 1; transform: none; } }
+
+/* Hidden until the section is on screen */
+.mv-pre .mv-up, .mv-pre .mv-card { opacity: 0; }
+.mv-pre .mv-line { transform: translateY(110%); }
+
+.mv-line-wrap { display: block; overflow: hidden; padding-bottom: .1em; }
+.mv-line { display: block; }
+
+/* "backwards" fill so hover effects keep working after the intro */
+.mv-anim .mv-up   { animation: mvUp .8s cubic-bezier(.22,1,.36,1) backwards; animation-delay: var(--d, 0ms); }
+.mv-anim .mv-line { animation: mvLine .9s cubic-bezier(.22,1,.36,1) backwards; animation-delay: var(--d, 0ms); }
+.mv-anim .mv-card { animation: mvCard 1s cubic-bezier(.22,1,.36,1) backwards; animation-delay: var(--d, 0ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mv-anim .mv-up, .mv-anim .mv-line, .mv-anim .mv-card { animation: none !important; }
+}
+`;
+
 export default function MovableCards() {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
@@ -39,6 +63,24 @@ export default function MovableCards() {
       rotate: "-2deg",
     },
   ];
+
+  // Start the entrance animation (on every load/refresh) once the section is visible
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.remove("mv-pre");
+          el.classList.add("mv-anim");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // Detect mobile
   useEffect(() => {
@@ -115,19 +157,27 @@ export default function MovableCards() {
     <section
       id="services"
       ref={sectionRef}
-      className="relative flex flex-col items-center justify-center 
+      className="mv-pre relative flex flex-col items-center justify-center 
       lg:min-h-[100vh] min-h-[90vh] overflow-hidden px-4 sm:px-6 lg:px-8"
     >
+      <style>{movableCSS}</style>
+
       {/* Top Content */}
       <div
         ref={contentRef}
         className="absolute top-8 flex flex-col items-center text-center px-4 py-6"
       >
-        <span className="lg:text-[38px] text-[26px] font-bold text-secondary font-primary tracking-wide ">
+        <span
+          style={{ "--d": "100ms" }}
+          className="mv-up lg:text-[38px] text-[26px] font-bold text-secondary font-primary tracking-wide "
+        >
           Our Services
         </span>
 
-        <p className="mt-3 lg:max-w-2xl text-primary text-[15px] md:text-[18px] leading-relaxed font-secondary">
+        <p
+          style={{ "--d": "250ms" }}
+          className="mv-up mt-3 lg:max-w-2xl text-primary text-[15px] md:text-[18px] leading-relaxed font-secondary"
+        >
           I design and develop modern, high-performance web applications that
           blend creativity with functionality. From responsive interfaces to
           scalable front-end architectures, I transform ideas into seamless
@@ -135,13 +185,22 @@ export default function MovableCards() {
         </p>
       </div>
 
-      {/* Main Heading */}
+      {/* Main Heading (lines slide up from a mask) */}
       <h2
         ref={mainHeadingRef}
         className="text-center font-primary select-none font-semibold text-[#000080] leading-tight
         md:text-[clamp(2rem,7vw,6rem)] lg:text-[50px] text-[30px] lg:mt-10 mt-24"
       >
-        Delivering Digital <br /> Solutions
+        <span className="mv-line-wrap">
+          <span className="mv-line" style={{ "--d": "400ms" }}>
+            Delivering Digital
+          </span>
+        </span>
+        <span className="mv-line-wrap">
+          <span className="mv-line" style={{ "--d": "520ms" }}>
+            Solutions
+          </span>
+        </span>
       </h2>
 
       {/* Image Stack */}
@@ -172,19 +231,25 @@ export default function MovableCards() {
               md:w-[250px] md:h-[290px]
             "
           >
-            <div className="relative w-full h-full rounded-[16px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-2xl border-2 border-[#C2BFBF] bg-white">
-              <Image
-                src={service.image}
-                alt={service.title}
-                fill
-                priority
-                className="object-cover"
-              />
+            {/* Entrance animation + hover live on this inner wrapper */}
+            <div
+              style={{ "--d": `${700 + i * 140}ms` }}
+              className="mv-card w-full h-full transition-transform duration-300 hover:scale-[1.04]"
+            >
+              <div className="relative w-full h-full rounded-[16px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-2xl border-2 border-[#C2BFBF] bg-white">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  priority
+                  className="object-cover"
+                />
 
-              <div className="absolute inset-0 bg-black/40 flex items-end p-4">
-                <h3 className="text-white text-sm md:text-base font-semibold leading-snug">
-                  {service.title}
-                </h3>
+                <div className="absolute inset-0 bg-black/40 flex items-end p-4">
+                  <h3 className="text-white text-sm md:text-base font-semibold leading-snug">
+                    {service.title}
+                  </h3>
+                </div>
               </div>
             </div>
           </div>
