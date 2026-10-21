@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 export default function FormSubmission() {
-  /* ===============================
-     STATE
-  =============================== */
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,10 +12,8 @@ export default function FormSubmission() {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
-  /* ===============================
-     HANDLERS
-  =============================== */
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -27,33 +23,63 @@ export default function FormSubmission() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setLoading(true);
     setSuccess(false);
+    setError("");
 
-    // 🔗 Connect API / EmailJS later
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-    setLoading(false);
-    setSuccess(true);
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error(
+          "EmailJS configuration is missing. Please check your .env.local file.",
+        );
+      }
 
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+        },
+        {
+          publicKey,
+        },
+      );
+
+      setSuccess(true);
+
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setError("Sorry, your message could not be sent. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 ">
+    <form onSubmit={handleSubmit} className="space-y-8">
       {/* Name */}
       <div>
         <label className="block text-[#000080] font-secondary text-sm mb-2">
           Your Name
         </label>
+
         <input
           type="text"
           name="name"
           required
+          maxLength={100}
           value={formData.name}
           onChange={handleChange}
           placeholder="Enter your name"
@@ -71,10 +97,12 @@ export default function FormSubmission() {
         <label className="block text-[#000080] font-secondary text-sm mb-2">
           Your Email
         </label>
+
         <input
           type="email"
           name="email"
           required
+          maxLength={254}
           value={formData.email}
           onChange={handleChange}
           placeholder="Enter your email"
@@ -92,10 +120,12 @@ export default function FormSubmission() {
         <label className="block text-[#000080] font-secondary text-sm mb-2">
           Share your thoughts
         </label>
+
         <textarea
           name="message"
-          rows="3"
+          rows={3}
           required
+          maxLength={5000}
           value={formData.message}
           onChange={handleChange}
           placeholder="Write your message..."
@@ -109,27 +139,54 @@ export default function FormSubmission() {
       </div>
 
       {/* Submit Button */}
+
+      {/* Submit Button */}
       <button
         type="submit"
         disabled={loading}
         className="
-          w-full py-3 mt-6
-          bg-[#000080] font-secondary text-[16px] text-white
-          rounded-xl
-          hover:scale-[1.02]
-          active:scale-[0.98]
-          transition duration-300
-          shadow-lg
-          disabled:opacity-60
-        "
+    w-full py-3 mt-6
+    bg-[#000080] font-secondary text-[16px] text-white
+    rounded-xl
+    hover:scale-[1.02]
+    active:scale-[0.98]
+    transition duration-300
+    shadow-lg
+    disabled:opacity-70
+    disabled:cursor-not-allowed
+    disabled:hover:scale-100
+    flex items-center justify-center gap-3
+  "
       >
-        {loading ? "SENDING..." : "SHARE YOUR FEEDBACK"}
+        {loading && (
+          <span
+            className="
+        inline-block
+        w-5 h-5
+        border-2 border-white/30
+        border-t-white
+        rounded-full
+        animate-spin
+        shrink-0
+      "
+            aria-hidden="true"
+          />
+        )}
+
+        <span>{loading ? "SENDING..." : "SHARE YOUR FEEDBACK"}</span>
       </button>
 
       {/* Success Message */}
       {success && (
-        <p className="text-green-600 text-sm mt-4">
+        <p role="status" className="text-green-600 text-sm mt-4">
           ✅ Thanks! Your message has been sent.
+        </p>
+      )}
+
+      {/* Error Message */}
+      {error && (
+        <p role="alert" className="text-red-600 text-sm mt-4">
+          ❌ {error}
         </p>
       )}
     </form>
