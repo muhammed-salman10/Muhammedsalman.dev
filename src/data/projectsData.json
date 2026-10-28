@@ -2,6 +2,7 @@
     {
         "id": 1,
         "title": "Caropticz-Automotive",
+        "alt": "Caropticz automotive website showcasing vehicle services and online booking features",
         "company": "WebEyeCraft",
         "description": "Automotive booking platform with real-time scheduling and service management. Designed for seamless customer experience and operational efficiency.",
         "tech": [
@@ -9,12 +10,13 @@
             "Tailwind CSS",
             "Node.js"
         ],
-        "image": "/assets/images/projects/caropticz.png",
+        "image": "/assets/images/projects/caropticz.webp",
         "liveUrl": "https://www.caropticz.com/"
     },
     {
         "id": 2,
         "title": "Nad Al Hiba Furniture",
+        "alt": "Nad Al Hiba Furniture website featuring modern office furniture and storage solutions",
         "company": "WebEyeCraft",
         "description": "High-quality furniture solutions by Nad Al Hiba. Modern, functional, and stylish office, educational, and storage systems built for comfort and performance.",
         "tech": [
@@ -22,12 +24,13 @@
             "Tailwind CSS",
             "GSAP"
         ],
-        "image": "/assets/images/projects/hiba.png",
+        "image": "/assets/images/projects/hiba.webp",
         "liveUrl": "https://hibafurniture.com/"
     },
     {
         "id": 3,
         "title": "Kungfu Association UAE",
+        "alt": "Kungfu Association UAE website presenting martial arts programs, training, and events",
         "company": "WebEyeCraft",
         "description": "Official UAE body promoting Kung Fu, Tai Chi & Qigong through training, initiatives and events nationwide. Explore our programs and get involved today.",
         "tech": [
@@ -36,12 +39,13 @@
             "Framer Motion",
             "TSX"
         ],
-        "image": "/assets/images/projects/kunfu.png",
+        "image": "/assets/images/projects/kunfu.webp",
         "liveUrl": "https://www.uaekungfuassociation.ae/"
     },
     {
         "id": 4,
         "title": "Maxplus Logistics Solutions",
+        "alt": "Maxplus Logistics Solutions website showcasing air, sea, and land freight services",
         "company": "WebEyeCraft",
         "description": "UAE's #1 logistics and freight partner for air, sea, and land cargo. Secure, compliant, and on time for every shipment. Contact Maxplus for a quote now.",
         "tech": [
@@ -49,12 +53,13 @@
             "GSAP",
             "Tailwind CSS"
         ],
-        "image": "/assets/images/projects/maxplus.png",
+        "image": "/assets/images/projects/maxplus.webp",
         "liveUrl": "https://maxplusuae.com/"
     },
     {
         "id": 5,
         "title": "PowerMec",
+        "alt": "PowerMec automotive website showcasing car maintenance, repair, and garage services in Dubai",
         "company": "WebEyeCraft",
         "description": "Powermec is the best auto garage in Dubai, offering expert car care services and complete car maintenance service to keep your vehicle running at its best.",
         "tech": [
@@ -62,12 +67,13 @@
             "GSAP",
             "Tailwind CSS"
         ],
-        "image": "/assets/images/projects/powermec.png",
+        "image": "/assets/images/projects/powermec.webp",
         "liveUrl": "https://powermec.ae/"
     },
     {
         "id": 6,
         "title": "MetaMedicx",
+        "alt": "MetaMedicx healthcare website featuring medical services and patient-focused information",
         "company": "WebEyeCraft",
         "description": "Modern medical website showcasing healthcare services and patient-focused solutions. Designed with responsive UI for clarity, accessibility, and professional presentation.",
         "tech": [
@@ -75,12 +81,13 @@
             "Tailwind CSS",
             "GSAP"
         ],
-        "image": "/assets/images/projects/meta-medicx.png",
+        "image": "/assets/images/projects/meta-medicx.webp",
         "liveUrl": "https://metamedicx.com/"
     },
     {
         "id": 7,
         "title": "Sinolink International Logistics",
+        "alt": "Sinolink International Logistics website showcasing global freight, shipping, and customs services",
         "company": "WebEyeCraft",
         "description": "Your trusted partner for sea, air, and land freight, contract logistics, and customs services — delivering efficiency worldwide.",
         "tech": [
@@ -88,12 +95,13 @@
             "Tailwind CSS",
             "GSAP"
         ],
-        "image": "/assets/images/projects/sino-link.png",
+        "image": "/assets/images/projects/sino-link.webp",
         "liveUrl": "https://sinolink-demo.vercel.app/"
     },
     {
         "id": 8,
         "title": "SEO Pro Hub",
+        "alt": "SEO Pro Hub website presenting SEO, PPC, and digital marketing services",
         "company": "WebEyeCraft",
         "description": "Drive growth with expert SEO, PPC, and digital marketing solutions in the UAE. Boost visibility, attract leads, and achieve measurable results.",
         "tech": [
@@ -102,12 +110,13 @@
             "GSAP",
             "Email js"
         ],
-        "image": "/assets/images/projects/seo-prohub.png",
+        "image": "/assets/images/projects/seo-prohub.webp",
         "liveUrl": "https://seoprohub.ae/"
     },
     {
         "id": 9,
         "title": "Vaitafe Technical Services",
+        "alt": "Vaitafe Technical Services website featuring interior design, fit-out, and turnkey solutions",
         "company": "WebEyeCraft",
         "description": "Vaitafe is a leading interior design company in Dubai offering modern interior design services, home and office interiors, custom furniture, and turnkey solutions for commercial and residential spaces.",
         "tech": [
@@ -115,12 +124,13 @@
             "Tailwind CSS",
             "GSAP"
         ],
-        "image": "/assets/images/projects/vaitafe.png",
+        "image": "/assets/images/projects/vaitafe.webp",
         "liveUrl": "https://vaitafe.com/"
     },
     {
         "id": 10,
         "title": "TalentCore",
+        "alt": "TalentCore employee and employer platform for candidate connections and job applications",
         "company": "WebEyeCraft",
         "description": "A web-based Employee-Employer Platform MVP designed to help candidates connect, apply, and grow their careers.",
         "tech": [
@@ -130,12 +140,13 @@
             "MongoDB",
             "JWT"
         ],
-        "image": "/assets/images/projects/talent-core.png",
+        "image": "/assets/images/projects/talent-core.webp",
         "liveUrl": "https:/demo.webeyecraft.com"
     },
     {
         "id": 11,
         "title": "Webeyecraft Technologies",
+        "alt": "WebEyeCraft Technologies website showcasing digital transformation and web development services",
         "company": "WebEyeCraft",
         "description": "Webeyecraft  is a digital transformation services company providing IT solutions, web development, and strategies that drive growth and success for businesses.",
         "tech": [
@@ -144,12 +155,13 @@
             "Tailwind CSS",
             "Email js"
         ],
-        "image": "/assets/images/projects/wec.png",
+        "image": "/assets/images/projects/wec.webp",
         "liveUrl": "https://webeyecraft.com/"
     },
     {
         "id": 12,
         "title": "Voxbridge Academy",
+        "alt": "Voxbridge Academy website presenting educational programs and academic information",
         "company": "WebEyeCraft",
         "description": "Modern academic website promoting lifelong learning, institutional excellence, and accessible education with a clean and responsive design.",
         "tech": [
@@ -157,12 +169,13 @@
             "Tailwind CSS",
             "Email js"
         ],
-        "image": "/assets/images/projects/voxy.png",
+        "image": "/assets/images/projects/voxy.webp",
         "liveUrl": "https://voxbridgeacademy.com/"
     },
     {
         "id": 13,
         "title": "Westline Technical Service llc",
+        "alt": "Westline Technical Service website showcasing interior fit-out and commercial project solutions",
         "company": "WebEyeCraft",
         "description": "Corporate website showcasing interior fit-out services, project portfolio, and turnkey solutions with a modern and responsive design.",
         "tech": [
@@ -170,7 +183,7 @@
             "Tailwind CSS",
             "GSAP"
         ],
-        "image": "/assets/images/projects/westline.png",
+        "image": "/assets/images/projects/westline.webp",
         "liveUrl": "https://www.westline.ae/"
     }
 ]

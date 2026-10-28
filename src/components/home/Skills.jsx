@@ -133,6 +133,7 @@ function Skills() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
+                aria-pressed={activeTab === tab}
                 className={`whitespace-nowrap px-5 py-2 text-sm font-medium border lg:border-none  rounded-full transition-all duration-300 ${
                   index === 2
                     ? "max-md:col-span-2 max-md:justify-self-center"
@@ -164,7 +165,10 @@ function Skills() {
               style={{ "--d": `${Math.min(index * 90, 700)}ms` }}
               className="sk-card group bg-secondary text-on-secondary p-6 md:p-8 rounded-2xl transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-secondary/40 border-2 border-primary"
             >
-              <div className="sk-icon mb-4 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+              <div
+                aria-hidden="true"
+                className="sk-icon mb-4 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
+              >
                 {iconMap[skill.icon]}
               </div>
 

@@ -44,22 +44,26 @@ export default function MovableCards() {
   const services = [
     {
       title: "Website Optimization & Redesign",
-      image: "/assets/images/services/seo.jpg",
+      image: "/assets/images/services/website-optimization.webp",
+      alt: "Website optimization and redesign service for improved user experience and modern web design",
       rotate: "12deg",
     },
     {
       title: "Admin Dashboard Development",
-      image: "/assets/images/services/admin-dashboard.jpg",
+      image: "/assets/images/services/admin-dashboard.webp",
+      alt: "Custom admin dashboard development with a clean and organized user interface",
       rotate: "8deg",
     },
     {
       title: "Responsive UI Design",
-      image: "/assets/images/services/resppp.png",
+      image: "/assets/images/services/responsive-design.webp",
+      alt: "Responsive user interface design for mobile, tablet, and desktop screens",
       rotate: "-10deg",
     },
     {
       title: "Front-End Web Development",
-      image: "/assets/images/services/f1.png",
+      image: "/assets/images/services/frontend-development.webp",
+      alt: "Front-end web development using modern web technologies and responsive layouts",
       rotate: "-2deg",
     },
   ];
@@ -76,7 +80,7 @@ export default function MovableCards() {
           io.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -167,12 +171,12 @@ export default function MovableCards() {
         ref={contentRef}
         className="absolute top-8 flex flex-col items-center text-center px-4 py-6"
       >
-        <span
+        <h2
           style={{ "--d": "100ms" }}
           className="mv-up lg:text-[38px] text-[26px] font-bold text-secondary font-primary tracking-wide "
         >
           Our Services
-        </span>
+        </h2>
 
         <p
           style={{ "--d": "250ms" }}
@@ -186,7 +190,7 @@ export default function MovableCards() {
       </div>
 
       {/* Main Heading (lines slide up from a mask) */}
-      <h2
+      <h3
         ref={mainHeadingRef}
         className="text-center font-primary select-none font-semibold text-[#000080] leading-tight
         md:text-[clamp(2rem,7vw,6rem)] lg:text-[50px] text-[30px] lg:mt-10 mt-24"
@@ -201,7 +205,7 @@ export default function MovableCards() {
             Solutions
           </span>
         </span>
-      </h2>
+      </h3>
 
       {/* Image Stack */}
       <div
@@ -239,9 +243,10 @@ export default function MovableCards() {
               <div className="relative w-full h-full rounded-[16px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-2xl border-2 border-[#C2BFBF] bg-white">
                 <Image
                   src={service.image}
-                  alt={service.title}
+                  alt={service.alt}
+                  title={service.title}
                   fill
-                  priority
+                  sizes="(max-width: 767px) 180px, (max-width: 1023px) 250px, 240px"
                   className="object-cover"
                 />
 

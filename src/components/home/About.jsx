@@ -36,13 +36,14 @@ function About() {
         <div className="flex flex-col lg:flex-row items-center">
           {/* IMAGE */}
           <div className="w-full lg:w-1/2 flex justify-center">
-            <div className="about-image relative w-[280px] h-[350px] md:w-[420px] md:h-[600px]">
+            <div className="about-image relative w-[280px] h-[350px] md:w-[420px] md:h-[610px]">
               <Image
-                src="/assets/images/idcard-1.png"
-                alt="Developer Salman"
+                src="/assets/images/id-card.webp"
+                alt="Muhammed Salman-Web Developer ID card portrait"
+                title="Muhammed Salman, Web Developer"
                 fill
+                sizes="(max-width: 767px) 280px, 420px"
                 className="object-cover object-top"
-                priority
               />
             </div>
           </div>
@@ -95,15 +96,17 @@ function About() {
               className="about-item mt-6 flex flex-wrap justify-center lg:justify-start items-center gap-6"
               style={{ "--about-delay": "1400ms" }}
             >
-              <Link
+              <a
                 href="/resume/muhammed_salman_.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                title="View and Download Muhammed Salman's Resume (PDF)"
+                aria-label="View and download Muhammed Salman's CV (PDF)"
                 className="flex items-center gap-2 bg-secondary text-on-secondary px-4 lg:px-6 py-3 rounded-xl shadow-md hover:bg-secondary transition duration-300"
               >
-                <FaDownload />
+                <FaDownload aria-hidden="true" />
                 Download CV
-              </Link>
+              </a>
             </div>
           </div>
         </div>

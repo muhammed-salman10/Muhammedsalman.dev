@@ -19,9 +19,21 @@ export default function GridCards() {
     {
       title: "Front-End Development",
       images: [
-        "/assets/images/services/f3.png",
-        "/assets/images/services/f2.png",
-        "/assets/images/services/f1.png",
+        {
+          src: "/assets/images/services/frontend-development-1.webp",
+          alt: "Front-end web development interface built with modern web technologies",
+          title: "Front-End Web Development",
+        },
+        {
+          src: "/assets/images/services/frontend-development-2.webp",
+          alt: "Modern website interface showcasing front-end development",
+          title: "Modern Front-End Interface",
+        },
+        {
+          src: "/assets/images/services/frontend-development.webp",
+          alt: "Front-end development project with a responsive user interface",
+          title: "Front-End Development Project",
+        },
       ],
       description: "Modern, scalable web applications using React & Next.js.",
       details:
@@ -36,9 +48,21 @@ export default function GridCards() {
     {
       title: "Responsive UI Development",
       images: [
-        "/assets/images/services/r1.png",
-        "/assets/images/services/resppp.png",
-        "/assets/images/services/responsive-2.jpg",
+        {
+          src: "/assets/images/services/responsive-design-1.webp",
+          alt: "Responsive website layout adapted for mobile, tablet, and desktop screens",
+          title: "Responsive Website Design",
+        },
+        {
+          src: "/assets/images/services/responsive-design.webp",
+          alt: "Responsive user interface designed for multiple screen sizes",
+          title: "Responsive UI Design",
+        },
+        {
+          src: "/assets/images/services/responsive-design-2.webp",
+          alt: "Mobile-first web interface with a flexible responsive layout",
+          title: "Mobile-First UI Development",
+        },
       ],
       description: "Mobile-first responsive interfaces across all devices.",
       details:
@@ -53,9 +77,21 @@ export default function GridCards() {
     {
       title: "Admin Dashboard Development",
       images: [
-        "/assets/images/services/admin-dashboard.jpg",
-        "/assets/images/services/admin-dashboard-1.jpg",
-        "/assets/images/services/dashboard-2.jpg",
+        {
+          src: "/assets/images/services/admin-dashboard.webp",
+          alt: "Admin dashboard interface for website data and management",
+          title: "Admin Dashboard Development",
+        },
+        {
+          src: "/assets/images/services/admin-dashboard-2.webp",
+          alt: "Dashboard interface displaying structured data and analytics",
+          title: "Dashboard Analytics Interface",
+        },
+        {
+          src: "/assets/images/services/admin-dashboard-1.webp",
+          alt: "Admin panel interface with organized management tools",
+          title: "Custom Admin Panel",
+        },
       ],
       description: "Structured dashboards with analytics & data management.",
       details:
@@ -70,9 +106,21 @@ export default function GridCards() {
     {
       title: "Website Redesign & Optimization",
       images: [
-        "/assets/images/services/seo.jpg",
-        "/assets/images/services/seo-1.jpg",
-        "/assets/images/services/seo-2.jpg",
+        {
+          src: "/assets/images/services/website-optimization.webp",
+          alt: "Website redesign and optimization for a modern user experience",
+          title: "Website Redesign and Optimization",
+        },
+        {
+          src: "/assets/images/services/website-optimization-1.webp",
+          alt: "Website performance optimization and modern interface design",
+          title: "Website Performance Optimization",
+        },
+        {
+          src: "/assets/images/services/website-optimization-2.webp",
+          alt: "Modernized website layout with an improved visual structure",
+          title: "Modern Website Redesign",
+        },
       ],
       description: "Transforming outdated websites into modern platforms.",
       details:
@@ -176,10 +224,13 @@ export default function GridCards() {
         >
           <video
             src="/assets/videos/video-2.mp4"
+            title="Coding AI Video"
+            aria-label="Web development project showcase video by Muhammed Salman"
             autoPlay
             loop
             muted
             playsInline
+            preload="metadata"
             className="w-full h-full object-cover"
           />
         </div>
@@ -193,8 +244,9 @@ export default function GridCards() {
             >
               <div className="relative w-20 h-20 rounded-lg overflow-hidden">
                 <Image
-                  src={service.images[0]}
-                  alt={service.title}
+                  src={service.images[0].src}
+                  alt={service.images[0].alt}
+                  title={service.images[0].title}
                   fill
                   className="object-cover"
                 />
@@ -210,10 +262,12 @@ export default function GridCards() {
               </div>
 
               <button
+                type="button"
                 onClick={() => setActiveCard(service)}
-                className="text-[#000080] hover:scale-110 transition"
+                aria-label={`View ${service.title} details and images`}
+                className="shrink-0 text-[#000080] hover:scale-110 transition"
               >
-                <FaEye size={20} />
+                <FaEye size={20} aria-hidden="true" />
               </button>
             </div>
           ))}
@@ -227,39 +281,56 @@ export default function GridCards() {
           onClick={() => setActiveCard(null)}
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="service-modal-title"
             className="bg-white w-full max-w-md lg:max-w-[35%] rounded-2xl max-h-[75vh] overflow-y-auto p-6 relative"
             onClick={(e) => e.stopPropagation()}
           >
             <button
+              type="button"
               onClick={() => setActiveCard(null)}
+              aria-label="Close service details"
               className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
             >
               ✕
             </button>
 
-            <div className="relative w-full lg:h-82 h-55 rounded-xl overflow-hidden mb-4 mt-5">
+            <div className="relative w-full h-55 lg:h-82 rounded-xl overflow-hidden mb-4 mt-5">
               <Image
-                key={currentImageIndex}
-                src={activeCard.images[currentImageIndex]}
-                alt={activeCard.title}
+                key={activeCard.images[currentImageIndex].src}
+                src={activeCard.images[currentImageIndex].src}
+                alt={activeCard.images[currentImageIndex].alt}
+                title={activeCard.images[currentImageIndex].title}
                 fill
+                sizes="(max-width: 767px) 90vw, 450px"
                 className="object-cover transition-opacity duration-700"
               />
             </div>
 
-            {/* Dots */}
-            <div className="flex justify-center mt-2 gap-2">
-              {activeCard.images.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-2 h-2 rounded-full ${
+            {/* Gallery indicators */}
+            <div
+              className="flex justify-center mt-2 gap-2"
+              aria-label="Service image gallery"
+            >
+              {activeCard.images.map((image, index) => (
+                <button
+                  key={image.src}
+                  type="button"
+                  onClick={() => setCurrentImageIndex(index)}
+                  aria-label={`Show image ${index + 1} of ${activeCard.title}`}
+                  aria-pressed={currentImageIndex === index}
+                  className={`w-2 h-2 rounded-full transition ${
                     currentImageIndex === index ? "bg-[#000080]" : "bg-gray-300"
                   }`}
                 />
               ))}
             </div>
 
-            <h3 className="lg:text-2xl font-bold text-[#000080] mt-4 mb-3">
+            <h3
+              id="service-modal-title"
+              className="lg:text-2xl font-bold text-[#000080] mt-4 mb-3"
+            >
               {activeCard.title}
             </h3>
 
@@ -268,8 +339,8 @@ export default function GridCards() {
             </p>
 
             <ul className="list-disc pl-5 space-y-2 lg:text-base text-[14px] text-gray-600">
-              {activeCard.features.map((feature, i) => (
-                <li key={i}>{feature}</li>
+              {activeCard.features.map((feature) => (
+                <li key={feature}>{feature}</li>
               ))}
             </ul>
           </div>

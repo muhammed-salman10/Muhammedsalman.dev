@@ -69,6 +69,9 @@ function Hero() {
 
     setIsOpen(false);
 
+    // Update the browser URL without reloading the page
+    window.history.pushState(null, "", href);
+
     setTimeout(() => {
       const target = document.getElementById(targetId);
 
@@ -80,6 +83,80 @@ function Hero() {
       }
     }, 150);
   };
+
+  useEffect(() => {
+    const sectionIds = [
+      "about",
+      "education",
+      "skills",
+      "services",
+      "projects",
+      "blogs",
+      "contact-us",
+    ];
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const updateUrl = () => {
+      const hero = sectionRef.current;
+      const activationPoint = window.innerHeight * 0.4;
+
+      // Hero section active ആണെങ്കിൽ URL-ൽ hash വേണ്ട
+      if (hero) {
+        const heroBottom = hero.getBoundingClientRect().bottom;
+
+        if (heroBottom > activationPoint) {
+          const cleanUrl = window.location.pathname + window.location.search;
+
+          if (window.location.hash) {
+            window.history.replaceState(null, "", cleanUrl);
+          }
+
+          return;
+        }
+      }
+
+      // Viewport-ന്റെ activation point-ൽ വരുന്ന section കണ്ടെത്തുക
+      const activeSection = sections.find((section) => {
+        const rect = section.getBoundingClientRect();
+
+        return rect.top <= activationPoint && rect.bottom > activationPoint;
+      });
+
+      if (!activeSection) return;
+
+      const nextUrl =
+        window.location.pathname +
+        window.location.search +
+        `#${activeSection.id}`;
+
+      const currentUrl =
+        window.location.pathname +
+        window.location.search +
+        window.location.hash;
+
+      // URL മാറേണ്ടപ്പോൾ മാത്രം update ചെയ്യുക
+      if (currentUrl !== nextUrl) {
+        window.history.replaceState(null, "", nextUrl);
+      }
+    };
+
+    window.addEventListener("scroll", updateUrl, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", updateUrl);
+
+    // Page load ചെയ്യുമ്പോഴും URL ശരിയാക്കുക
+    updateUrl();
+
+    return () => {
+      window.removeEventListener("scroll", updateUrl);
+      window.removeEventListener("resize", updateUrl);
+    };
+  }, []);
 
   // Mouse parallax (updates CSS variables only, so no re-render)
   const handlePointerMove = (e) => {
@@ -118,6 +195,7 @@ function Hero() {
               <Link
                 key={link.id}
                 href={link.href}
+                title={link.title}
                 style={{ "--d": `${250 + i * 90}ms` }}
                 className="h-down relative group hover:text-gray-600 transition"
                 onClick={(e) => {
@@ -138,6 +216,11 @@ function Hero() {
           >
             <Link
               href="#contact-us"
+              title="Contact Muhammed Salman"
+              onClick={(e) => {
+                e.preventDefault();
+                handleMenuClick("#contact-us");
+              }}
               className="border border-primary rounded-full px-6 py-2 text-sm hover:bg-black hover:text-white transition"
             >
               LETS TALK
@@ -191,6 +274,7 @@ function Hero() {
                 <Link
                   key={link.id}
                   href={link.href}
+                  title={link.title}
                   style={{ "--d": `${80 + i * 70}ms` }}
                   className={`h-up transition-colors duration-300 ${
                     isDarkTheme ? "hover:text-gray-300" : "hover:text-gray-600"
@@ -206,10 +290,11 @@ function Hero() {
 
               <Link
                 href="#contact-us"
+                title="Contact Muhammed Salman"
                 style={{ "--d": `${80 + navbarLinks.length * 70}ms` }}
                 onClick={(e) => {
                   e.preventDefault();
-                  handleContactClick();
+                  handleMenuClick("#contact-us");
                 }}
                 className={`h-up mt-2 rounded-full px-6 py-3 text-sm border transition-all duration-300 text-center ${
                   isDarkTheme
@@ -233,7 +318,7 @@ function Hero() {
       >
         {/* Heading: letters slide up from a mask */}
         <h1
-          aria-label={TITLE}
+          aria-label="Portfolio of Muhammed Salman, Frontend Developer"
           className="relative text-[10vw] sm:text-[11vw] lg:text-[9vw] leading-none font-[900] tracking-[-0.04em] font-primary text-primary text-center"
         >
           {TITLE.split("").map((ch, i) => (
@@ -248,6 +333,11 @@ function Hero() {
             </span>
           ))}
         </h1>
+
+        <p className="sr-only">
+          Muhammed Salman is a frontend developer specializing in React,
+          Next.js, JavaScript, and Tailwind CSS.
+        </p>
 
         {/* Glass Left (Desktop Only) */}
         <div
@@ -285,7 +375,7 @@ function Hero() {
           />
         </div>
 
-        {/* Name */}
+        {/* role */}
         <div
           className="h-parallax absolute bottom-[15%] sm:bottom-[22%] lg:bottom-[27%] right-[8%] sm:right-[18%] lg:right-[23%]"
           style={{ "--depth": 12 }}
@@ -296,12 +386,12 @@ function Hero() {
           >
             <span className="w-2 h-2 sm:w-3 sm:h-3 bg-[#f5f5eb] rounded-full border" />
             <span className="bg-[#f5f5eb] text-black font-secondary px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-medium border">
-              Muhammed Salman
+              frontend developer
             </span>
           </div>
         </div>
 
-        {/* Year */}
+        {/* name */}
         <div
           className="h-parallax absolute top-[20%] sm:top-[25%] lg:top-[30%] left-[8%] sm:left-[18%] lg:left-[23%]"
           style={{ "--depth": -12 }}
@@ -312,7 +402,7 @@ function Hero() {
           >
             <span className="w-2 h-2 sm:w-3 sm:h-3 bg-[#f5f5eb] rounded-full border" />
             <span className="bg-[#f5f5eb] text-black font-secondary px-6 sm:px-10 py-1 rounded-full text-xs sm:text-sm font-medium border">
-              2026
+              Muhammed Salman
             </span>
           </div>
         </div>
@@ -325,9 +415,9 @@ function Hero() {
             style={{ "--d": "1600ms" }}
             className="h-up flex-1 px-5 sm:px-6 lg:pr-16 py-5 lg:py-8 lg:border-b lg:border-b-0 lg:border-r  text-left"
           >
-            <p className="mb-3 uppercase tracking-wider text-primary">
+            <h2 className="mb-3 uppercase tracking-wider text-primary">
               Expertise
-            </p>
+            </h2>
             <p className="leading-relaxed text-sm lg:text-[14px]">
               Frontend Development · UI Implementation · Responsive Design · Web
               Animation · SEO Fundamentals
@@ -338,9 +428,9 @@ function Hero() {
             style={{ "--d": "1720ms" }}
             className="h-up flex-1 px-5 sm:px-6 lg:px-16 py-5 lg:py-8 lg:border-b lg:border-b-0 lg:border-r  text-left lg:text-center"
           >
-            <p className="mb-3 uppercase tracking-wider text-primary">
+            <h2 className="mb-3 uppercase tracking-wider text-primary">
               WHAT I BUILD
-            </p>
+            </h2>
             <p className="leading-relaxed text-sm lg:text-[14px]">
               Modern websites and digital experiences for businesses, brands,
               and ideas that deserve a strong online presence.
@@ -351,38 +441,56 @@ function Hero() {
             style={{ "--d": "1840ms" }}
             className="h-up flex-1 px-5 sm:px-6 lg:pl-16 py-5 lg:py-8 text-left lg:text-center"
           >
-            <p className="mb-3 uppercase tracking-wider text-primary">
+            <h2 className="mb-3 uppercase tracking-wider text-primary">
               LET&apos;S CONNECT
-            </p>
+            </h2>
 
             <div className="flex flex-col gap-2">
-              <Link
+              <a
                 href="mailto:salmanmuhammed827@gmail.com"
+                title="Send an Email to Muhammed Salman"
+                aria-label="Send an email to Muhammed Salman at salmanmuhammed827@gmail.com"
                 className="flex items-center gap-2 text-sm lg:text-[14px] hover:opacity-80 transition-opacity"
               >
-                <MdEmail size={17} className="text-[#EA4335]" />
+                <MdEmail
+                  aria-hidden="true"
+                  size={17}
+                  className="text-[#EA4335]"
+                />
                 <span>salmanmuhammed827@gmail.com</span>
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="https://www.instagram.com/freekicker_10/"
                 target="_blank"
+                title="Visit Muhammed Salman on Instagram"
+                aria-label="Visit Muhammed Salman's Instagram profile"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm lg:text-[14px] hover:opacity-80 transition-opacity"
               >
-                <FaInstagram size={16} className="text-[#E4405F]" />
+                <FaInstagram
+                  aria-hidden="true"
+                  size={16}
+                  className="text-[#E4405F]"
+                />
                 <span>freekicker_10</span>
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="https://www.linkedin.com/in/muhammed-salman-dev/"
                 target="_blank"
+                title="Visit Muhammed Salman on LinkedIn"
+                aria-label="Visit Muhammed Salman's LinkedIn profile"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm lg:text-[14px] hover:opacity-80 transition-opacity"
               >
-                <FaLinkedinIn size={16} className="text-[#0A66C2]" />
+                <FaLinkedinIn
+                  aria-hidden="true"
+                  size={16}
+                  className="text-[#0A66C2]"
+                />
                 <span>muhammed-salman-dev</span>
-              </Link>
+              </a>
             </div>
           </div>
         </div>

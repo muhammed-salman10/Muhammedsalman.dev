@@ -71,11 +71,15 @@ export default function FormSubmission() {
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* Name */}
       <div>
-        <label className="block text-[#000080] font-secondary text-sm mb-2">
+        <label
+          htmlFor="contact-name"
+          className="block text-[#000080] font-secondary text-sm mb-2"
+        >
           Your Name
         </label>
 
         <input
+          id="contact-name"
           type="text"
           name="name"
           required
@@ -94,11 +98,15 @@ export default function FormSubmission() {
 
       {/* Email */}
       <div>
-        <label className="block text-[#000080] font-secondary text-sm mb-2">
+        <label
+          htmlFor="contact-email"
+          className="block text-[#000080] font-secondary text-sm mb-2"
+        >
           Your Email
         </label>
 
         <input
+          id="contact-email"
           type="email"
           name="email"
           required
@@ -117,11 +125,15 @@ export default function FormSubmission() {
 
       {/* Message */}
       <div>
-        <label className="block text-[#000080] font-secondary text-sm mb-2">
+        <label
+          htmlFor="contact-message"
+          className="block text-[#000080] font-secondary text-sm mb-2"
+        >
           Share your thoughts
         </label>
 
         <textarea
+          id="contact-message"
           name="message"
           rows={3}
           required
@@ -137,8 +149,6 @@ export default function FormSubmission() {
           "
         />
       </div>
-
-      {/* Submit Button */}
 
       {/* Submit Button */}
       <button

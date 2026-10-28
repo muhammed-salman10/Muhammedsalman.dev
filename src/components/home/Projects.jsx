@@ -207,8 +207,10 @@ function Portfolio() {
                     {/* Image */}
                     <Image
                       src={project.image}
-                      alt={project.title}
+                      alt={project.alt}
+                      title={project.title}
                       fill
+                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
                       className="object-cover object-bottom rounded-2xl"
                     />
 
@@ -257,6 +259,8 @@ function Portfolio() {
                         <a
                           href={project.liveUrl}
                           target="_blank"
+                          title={`Visit ${project.title} Live Website`}
+                          aria-label={`Visit ${project.title} live website`}
                           rel="noopener noreferrer"
                           /* FIX: don't let the tap bubble up to the card's flip handler */
                           onClick={(e) => e.stopPropagation()}

@@ -300,8 +300,10 @@ function Blogs() {
               <div className="relative w-full h-[420px] rounded-2xl overflow-hidden">
                 <Image
                   src={featured.image}
-                  alt={featured.title}
+                  title={featured.title}
+                  alt={featured.alt}
                   fill
+                  sizes="(max-width: 1023px) 100vw, 66vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
@@ -330,6 +332,8 @@ function Blogs() {
                 <Link
                   href={featured.url}
                   target="_blank"
+                  title={`${featured.buttonText} — Read ${featured.title}`}
+                  aria-label={`${featured.buttonText}: Read ${featured.title}`}
                   rel="noopener noreferrer"
                   className="mt-9 inline-block bg-[#000080] text-white text-[12px] px-4 py-2 rounded-full hover:bg-secondary/90 transition"
                 >
@@ -350,7 +354,8 @@ function Blogs() {
                   <div className="relative w-full h-[180px] rounded-xl overflow-hidden">
                     <Image
                       src={blog.image}
-                      alt={blog.title}
+                      title={blog.title}
+                      alt={blog.alt}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
@@ -378,6 +383,8 @@ function Blogs() {
                     <Link
                       href={blog.url}
                       target="_blank"
+                      title={`${blog.buttonText} — Read ${blog.title}`}
+                      aria-label={`${blog.buttonText}: Read ${blog.title}`}
                       rel="noopener noreferrer"
                       className="mt-4 inline-block bg-[#000080] text-white text-[12px] px-4 py-2 rounded-full hover:bg-secondary/90 transition"
                     >
@@ -401,7 +408,8 @@ function Blogs() {
                 <div className="relative w-full h-[240px] rounded-xl overflow-hidden">
                   <Image
                     src={blog.image}
-                    alt={blog.title}
+                    title={blog.title}
+                    alt={blog.alt}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -420,6 +428,8 @@ function Blogs() {
                 <Link
                   href={blog.url}
                   target="_blank"
+                  title={`${blog.buttonText} — Read ${blog.title}`}
+                  aria-label={`${blog.buttonText}: Read ${blog.title}`}
                   rel="noopener noreferrer"
                   className="mt-5 inline-block bg-[#000080] text-white text-[12px] px-4 py-2 rounded-full hover:bg-secondary/90 transition"
                 >
@@ -436,6 +446,8 @@ function Blogs() {
               <Link
                 href="https://medium.com/@salmanmuhammed827"
                 target="_blank"
+                title="Explore Muhammed Salman's Articles on Medium"
+                aria-label="Explore Muhammed Salman's Articles on Medium"
                 rel="noopener noreferrer"
                 className="bg-[#000080] text-white text-[16px] px-6 py-2.5 rounded-full hover:bg-secondary/90 transition"
               >
@@ -462,7 +474,8 @@ function Blogs() {
                 <div className="relative w-full h-[150px] rounded-xl overflow-hidden">
                   <Image
                     src={blog.image}
-                    alt={blog.title}
+                    title={blog.title}
+                    alt={blog.alt}
                     fill
                     className="object-cover pointer-events-none"
                     draggable={false}
@@ -483,6 +496,8 @@ function Blogs() {
                   href={blog.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title={`${blog.buttonText} — Read ${blog.title}`}
+                  aria-label={`${blog.buttonText}: Read ${blog.title}`}
                   className="inline-block bg-[#000080] text-white text-[11px] px-4 py-1.5 rounded-full hover:bg-secondary/90 transition"
                 >
                   {blog.buttonText}
@@ -498,6 +513,8 @@ function Blogs() {
               href="https://medium.com/@salmanmuhammed827"
               target="_blank"
               rel="noopener noreferrer"
+              title="Explore Muhammed Salman's Articles on Medium"
+              aria-label="Explore Muhammed Salman's Articles on Medium"
               className="bg-[#000080] text-white text-[14px] px-5 py-2 rounded-full hover:bg-secondary/90 transition"
             >
               Explore More

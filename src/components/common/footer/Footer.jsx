@@ -11,9 +11,9 @@ function Footer() {
     <footer className="bg-[var(--footer-bg)] text-[var(--footer-text)]">
       <div className="max-w-7xl mx-auto px-6">
         {/* Title */}
-        <h1 className="text-center text-2xl md:text-3xl py-10 font-semibold tracking-wide font-primary">
-          Portfolio
-        </h1>
+        <p className="text-center text-2xl md:text-3xl py-10 font-semibold tracking-wide font-primary">
+          Muhammed Salman
+        </p>
 
         {/* Navigation Links */}
         <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base font-secondary">
@@ -21,6 +21,8 @@ function Footer() {
             <a
               key={link.id}
               href={link.href}
+              title={`Go to ${link.label.charAt(0) + link.label.slice(1).toLowerCase()} section`}
+              aria-label={`Navigate to ${link.label.charAt(0) + link.label.slice(1).toLowerCase()} section`}
               className="relative group transition duration-300 hover:text-gray-600"
             >
               {link.label}
@@ -35,6 +37,8 @@ function Footer() {
           <Link
             href="mailto:salmanmuhammed827@gmail.com"
             className="flex items-center gap-2 hover:text-gray-600 transition block lg:hidden"
+            title="Send an Email to Muhammed Salman"
+            aria-label="Send an email to Muhammed Salman at salmanmuhammed827@gmail.com"
           >
             <FaEnvelope className="text-lg " />
             <span className="break-all text-[12px] ">
@@ -45,6 +49,8 @@ function Footer() {
           {/* Phone */}
           <Link
             href="tel:+919539717792"
+            title="Call Muhammed Salman"
+            aria-label="Call Muhammed Salman at +91 9539717792"
             className="flex items-center gap-2 hover:text-white transition block lg:hidden"
           >
             <FaPhone className="text-lg" />
@@ -61,6 +67,8 @@ function Footer() {
           {/* Email – Desktop only */}
           <Link
             href="mailto:salmanmuhammed827@gmail.com"
+            title="Send an Email to Muhammed Salman"
+            aria-label="Send an email to Muhammed Salman at salmanmuhammed827@gmail.com"
             className="hidden lg:flex items-center gap-2  transition"
           >
             <FaEnvelope className="text-lg" />
@@ -83,6 +91,8 @@ function Footer() {
           {/* Phone – Desktop only */}
           <Link
             href="tel:+919539717792"
+            title="Call Muhammed Salman"
+            aria-label="Call Muhammed Salman at +91 9539717792"
             className="hidden lg:flex items-center gap-2  transition"
           >
             <FaPhone className="text-lg" />

@@ -46,9 +46,15 @@ export default function Contact() {
            Desktop: form from the LEFT, image from the RIGHT
            Mobile : both rise from the bottom, each when it appears */
         gsap.set(head, { opacity: 0, y: 40 });
-        gsap.set(form, isDesktop ? { opacity: 0, x: -120 } : { opacity: 0, y: 80 });
+        gsap.set(
+          form,
+          isDesktop ? { opacity: 0, x: -120 } : { opacity: 0, y: 80 },
+        );
         gsap.set(formItems, { opacity: 0, y: 30 });
-        gsap.set(image, isDesktop ? { opacity: 0, x: 120 } : { opacity: 0, y: 80 });
+        gsap.set(
+          image,
+          isDesktop ? { opacity: 0, x: 120 } : { opacity: 0, y: 80 },
+        );
         gsap.set(zoom, { scale: 1.3 });
         gsap.set(overlay, { opacity: 0, y: 30 });
         gsap.set(blobs, { opacity: 0, scale: 0.5 });
@@ -87,7 +93,11 @@ export default function Contact() {
             onComplete: () => pulse(formBlob),
           })
           .to(form, { opacity: 1, x: 0, y: 0, duration: 1.1 })
-          .to(formItems, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 }, "-=0.5")
+          .to(
+            formItems,
+            { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 },
+            "-=0.5",
+          )
           .to(formBlob, { opacity: 1, scale: 1, duration: 1.2 }, "<");
 
         const imageTl = gsap
@@ -104,7 +114,11 @@ export default function Contact() {
             delay: isDesktop ? 0.15 : 0,
           })
           .to(zoom, { scale: 1, duration: 1.8 }, "<")
-          .to(overlay, { opacity: 1, y: 0, duration: 0.8, stagger: 0.14 }, "-=0.7")
+          .to(
+            overlay,
+            { opacity: 1, y: 0, duration: 0.8, stagger: 0.14 },
+            "-=0.7",
+          )
           .to(imageBlob, { opacity: 1, scale: 1, duration: 1.2 }, "<");
 
         /* ---------- Triggers (IntersectionObserver = real screen position) ---------- */
@@ -117,7 +131,7 @@ export default function Contact() {
                 cb();
               }
             },
-            { threshold, rootMargin: `0px 0px ${margin} 0px` }
+            { threshold, rootMargin: `0px 0px ${margin} 0px` },
           );
           io.observe(el);
           observers.push(io);
@@ -141,11 +155,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <section
-      id="contact-us"
-      ref={sectionRef}
-      className="ct-pre py-16 lg:py-10"
-    >
+    <section id="contact-us" ref={sectionRef} className="ct-pre py-16 lg:py-10">
       <style>{contactCSS}</style>
 
       <div ref={headRef} className="text-center max-w-2xl mx-auto">
@@ -187,12 +197,12 @@ export default function Contact() {
               className="ct-h absolute -top-6 -left-6 w-20 h-20 bg-black/10 rounded-full blur-2xl"
             />
 
-            <h2
+            <h3
               data-ct="fi"
               className="ct-h lg:text-3xl text-[22px] font-semibold mb-4 font-primary text-[#000080]"
             >
               Let’s Talk !
-            </h2>
+            </h3>
 
             <p
               data-ct="fi"
@@ -221,9 +231,11 @@ export default function Contact() {
               {/* zoom wrapper: GSAP zoom-out on entry, your hover zoom stays on the Image */}
               <div data-ct="zoom" className="absolute inset-0">
                 <Image
-                  src="/assets/images/contact.png"
-                  alt="Contact"
+                  src="/assets/images/contact.webp"
+                  title="contact"
+                  alt="contact"
                   fill
+                  sizes="(max-width: 767px) 100vw, 45vw"
                   className="object-cover hover:scale-105 transition duration-700 "
                 />
               </div>

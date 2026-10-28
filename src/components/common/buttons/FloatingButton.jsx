@@ -69,7 +69,8 @@ function FloatingButton() {
             href={cta.link}
             target={cta.link.startsWith("/") ? "_self" : "_blank"}
             rel="noopener noreferrer"
-            title={cta.title}
+            title={`${cta.title} - ${cta.link.startsWith("/") ? "Navigate to page" : "Open external link"}`}
+            aria-label={`${cta.title}${cta.link.startsWith("/") ? "" : " (opens in a new tab)"}`}
             className={`
               absolute
               right-0

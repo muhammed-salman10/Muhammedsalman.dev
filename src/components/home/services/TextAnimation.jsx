@@ -65,19 +65,17 @@ function TextAnimation() {
               }`}
             >
               <Image
-                src="/assets/images/services/contact-3.jpeg"
-                alt="UI Preview"
+                src="/assets/images/office-hours.webp"
+                alt="Muhammed Salman, Web Developer, seated in an office"
+                title="Muhammed Salman-Web Developer"
                 fill
                 className="object-cover"
                 priority
               />
             </span>
-
             <span className="text-[#000080] ml-2">Performance,</span>
           </span>
-
           <span className="text-[#000080]">Scalability</span>
-
           <span
             className={`relative ml-2 transition-all duration-700 ease-out origin-left ${
               animate
@@ -86,44 +84,62 @@ function TextAnimation() {
             }`}
           >
             <Image
-              src="/assets/images/services/vision.jpg"
-              alt="Service Icon"
+              src="/assets/images/services/vision.webp"
+              alt="Visual representation of a modern web development vision"
+              title="Modern Web Development Vision"
               fill
               className="drop-shadow-lg object-contain"
               priority
             />
           </span>
-
           <span className="text-[#000080] ml-2">Modern Interfaces.</span>
         </p>
 
         {/* 🔥 Animated Circular Images */}
+
         <div className="flex items-center justify-end px-8 mt-6">
           {[
-            "/assets/images/services/front-end-development.jpg",
-            "/assets/images/services/responsive.jpg",
-            "/assets/images/services/admin-dashboard.jpg",
-            "/assets/images/services/seo.jpg",
-          ].map((src, i) => (
+            {
+              src: "/assets/images/services/frontend-development-1.webp",
+              alt: "Front-end web development with modern user interfaces",
+              title: "Front-End Web Development",
+            },
+            {
+              src: "/assets/images/services/responsive-design.webp",
+              alt: "Responsive website design for mobile, tablet, and desktop",
+              title: "Responsive Web Design",
+            },
+            {
+              src: "/assets/images/services/admin-dashboard.webp",
+              alt: "Admin dashboard interface for managing website data",
+              title: "Admin Dashboard Development",
+            },
+            {
+              src: "/assets/images/services/website-optimization.webp",
+              alt: "Website optimization for improved performance and user experience",
+              title: "Website Optimization",
+            },
+          ].map((service, i) => (
             <div
-              key={i}
+              key={service.src}
               className={`relative rounded-full overflow-hidden transition-all duration-700 ease-out origin-right
-              ${
-                animate
-                  ? "opacity-100 scale-100 w-[60px] h-[60px] sm:w-[75px] sm:h-[75px] md:w-[90px] md:h-[90px] animate-fade-in-right"
-                  : "opacity-0 scale-0 w-0 h-0"
-              }`}
+        ${
+          animate
+            ? "opacity-100 scale-100 w-[60px] h-[60px] sm:w-[75px] sm:h-[75px] md:w-[90px] md:h-[90px] animate-fade-in-right"
+            : "opacity-0 scale-0 w-0 h-0"
+        }`}
               style={{
                 marginLeft: i === 0 ? "0px" : "-20px",
                 transitionDelay: animate ? `${i * 150}ms` : "0ms",
               }}
             >
               <Image
-                src={src}
-                alt="Service Preview"
+                src={service.src}
+                alt={service.alt}
+                title={service.title}
                 fill
+                sizes="(max-width: 639px) 60px, (max-width: 767px) 75px, 90px"
                 className="object-cover"
-                priority
               />
             </div>
           ))}

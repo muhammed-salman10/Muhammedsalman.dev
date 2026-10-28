@@ -34,9 +34,10 @@ export default function Achievements() {
   const achievements = [
     {
       title: "Employee of the Month",
+      alt: "Muhammed Salman receiving Employee of the Month recognition for his professional performance and contribution",
       description:
         "Recognized for my dedication, performance, and contribution to the team.",
-      image: "/assets/images/achievements/emp.png",
+      image: "/assets/images/achievements/emp.webp",
       instagramUrl: "https://www.instagram.com/reel/DK1hbMDy2gE/",
       video: "",
       socialLinks: [],
@@ -44,9 +45,10 @@ export default function Achievements() {
     },
     {
       title: "Professional Certification",
+      alt: "Professional certification recognizing completed training and web development skills",
       description:
         "Successfully completed professional training, strengthening my technical knowledge and web development skills.",
-      image: "/assets/images/achievements/certficates.png",
+      image: "/assets/images/achievements/certificate-landscape.webp",
       instagramUrl: "",
       video: "",
       socialLinks: [],
@@ -54,9 +56,10 @@ export default function Achievements() {
     },
     {
       title: "Project Presentation",
+      alt: "Muhammed Salman presenting web development projects and demonstrating frontend development skills",
       description:
         "Presented my web development projects, showcasing my frontend expertise, technical skills, and creative approach to building modern web experiences.",
-      image: "/assets/images/achievements/presentation1.png",
+      image: "/assets/images/achievements/presentation.webp",
       instagramUrl: "",
       video: "/assets/videos/video.mp4",
       socialLinks: [],
@@ -64,9 +67,10 @@ export default function Achievements() {
     },
     {
       title: "Future Milestones",
+      alt: "Visual representation of continuous learning, professional growth, and future web development goals",
       description:
         "Focused on future goals, embracing modern technologies, building bigger projects, and continuously improving my skills to reach the next level in web development.",
-      image: "/assets/images/achievements/growth.jpg",
+      image: "/assets/images/achievements/growth.webp",
       instagramUrl: "",
       video: "/assets/videos/video3.mp4",
     },
@@ -319,8 +323,9 @@ export default function Achievements() {
               >
                 <div data-ac="mainimg" className="relative w-full h-full">
                   <Image
-                    src="/assets/images/contact-1.jpeg"
-                    alt="Developer workspace"
+                    src="/assets/images/achievements/quiet-builder.webp"
+                    alt="Muhammed Salman working on web development projects"
+                    title="Quiet Builder"
                     fill
                     className="object-cover rounded-2xl"
                     priority
@@ -335,8 +340,9 @@ export default function Achievements() {
             >
               <div className="relative w-full h-full animate-floatX">
                 <Image
-                  src="/assets/images/contact-2.jpeg"
-                  alt="Professional collaboration"
+                  src="/assets/images/achievements/debug-hour.webp"
+                  alt="working on web development projects at a coding workstation"
+                  title="Debug Hours"
                   fill
                   className="object-cover rounded-2xl md:rounded-none border-0 md:border-8 border-[#e9eae5]"
                 />
@@ -348,20 +354,20 @@ export default function Achievements() {
             ref={textRef}
             className="w-full md:w-1/2 space-y-4 md:space-y-6 text-center md:text-left"
           >
-            <p
+            <h2
               data-ac="text"
               className="ac-h text-secondary font-primary font-bold tracking-wide text-[22px] md:text-[22px]"
             >
               Achievements and Awards
-            </p>
+            </h2>
 
-            <h2
+            <h3
               data-ac="text"
               className="ac-h font-secondary text-secondary text-xl md:text-[30px] leading-snug"
             >
               Milestones that reflect <br className="hidden md:block" />
               dedication and growth
-            </h2>
+            </h3>
 
             <p
               data-ac="text"
@@ -437,7 +443,8 @@ export default function Achievements() {
                     <div data-ac="cimg" className="relative w-full h-full">
                       <Image
                         src={item.image}
-                        alt={item.title}
+                        title={item.title}
+                        alt={item.alt}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         className={`object-cover transition-transform duration-500 group-hover:scale-110 ${
@@ -463,9 +470,9 @@ export default function Achievements() {
 
                   {/* Card content */}
                   <div className="p-4 md:p-5 flex-1">
-                    <h4 className="text-base md:text-lg font-semibold mb-2 text-white">
+                    <h3 className="text-base md:text-lg font-semibold mb-2 text-white">
                       {item.title}
-                    </h4>
+                    </h3>
 
                     <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-4">
                       {item.description}
@@ -489,6 +496,7 @@ export default function Achievements() {
                         href={item.instagramUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        title={`View ${item.title} on Instagram`}
                         aria-label={`View ${item.title} on Instagram`}
                         onClick={(event) => event.stopPropagation()}
                         className="inline-flex items-center gap-2 text-white hover:text-pink-400 transition-colors text-sm"
@@ -512,11 +520,11 @@ export default function Achievements() {
                             className="text-white hover:text-blue-400 transition-colors"
                           >
                             {social.platform === "LinkedIn" && (
-                              <FaLinkedinIn size={18} />
+                              <FaLinkedinIn size={18} aria-hidden="true" />
                             )}
 
                             {social.platform === "Instagram" && (
-                              <FaInstagram size={18} />
+                              <FaInstagram size={18} aria-hidden="true" />
                             )}
                           </a>
                         ))}
@@ -555,8 +563,9 @@ export default function Achievements() {
             <div className="relative mx-auto h-[70vh] w-full sm:h-[82vh]">
               {/* Mobile certificate */}
               <Image
-                src="/assets/images/achievements/certficate-2.png"
-                alt="Certificate - Mobile"
+                src="/assets/images/achievements/certificate-potraite.webp"
+                alt="Muhammed Salman P N's professional certificate from Luminar Technolab"
+                title="Muhammed Salman P N-Luminar Technolab Certificate"
                 fill
                 sizes="100vw"
                 className="object-contain sm:hidden"
@@ -565,8 +574,9 @@ export default function Achievements() {
 
               {/* Desktop and tablet certificate */}
               <Image
-                src="/assets/images/achievements/certficates.png"
-                alt="Muhammed Salman P N - Luminar Technolab Certificate"
+                src="/assets/images/achievements/certificate-landscape.webp"
+                alt="Muhammed Salman P N's professional certificate from Luminar Technolab"
+                title="Muhammed Salman P N-Luminar Technolab Certificate"
                 fill
                 sizes="(max-width: 768px) 96vw, 90vw"
                 className="hidden object-contain sm:block"
@@ -602,6 +612,20 @@ export default function Achievements() {
             <video
               key={activeVideo}
               src={activeVideo}
+              title={
+                activeVideo === "/assets/videos/video.mp4"
+                  ? "Project Presentation Video"
+                  : activeVideo === "/assets/videos/video3.mp4"
+                    ? "Future Milestones Video"
+                    : "Achievement Video"
+              }
+              aria-label={
+                activeVideo === "/assets/videos/video.mp4"
+                  ? "Watch the project presentation video"
+                  : activeVideo === "/assets/videos/video3.mp4"
+                    ? "Watch the future milestones video"
+                    : "Watch the achievement video"
+              }
               controls
               autoPlay
               playsInline

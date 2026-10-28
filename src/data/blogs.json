@@ -7,9 +7,10 @@
     "date": "12 Dec, 2022",
     "saves": "23 saves",
     "title": "How Artificial Intelligence is Transforming Modern Development",
+    "alt": "AI-powered coding assistant helping developers write, debug, and optimize code",
     "description": "Discover how AI-powered tools are enhancing productivity, automating debugging, and revolutionizing code generation in modern web development workflows.",
     "buttonText": "Read More",
-    "url":"https://medium.com/@salmanmuhammed827/ai-code-assistants-in-2025-do-they-make-developers-faster-38e89619fc2f"
+    "url": "https://medium.com/@salmanmuhammed827/ai-code-assistants-in-2025-do-they-make-developers-faster-38e89619fc2f"
   },
   {
     "id": 2,
@@ -19,10 +20,10 @@
     "date": "15 Jan, 2023",
     "saves": "18 saves",
     "title": "Boosting Website Performance in 2026",
+    "alt": "React development and artificial intelligence integration for modern web applications",
     "description": "Learn advanced optimization strategies to improve Core Web Vitals, reduce load times, and deliver lightning-fast user experiences.",
     "buttonText": "Read More",
-    "url":"https://medium.com/@salmanmuhammed827/the-future-of-front-end-react-ai-integration-use-cases-40db6376e35b"
-
+    "url": "https://medium.com/@salmanmuhammed827/the-future-of-front-end-react-ai-integration-use-cases-40db6376e35b"
   },
   {
     "id": 3,
@@ -32,9 +33,10 @@
     "date": "10 Feb, 2023",
     "saves": "30 saves",
     "title": "User Interfaces with Tailwind CSS",
+    "alt": "Tailwind CSS utility classes for building responsive and consistent user interfaces",
     "description": "Explore how Tailwind CSS enables rapid UI development while maintaining scalability, consistency, and clean design systems.",
     "buttonText": "Read More",
-    "url":"https://medium.com/@salmanmuhammed827/tailwind-css-vs-css-modules-in-2025-which-should-you-choose-7edfe9a75254"
+    "url": "https://medium.com/@salmanmuhammed827/tailwind-css-vs-css-modules-in-2025-which-should-you-choose-7edfe9a75254"
   },
   {
     "id": 4,
@@ -44,9 +46,10 @@
     "date": "22 Mar, 2023",
     "saves": "12 saves",
     "title": "Understanding the Next.js App Router Architecture",
+    "alt": "Next.js App Router architecture illustrating layouts, nested routes, and server components",
     "description": "A complete guide to the Next.js App Router, covering layouts, nested routes, server components, and performance improvements.",
     "buttonText": "Read More",
-    "url":"https://medium.com/@salmanmuhammed827/why-everyones-switching-to-app-router-in-next-js-14-57bf9fb60b6a"
+    "url": "https://medium.com/@salmanmuhammed827/why-everyones-switching-to-app-router-in-next-js-14-57bf9fb60b6a"
   },
   {
     "id": 5,
@@ -56,9 +59,10 @@
     "date": "30 Mar, 2023",
     "saves": "16 saves",
     "title": "What’s New in React 19 for Frontend Developers",
+    "alt": "React 19 frontend development featuring modern React components and development tools",
     "description": "Explore the latest features in React 19, including performance enhancements, improved hooks, and better developer tooling.",
     "buttonText": "Read More",
-    "url":"https://medium.com/@salmanmuhammed827/whats-new-in-react-19-features-every-developer-should-know-a52755c64880"
+    "url": "https://medium.com/@salmanmuhammed827/whats-new-in-react-19-features-every-developer-should-know-a52755c64880"
   },
   {
     "id": 6,
@@ -68,8 +72,9 @@
     "date": "05 Apr, 2023",
     "saves": "20 saves",
     "title": "Why Next.js Dominates Modern Web Development",
+    "alt": "Next.js web development showcasing server components, rendering, and website optimization",
     "description": "Understand why Next.js continues to lead the frontend ecosystem with hybrid rendering, built-in optimization, and scalable architecture.",
     "buttonText": "Read More",
-    "url":"https://medium.com/@salmanmuhammed827/the-rise-of-server-components-in-next-js-are-you-ready-a3610e8c491d"
+    "url": "https://medium.com/@salmanmuhammed827/the-rise-of-server-components-in-next-js-are-you-ready-a3610e8c491d"
   }
 ]
