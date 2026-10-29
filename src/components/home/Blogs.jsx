@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import blogs from "@/src/data/blogs.json";
@@ -21,6 +22,7 @@ const blogsCSS = `
   .bl-pre .bl-hd,
   .bl-pre .bl-h {
     opacity: 1 !important;
+    transform: none !important;
   }
 }
 `;
@@ -43,15 +45,21 @@ function Blogs() {
   const bottomGridRef = useRef(null);
   const btnRef = useRef(null);
 
+  const [isPaused, setIsPaused] = useState(false);
+
   const featured = blogs.find((blog) => blog.type === "featured");
   const stacked = blogs.filter((blog) => blog.type === "stack");
   const gridBlogs = blogs.filter((blog) => blog.type === "grid");
-  const mobileBlogs = blogs.filter((blog) => MOBILE_BLOG_IDS.includes(blog.id));
 
-  // Generate descriptive link text for each article.
-  const getArticleLinkText = (title) => `Read article: ${title}`;
+  const mobileBlogs = blogs.filter((blog) =>
+    MOBILE_BLOG_IDS.includes(blog.id),
+  );
 
-  // Desktop entrance animations.
+  // Use meaningful link text from the existing blog data.
+  const getLinkTitle = (blog) =>
+    `${blog.buttonText} — Read ${blog.title}`;
+
+  // Desktop and heading entrance animations.
   useEffect(() => {
     const root = sectionRef.current;
 
@@ -67,7 +75,9 @@ function Blogs() {
       return;
     }
 
-    const query = (selector) => Array.from(root.querySelectorAll(selector));
+    const query = (selector) =>
+      Array.from(root.querySelectorAll(selector));
+
     const observers = [];
 
     const ctx = gsap.context(() => {
@@ -77,13 +87,31 @@ function Blogs() {
       const up = query('[data-bl="up"]');
       const btn = query('[data-bl="btn"]');
 
-      gsap.set(head, { opacity: 0, y: 40 });
+      gsap.set(head, {
+        opacity: 0,
+        y: 40,
+      });
 
       if (desktopQuery.matches) {
-        gsap.set(left, { opacity: 0, x: -140 });
-        gsap.set(right, { opacity: 0, x: 140 });
-        gsap.set(up, { opacity: 0, y: 100 });
-        gsap.set(btn, { opacity: 0, y: 30 });
+        gsap.set(left, {
+          opacity: 0,
+          x: -140,
+        });
+
+        gsap.set(right, {
+          opacity: 0,
+          x: 140,
+        });
+
+        gsap.set(up, {
+          opacity: 0,
+          y: 100,
+        });
+
+        gsap.set(btn, {
+          opacity: 0,
+          y: 30,
+        });
       }
 
       root.classList.remove("bl-pre");
@@ -100,7 +128,9 @@ function Blogs() {
       const topTimeline = gsap
         .timeline({
           paused: true,
-          defaults: { ease: "power3.out" },
+          defaults: {
+            ease: "power3.out",
+          },
         })
         .to(left, {
           opacity: 1,
@@ -175,7 +205,8 @@ function Blogs() {
     };
   }, []);
 
-  // Mobile slider: measure its width outside the animation loop.
+  // Mobile infinite slider.
+  // Cache the slider width instead of reading scrollWidth every frame.
   useEffect(() => {
     const slider = sliderRef.current;
 
@@ -194,7 +225,10 @@ function Blogs() {
       cachedHalfWidth = slider.scrollWidth / 2;
 
       if (cachedHalfWidth > 0) {
-        positionRef.current %= cachedHalfWidth;
+        positionRef.current =
+          ((positionRef.current % cachedHalfWidth) + cachedHalfWidth) %
+          cachedHalfWidth;
+
         lastAppliedPosition = -1;
       }
     };
@@ -202,14 +236,28 @@ function Blogs() {
     const applyTransform = () => {
       if (lastAppliedPosition === positionRef.current) return;
 
-      slider.style.transform = `translate3d(-${positionRef.current}px, 0, 0)`;
+      slider.style.transform =
+        `translate3d(-${positionRef.current}px, 0, 0)`;
+
       lastAppliedPosition = positionRef.current;
+    };
+
+    const getX = (event) => {
+      if (event.touches) {
+        return event.touches[0]?.clientX ?? startX.current;
+      }
+
+      return event.clientX;
     };
 
     const animate = () => {
       if (!active) return;
 
-      if (!isPausedRef.current && !isDragging.current && cachedHalfWidth > 0) {
+      if (
+        !isPausedRef.current &&
+        !isDragging.current &&
+        cachedHalfWidth > 0
+      ) {
         positionRef.current += SLIDER_SPEED;
 
         if (positionRef.current >= cachedHalfWidth) {
@@ -221,11 +269,6 @@ function Blogs() {
 
       animationFrame = window.requestAnimationFrame(animate);
     };
-
-    const getX = (event) =>
-      event.touches
-        ? (event.touches[0]?.clientX ?? startX.current)
-        : event.clientX;
 
     const handleStart = (event) => {
       if (event.type === "mousedown" && event.button !== 0) return;
@@ -247,7 +290,8 @@ function Blogs() {
       let nextPosition = startPosition.current + delta;
 
       nextPosition =
-        ((nextPosition % cachedHalfWidth) + cachedHalfWidth) % cachedHalfWidth;
+        ((nextPosition % cachedHalfWidth) + cachedHalfWidth) %
+        cachedHalfWidth;
 
       positionRef.current = nextPosition;
       applyTransform();
@@ -306,9 +350,11 @@ function Blogs() {
       slider.addEventListener("touchstart", handleStart, {
         passive: true,
       });
+
       slider.addEventListener("touchmove", handleMove, {
         passive: true,
       });
+
       slider.addEventListener("touchend", handleEnd);
       slider.addEventListener("touchcancel", handleEnd);
       slider.addEventListener("mousedown", handleStart);
@@ -331,6 +377,7 @@ function Blogs() {
     };
 
     updateMode();
+
     mobileQuery.addEventListener("change", updateMode);
 
     return () => {
@@ -340,16 +387,30 @@ function Blogs() {
     };
   }, []);
 
+  // Keep the pause state synchronized with the slider animation.
+  useEffect(() => {
+    isPausedRef.current = isPaused;
+  }, [isPaused]);
+
   if (!featured) return null;
 
   return (
-    <section id="blogs" ref={sectionRef} className="bl-pre py-10 lg:py-20">
+    <section
+      id="blogs"
+      ref={sectionRef}
+      aria-labelledby="blogs-heading"
+      className="bl-pre py-10 lg:py-20"
+    >
       <style>{blogsCSS}</style>
 
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
         {/* Section Header */}
-        <div ref={headRef} className="mx-auto mb-14 max-w-3xl text-center">
+        <div
+          ref={headRef}
+          className="mx-auto mb-14 max-w-3xl text-center"
+        >
           <h2
+            id="blogs-heading"
             data-bl="head"
             className="bl-hd mb-3 font-primary text-[22px] font-[700] text-secondary md:text-4xl lg:mb-6"
           >
@@ -368,9 +429,12 @@ function Blogs() {
 
         {/* Desktop View */}
         <div className="hidden lg:block">
-          <div ref={topGridRef} className="grid gap-6 lg:grid-cols-3">
+          <div
+            ref={topGridRef}
+            className="grid gap-6 lg:grid-cols-3"
+          >
             {/* Featured Blog */}
-            <div
+            <article
               data-bl="left"
               className="bl-h group rounded-3xl border border-[#000080] bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-xl lg:col-span-2"
             >
@@ -401,19 +465,20 @@ function Blogs() {
                 <Link
                   href={featured.url}
                   target="_blank"
-                  title={`Read the article: ${featured.title}`}
+                  title={getLinkTitle(featured)}
+                  aria-label={getLinkTitle(featured)}
                   rel="noopener noreferrer"
                   className="mt-9 inline-block max-w-full break-words rounded-full bg-[#000080] px-4 py-2 text-[12px] text-white transition hover:bg-secondary/90"
                 >
-                  {getArticleLinkText(featured.title)}
+                  {featured.buttonText}
                 </Link>
               </div>
-            </div>
+            </article>
 
             {/* Stacked Blogs */}
             <div className="flex flex-col gap-6">
               {stacked.map((blog) => (
-                <div
+                <article
                   key={blog.id}
                   data-bl="right"
                   className="bl-h group rounded-3xl border border-[#000080] bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-xl"
@@ -441,22 +506,26 @@ function Blogs() {
                     <Link
                       href={blog.url}
                       target="_blank"
-                      title={`Read the article: ${blog.title}`}
+                      title={getLinkTitle(blog)}
+                      aria-label={getLinkTitle(blog)}
                       rel="noopener noreferrer"
                       className="mt-4 inline-block max-w-full break-words rounded-full bg-[#000080] px-4 py-2 text-[12px] text-white transition hover:bg-secondary/90"
                     >
-                      {getArticleLinkText(blog.title)}
+                      {blog.buttonText}
                     </Link>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
 
           {/* Bottom Grid */}
-          <div ref={bottomGridRef} className="mt-8 grid gap-6 md:grid-cols-3">
+          <div
+            ref={bottomGridRef}
+            className="mt-8 grid gap-6 md:grid-cols-3"
+          >
             {gridBlogs.map((blog) => (
-              <div
+              <article
                 key={blog.id}
                 data-bl="up"
                 className="bl-h group rounded-3xl border border-[#000080] bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-xl"
@@ -483,27 +552,32 @@ function Blogs() {
                 <Link
                   href={blog.url}
                   target="_blank"
-                  title={`Read the article: ${blog.title}`}
+                  title={getLinkTitle(blog)}
+                  aria-label={getLinkTitle(blog)}
                   rel="noopener noreferrer"
                   className="mt-5 inline-block max-w-full break-words rounded-full bg-[#000080] px-4 py-2 text-[12px] text-white transition hover:bg-secondary/90"
                 >
-                  {getArticleLinkText(blog.title)}
+                  {blog.buttonText}
                 </Link>
-              </div>
+              </article>
             ))}
           </div>
 
-          {/* Explore More */}
-          <div ref={btnRef} className="mt-10 flex items-center justify-center">
+          {/* Explore More — original text and styling preserved */}
+          <div
+            ref={btnRef}
+            className="mt-10 flex items-center justify-center"
+          >
             <div data-bl="btn" className="bl-h">
               <Link
                 href="https://medium.com/@salmanmuhammed827"
                 target="_blank"
                 title="Explore Muhammed Salman's Articles on Medium"
+                aria-label="Explore Muhammed Salman's Articles on Medium"
                 rel="noopener noreferrer"
                 className="rounded-full bg-[#000080] px-6 py-2.5 text-[16px] text-white transition hover:bg-secondary/90"
               >
-                Explore more articles by Muhammed Salman on Medium
+                Explore More
               </Link>
             </div>
           </div>
@@ -516,7 +590,7 @@ function Blogs() {
             className="flex cursor-grab select-none gap-5 active:cursor-grabbing"
           >
             {[...mobileBlogs, ...mobileBlogs].map((blog, index) => (
-              <div
+              <article
                 key={`${blog.id}-${index}`}
                 className="w-[240px] flex-shrink-0 rounded-2xl border border-[#000080] bg-white p-4 shadow-sm"
               >
@@ -544,25 +618,27 @@ function Blogs() {
                   href={blog.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  title={`Read the article: ${blog.title}`}
+                  title={getLinkTitle(blog)}
+                  aria-label={getLinkTitle(blog)}
                   className="inline-block max-w-full break-words rounded-full bg-[#000080] px-4 py-1.5 text-[11px] text-white transition hover:bg-secondary/90"
                 >
-                  {getArticleLinkText(blog.title)}
+                  {blog.buttonText}
                 </Link>
-              </div>
+              </article>
             ))}
           </div>
 
-          {/* Mobile Explore More */}
+          {/* Mobile Explore More — original text and styling preserved */}
           <div className="mt-10 flex justify-center">
             <Link
               href="https://medium.com/@salmanmuhammed827"
               target="_blank"
               rel="noopener noreferrer"
               title="Explore Muhammed Salman's Articles on Medium"
+              aria-label="Explore Muhammed Salman's Articles on Medium"
               className="max-w-full rounded-full bg-[#000080] px-5 py-2 text-center text-[14px] text-white transition hover:bg-secondary/90"
             >
-              Explore more articles by Muhammed Salman on Medium
+              Explore More
             </Link>
           </div>
         </div>
