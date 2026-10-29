@@ -20,73 +20,104 @@ const achievementsCSS = `
   .ac-pre [data-ac="icon"] {
     transform: scale(0);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ac-pre .ac-h {
+      opacity: 1;
+    }
+
+    .ac-pre [data-ac="main"] {
+      clip-path: none;
+    }
+
+    .ac-pre [data-ac="icon"] {
+      transform: none;
+    }
+  }
 `;
+
+const achievements = [
+  {
+    title: "Employee of the Month",
+    alt: "Muhammed Salman receiving Employee of the Month recognition for his professional performance and contribution",
+    description:
+      "Recognized for my dedication, performance, and contribution to the team.",
+    image: "/assets/images/achievements/emp.webp",
+    instagramUrl: "https://www.instagram.com/reel/DK1hbMDy2gE/",
+    video: "",
+    socialLinks: [],
+    comingSoon: false,
+  },
+  {
+    title: "Professional Certification",
+    alt: "Professional certification recognizing completed training and web development skills",
+    description:
+      "Successfully completed professional training, strengthening my technical knowledge and web development skills.",
+    image: "/assets/images/achievements/certificate-landscape.webp",
+    instagramUrl: "",
+    video: "",
+    socialLinks: [],
+    comingSoon: false,
+  },
+  {
+    title: "Project Presentation",
+    alt: "Muhammed Salman presenting web development projects and demonstrating frontend development skills",
+    description:
+      "Presented my web development projects, showcasing my frontend expertise, technical skills, and creative approach to building modern web experiences.",
+    image: "/assets/images/achievements/presentation.webp",
+    instagramUrl: "",
+    video: "/assets/videos/video.mp4",
+    socialLinks: [],
+    comingSoon: false,
+  },
+  {
+    title: "Future Milestones",
+    alt: "Visual representation of continuous learning, professional growth, and future web development goals",
+    description:
+      "Focused on future goals, embracing modern technologies, building bigger projects, and continuously improving my skills to reach the next level in web development.",
+    image: "/assets/images/achievements/growth.webp",
+    instagramUrl: "",
+    video: "/assets/videos/video3.mp4",
+    socialLinks: [],
+    comingSoon: false,
+  },
+];
 
 export default function Achievements() {
   const [showCertificate, setShowCertificate] = useState(false);
   const [showProjectVideo, setShowProjectVideo] = useState(false);
-  const [activeVideo, setActiveVideo] = useState("/assets/videos/video.mp4");
+  const [activeVideo, setActiveVideo] = useState("");
 
   const sectionRef = useRef(null);
   const imagesRef = useRef(null);
   const textRef = useRef(null);
 
-  const achievements = [
-    {
-      title: "Employee of the Month",
-      alt: "Muhammed Salman receiving Employee of the Month recognition for his professional performance and contribution",
-      description:
-        "Recognized for my dedication, performance, and contribution to the team.",
-      image: "/assets/images/achievements/emp.webp",
-      instagramUrl: "https://www.instagram.com/reel/DK1hbMDy2gE/",
-      video: "",
-      socialLinks: [],
-      comingSoon: false,
-    },
-    {
-      title: "Professional Certification",
-      alt: "Professional certification recognizing completed training and web development skills",
-      description:
-        "Successfully completed professional training, strengthening my technical knowledge and web development skills.",
-      image: "/assets/images/achievements/certificate-landscape.webp",
-      instagramUrl: "",
-      video: "",
-      socialLinks: [],
-      comingSoon: false,
-    },
-    {
-      title: "Project Presentation",
-      alt: "Muhammed Salman presenting web development projects and demonstrating frontend development skills",
-      description:
-        "Presented my web development projects, showcasing my frontend expertise, technical skills, and creative approach to building modern web experiences.",
-      image: "/assets/images/achievements/presentation.webp",
-      instagramUrl: "",
-      video: "/assets/videos/video.mp4",
-      socialLinks: [],
-      comingSoon: false,
-    },
-    {
-      title: "Future Milestones",
-      alt: "Visual representation of continuous learning, professional growth, and future web development goals",
-      description:
-        "Focused on future goals, embracing modern technologies, building bigger projects, and continuously improving my skills to reach the next level in web development.",
-      image: "/assets/images/achievements/growth.webp",
-      instagramUrl: "",
-      video: "/assets/videos/video3.mp4",
-    },
-  ];
-
-  // Prevent background scrolling while a modal is open.
+  // Lock body scrolling only while a modal is open.
+  // Restore the original styles instead of overwriting them.
   useEffect(() => {
     const modalIsOpen = showCertificate || showProjectVideo;
-    document.body.style.overflow = modalIsOpen ? "hidden" : "";
+
+    if (!modalIsOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = "hidden";
+
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
     };
   }, [showCertificate, showProjectVideo]);
 
-  // Close modals with Escape.
+  // Close the open modal using Escape.
   useEffect(() => {
     if (!showCertificate && !showProjectVideo) return;
 
@@ -104,231 +135,298 @@ export default function Achievements() {
     };
   }, [showCertificate, showProjectVideo]);
 
-  // Achievements section animations.
+  // GSAP animations for this section only.
   useEffect(() => {
     const root = sectionRef.current;
+
     if (!root) return;
 
-    const q = (selector) => Array.from(root.querySelectorAll(selector));
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (prefersReducedMotion.matches) {
       root.classList.remove("ac-pre");
       return;
     }
 
+    const queryAll = (selector) => Array.from(root.querySelectorAll(selector));
+
     const observers = [];
     let refreshTimer;
 
-    const onLoad = () => ScrollTrigger.refresh();
+    const refreshAnimations = () => {
+      ScrollTrigger.refresh();
+    };
 
     const ctx = gsap.context(() => {
-      try {
-        const main = q('[data-ac="main"]');
-        const mainImg = q('[data-ac="mainimg"]');
-        const second = q('[data-ac="second"]');
-        const textItems = q('[data-ac="text"]');
-        const cards = q(".ac-card");
+      const main = queryAll('[data-ac="main"]');
+      const mainImages = queryAll('[data-ac="mainimg"]');
+      const secondImages = queryAll('[data-ac="second"]');
+      const textItems = queryAll('[data-ac="text"]');
+      const cards = queryAll(".ac-card");
+      const icons = queryAll('[data-ac="icon"]');
 
-        gsap.set(main, {
-          x: -120,
-          clipPath: "inset(0 100% 0 0 round 16px)",
-        });
+      gsap.set(main, {
+        x: -120,
+        clipPath: "inset(0 100% 0 0 round 16px)",
+      });
 
-        gsap.set(mainImg, { scale: 1.3 });
-        gsap.set(second, { opacity: 0, x: -150, rotate: -6 });
-        gsap.set(textItems, { opacity: 0, x: 110 });
-        gsap.set(cards, { opacity: 0, y: 70, scale: 0.94 });
-        gsap.set(q('[data-ac="icon"]'), { scale: 0 });
+      gsap.set(mainImages, {
+        scale: 1.3,
+      });
 
-        root.classList.remove("ac-pre");
+      gsap.set(secondImages, {
+        opacity: 0,
+        x: -150,
+        rotate: -6,
+      });
 
-        const imagesTl = gsap
-          .timeline({
-            paused: true,
-            defaults: { ease: "power3.out" },
-          })
-          .to(main, {
-            x: 0,
-            clipPath: "inset(0 0% 0 0 round 16px)",
-            duration: 1.4,
-            ease: "power4.inOut",
-          })
-          .to(mainImg, { scale: 1, duration: 1.8 }, "<")
-          .to(
-            second,
-            {
-              opacity: 1,
-              x: 0,
-              rotate: 0,
-              duration: 1.2,
-            },
-            "-=0.9",
-          );
+      gsap.set(textItems, {
+        opacity: 0,
+        x: 110,
+      });
 
-        const textTween = gsap.to(textItems, {
-          opacity: 1,
-          x: 0,
-          duration: 1.1,
-          ease: "power3.out",
-          stagger: 0.16,
+      gsap.set(cards, {
+        opacity: 0,
+        y: 70,
+        scale: 0.94,
+      });
+
+      gsap.set(icons, {
+        scale: 0,
+      });
+
+      root.classList.remove("ac-pre");
+
+      const imagesTimeline = gsap
+        .timeline({
           paused: true,
+          defaults: {
+            ease: "power3.out",
+          },
+        })
+        .to(main, {
+          x: 0,
+          clipPath: "inset(0 0% 0 0 round 16px)",
+          duration: 1.4,
+          ease: "power4.inOut",
+        })
+        .to(
+          mainImages,
+          {
+            scale: 1,
+            duration: 1.8,
+          },
+          "<",
+        )
+        .to(
+          secondImages,
+          {
+            opacity: 1,
+            x: 0,
+            rotate: 0,
+            duration: 1.2,
+          },
+          "-=0.9",
+        );
+
+      const textTween = gsap.to(textItems, {
+        opacity: 1,
+        x: 0,
+        duration: 1.1,
+        ease: "power3.out",
+        stagger: 0.16,
+        paused: true,
+      });
+
+      const revealCards = (visibleCards) => {
+        const gap = 0.2;
+
+        gsap.to(visibleCards, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: gap,
+          overwrite: true,
         });
 
-        const reveal = (list) => {
-          const gap = 0.2;
+        visibleCards.forEach((card, index) => {
+          const delay = index * gap;
+          const cardImage = card.querySelector('[data-ac="cimg"]');
+          const cardIcons = card.querySelectorAll('[data-ac="icon"]');
+          const soon = card.querySelector('[data-ac="soon"]');
 
-          gsap.to(list, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.9,
-            ease: "power3.out",
-            stagger: gap,
-            overwrite: true,
-          });
+          if (cardImage) {
+            gsap.fromTo(
+              cardImage,
+              {
+                scale: 1.15,
+              },
+              {
+                scale: 1,
+                duration: 1.5,
+                ease: "power3.out",
+                delay,
+              },
+            );
+          }
 
-          list.forEach((card, i) => {
-            const delay = i * gap;
-            const cardImage = card.querySelector('[data-ac="cimg"]');
-
-            if (cardImage) {
-              gsap.fromTo(
-                cardImage,
-                { scale: 1.15 },
-                {
-                  scale: 1,
-                  duration: 1.5,
-                  ease: "power3.out",
-                  delay,
-                },
-              );
-            }
-
-            gsap.to(card.querySelectorAll('[data-ac="icon"]'), {
+          if (cardIcons.length) {
+            gsap.to(cardIcons, {
               scale: 1,
               duration: 0.6,
               ease: "back.out(2.2)",
               stagger: 0.1,
               delay: delay + 0.5,
             });
+          }
 
-            const soon = card.querySelector('[data-ac="soon"]');
+          if (soon) {
+            gsap.to(soon, {
+              opacity: 0.4,
+              duration: 1.2,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              delay: delay + 1,
+            });
+          }
+        });
+      };
 
-            if (soon) {
-              gsap.to(soon, {
-                opacity: 0.4,
-                duration: 1.2,
-                ease: "sine.inOut",
-                yoyo: true,
-                repeat: -1,
-                delay: delay + 1,
-              });
-            }
-          });
-        };
+      const observeElements = (
+        elements,
+        callback,
+        threshold = 0.15,
+        bottomMargin = "-8%",
+      ) => {
+        const validElements = elements.filter(Boolean);
 
-        const watch = (
-          elements,
-          callback,
-          threshold = 0.15,
-          margin = "-8%",
-        ) => {
-          const validElements = elements.filter(Boolean);
-          if (!validElements.length) return;
+        if (!validElements.length) return;
 
-          const observer = new IntersectionObserver(
-            (entries) => {
-              const visible = entries.filter((entry) => entry.isIntersecting);
-              if (!visible.length) return;
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const visibleEntries = entries.filter(
+              (entry) => entry.isIntersecting,
+            );
 
-              visible.forEach((entry) => observer.unobserve(entry.target));
-              callback(visible.map((entry) => entry.target));
-            },
-            {
-              threshold,
-              rootMargin: `0px 0px ${margin} 0px`,
-            },
-          );
+            if (!visibleEntries.length) return;
 
-          validElements.forEach((element) => observer.observe(element));
-          observers.push(observer);
-        };
+            visibleEntries.forEach((entry) => {
+              observer.unobserve(entry.target);
+            });
 
-        watch([imagesRef.current], () => imagesTl.play(), 0, "-5%");
-        watch([textRef.current], () => textTween.play());
-
-        watch(cards, (list) =>
-          reveal(
-            list.sort((a, b) => Number(a.dataset.i) - Number(b.dataset.i)),
-          ),
-        );
-
-        gsap.fromTo(
-          second,
-          { y: 30 },
+            callback(visibleEntries.map((entry) => entry.target));
+          },
           {
-            y: -30,
-            ease: "none",
-            scrollTrigger: {
-              trigger: imagesRef.current,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
+            threshold,
+            rootMargin: `0px 0px ${bottomMargin} 0px`,
           },
         );
 
-        window.addEventListener("load", onLoad);
-        refreshTimer = setTimeout(onLoad, 1200);
-      } catch (error) {
-        console.error("Achievements animation failed:", error);
-        gsap.set(root.querySelectorAll("*"), { clearProps: "all" });
-        root.classList.remove("ac-pre");
-      }
+        validElements.forEach((element) => observer.observe(element));
+        observers.push(observer);
+      };
+
+      observeElements(
+        [imagesRef.current],
+        () => imagesTimeline.play(),
+        0,
+        "-5%",
+      );
+
+      observeElements([textRef.current], () => textTween.play());
+
+      observeElements(cards, (visibleCards) => {
+        visibleCards.sort((a, b) => Number(a.dataset.i) - Number(b.dataset.i));
+
+        revealCards(visibleCards);
+      });
+
+      // Keep the subtle scroll parallax effect.
+      gsap.fromTo(
+        secondImages,
+        {
+          y: 30,
+        },
+        {
+          y: -30,
+          ease: "none",
+          scrollTrigger: {
+            trigger: imagesRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        },
+      );
+
+      window.addEventListener("load", refreshAnimations);
+
+      refreshTimer = window.setTimeout(refreshAnimations, 1200);
     }, root);
 
     return () => {
       observers.forEach((observer) => observer.disconnect());
-      window.removeEventListener("load", onLoad);
-      clearTimeout(refreshTimer);
+
+      window.removeEventListener("load", refreshAnimations);
+      window.clearTimeout(refreshTimer);
+
+      // Clean up only animations created by this component.
       ctx.revert();
     };
   }, []);
 
   const openAchievementVideo = (videoUrl) => {
     if (!videoUrl) return;
+
     setActiveVideo(videoUrl);
     setShowProjectVideo(true);
+  };
+
+  const handleAchievementKeyDown = (event, item) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+
+    event.preventDefault();
+
+    if (item.title === "Professional Certification") {
+      setShowCertificate(true);
+    } else if (item.video) {
+      openAchievementVideo(item.video);
+    }
   };
 
   return (
     <section
       ref={sectionRef}
-      className="ac-pre w-full mt-8 mb-16 px-2 md:px-16"
+      className="ac-pre mt-8 mb-16 w-full px-2 md:px-16"
     >
       <style>{achievementsCSS}</style>
 
       <div className="container">
-        {/* Top section */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 py-10 md:py-16">
+        {/* TOP SECTION */}
+        <div className="flex flex-col items-center justify-between gap-10 py-10 md:flex-row md:gap-16 md:py-16">
           <div
             ref={imagesRef}
-            className="relative w-full md:w-1/2 flex flex-col md:flex-row items-center md:justify-start gap-6 md:gap-0"
+            className="relative flex w-full flex-col items-center gap-6 md:w-1/2 md:flex-row md:justify-start md:gap-0"
           >
-            <div className="relative w-full lg:block hidden md:max-w-[480px] h-[350px] md:h-[460px] lg:translate-x-10">
+            <div className="relative hidden h-[350px] w-full md:h-[460px] md:max-w-[480px] lg:block lg:translate-x-10">
               <div
                 data-ac="main"
-                className="relative w-full h-full overflow-hidden rounded-2xl"
+                className="relative h-full w-full overflow-hidden rounded-2xl"
               >
-                <div data-ac="mainimg" className="relative w-full h-full">
+                <div data-ac="mainimg" className="relative h-full w-full">
                   <Image
                     src="/assets/images/achievements/quiet-builder.webp"
                     alt="Muhammed Salman working on web development projects"
                     title="Quiet Builder"
                     fill
-                    className="object-cover rounded-2xl"
-                    priority
+                    sizes="(min-width: 1024px) 480px, 0px"
+                    className="rounded-2xl object-cover"
                   />
                 </div>
               </div>
@@ -336,15 +434,16 @@ export default function Achievements() {
 
             <div
               data-ac="second"
-              className="ac-h relative w-full h-[350px] md:absolute md:bottom-16 md:-right-6 md:w-[280px] md:h-[290px]"
+              className="ac-h relative h-[350px] w-full md:absolute md:right-[-24px] md:bottom-16 md:h-[290px] md:w-[280px]"
             >
-              <div className="relative w-full h-full animate-floatX">
+              <div className="relative h-full w-full animate-floatX">
                 <Image
                   src="/assets/images/achievements/debug-hour.webp"
-                  alt="working on web development projects at a coding workstation"
+                  alt="Working on web development projects at a coding workstation"
                   title="Debug Hours"
                   fill
-                  className="object-cover rounded-2xl md:rounded-none border-0 md:border-8 border-[#e9eae5]"
+                  sizes="(max-width: 767px) 96vw, 280px"
+                  className="rounded-2xl border-0 object-cover md:rounded-none md:border-8 md:border-[#e9eae5]"
                 />
               </div>
             </div>
@@ -352,18 +451,18 @@ export default function Achievements() {
 
           <div
             ref={textRef}
-            className="w-full md:w-1/2 space-y-4 md:space-y-6 text-center md:text-left"
+            className="w-full space-y-4 text-center md:w-1/2 md:space-y-6 md:text-left"
           >
             <h2
               data-ac="text"
-              className="ac-h text-secondary font-primary font-bold tracking-wide text-[22px] md:text-[22px]"
+              className="ac-h font-primary text-[22px] font-bold tracking-wide text-secondary"
             >
               Achievements and Awards
             </h2>
 
             <h3
               data-ac="text"
-              className="ac-h font-secondary text-secondary text-xl md:text-[30px] leading-snug"
+              className="ac-h font-secondary text-xl leading-snug text-secondary md:text-[30px]"
             >
               Milestones that reflect <br className="hidden md:block" />
               dedication and growth
@@ -371,7 +470,7 @@ export default function Achievements() {
 
             <p
               data-ac="text"
-              className="ac-h text-primary font-secondary text-[14px] md:text-lg leading-relaxed"
+              className="ac-h font-secondary text-[14px] leading-relaxed text-primary md:text-lg"
             >
               Over the years, I have consistently focused on improving my
               skills, delivering high-quality projects, and pushing creative
@@ -386,8 +485,8 @@ export default function Achievements() {
           </div>
         </div>
 
-        {/* Achievement cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        {/* ACHIEVEMENT CARDS */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-4">
           {achievements.map((item, index) => {
             const isCertificate = index === 1;
             const isVideoCard = Boolean(item.video);
@@ -407,20 +506,7 @@ export default function Achievements() {
                     openAchievementVideo(item.video);
                   }
                 }}
-                onKeyDown={(event) => {
-                  if (
-                    isInteractive &&
-                    (event.key === "Enter" || event.key === " ")
-                  ) {
-                    event.preventDefault();
-
-                    if (isCertificate) {
-                      setShowCertificate(true);
-                    } else if (isVideoCard) {
-                      openAchievementVideo(item.video);
-                    }
-                  }
-                }}
+                onKeyDown={(event) => handleAchievementKeyDown(event, item)}
                 role={isInteractive ? "button" : undefined}
                 tabIndex={isInteractive ? 0 : undefined}
                 aria-label={
@@ -432,21 +518,21 @@ export default function Achievements() {
                 }
               >
                 <div
-                  className={`group h-full flex flex-col bg-[#000080] border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ${
+                  className={`group flex h-full flex-col overflow-hidden rounded-2xl border bg-[#000080] shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
                     item.comingSoon
                       ? "border-dashed border-white/40"
                       : "border-gray-200"
                   }`}
                 >
-                  {/* Card image / video thumbnail */}
-                  <div className="relative w-full h-66 md:h-58 overflow-hidden">
-                    <div data-ac="cimg" className="relative w-full h-full">
+                  {/* CARD IMAGE */}
+                  <div className="relative h-66 w-full overflow-hidden md:h-58">
+                    <div data-ac="cimg" className="relative h-full w-full">
                       <Image
                         src={item.image}
                         title={item.title}
                         alt={item.alt}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        sizes="(max-width: 640px) 96vw, (max-width: 1023px) 46vw, 23vw"
                         className={`object-cover transition-transform duration-500 group-hover:scale-110 ${
                           item.comingSoon ? "grayscale opacity-60" : ""
                         }`}
@@ -468,13 +554,13 @@ export default function Achievements() {
                     </div>
                   </div>
 
-                  {/* Card content */}
-                  <div className="p-4 md:p-5 flex-1">
-                    <h3 className="text-base md:text-lg font-semibold mb-2 text-white">
+                  {/* CARD CONTENT */}
+                  <div className="flex-1 p-4 md:p-5">
+                    <h3 className="mb-2 text-base font-semibold text-white md:text-lg">
                       {item.title}
                     </h3>
 
-                    <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-4">
+                    <p className="mb-4 text-xs leading-relaxed text-gray-300 md:text-sm">
                       {item.description}
                     </p>
 
@@ -499,15 +585,15 @@ export default function Achievements() {
                         title={`View ${item.title} on Instagram`}
                         aria-label={`View ${item.title} on Instagram`}
                         onClick={(event) => event.stopPropagation()}
-                        className="inline-flex items-center gap-2 text-white hover:text-pink-400 transition-colors text-sm"
+                        className="inline-flex items-center gap-2 text-sm text-white transition-colors hover:text-pink-400"
                       >
-                        <FaInstagram size={18} />
+                        <FaInstagram size={18} aria-hidden="true" />
                         <span>View on Instagram</span>
                       </a>
                     )}
 
                     {item.socialLinks?.length > 0 && (
-                      <div className="flex gap-4 items-center">
+                      <div className="flex items-center gap-4">
                         {item.socialLinks.map((social) => (
                           <a
                             key={social.platform}
@@ -517,7 +603,7 @@ export default function Achievements() {
                             onClick={(event) => event.stopPropagation()}
                             aria-label={social.platform}
                             title={social.platform}
-                            className="text-white hover:text-blue-400 transition-colors"
+                            className="text-white transition-colors hover:text-blue-400"
                           >
                             {social.platform === "LinkedIn" && (
                               <FaLinkedinIn size={18} aria-hidden="true" />
@@ -538,7 +624,7 @@ export default function Achievements() {
         </div>
       </div>
 
-      {/* Certificate preview modal */}
+      {/* CERTIFICATE MODAL */}
       {showCertificate && (
         <div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-3 backdrop-blur-sm sm:p-6"
@@ -555,39 +641,35 @@ export default function Achievements() {
               type="button"
               onClick={() => setShowCertificate(false)}
               aria-label="Close certificate preview"
-              className="absolute -right-2 -top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-red-600 text-3xl leading-none text-white shadow-lg transition-colors hover:bg-red-700"
+              className="absolute -top-2 -right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-red-600 text-3xl leading-none text-white shadow-lg transition-colors hover:bg-red-700"
             >
               &times;
             </button>
 
             <div className="relative mx-auto h-[70vh] w-full sm:h-[82vh]">
-              {/* Mobile certificate */}
               <Image
                 src="/assets/images/achievements/certificate-potraite.webp"
                 alt="Muhammed Salman P N's professional certificate from Luminar Technolab"
                 title="Muhammed Salman P N-Luminar Technolab Certificate"
                 fill
-                sizes="100vw"
+                sizes="(max-width: 639px) 96vw, 0px"
                 className="object-contain sm:hidden"
-                priority
               />
 
-              {/* Desktop and tablet certificate */}
               <Image
                 src="/assets/images/achievements/certificate-landscape.webp"
                 alt="Muhammed Salman P N's professional certificate from Luminar Technolab"
                 title="Muhammed Salman P N-Luminar Technolab Certificate"
                 fill
-                sizes="(max-width: 768px) 96vw, 90vw"
+                sizes="(min-width: 640px) 90vw, 0px"
                 className="hidden object-contain sm:block"
-                priority
               />
             </div>
           </div>
         </div>
       )}
 
-      {/* Shared video modal for both 3rd and 4th cards */}
+      {/* VIDEO MODAL */}
       {showProjectVideo && (
         <div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
@@ -604,7 +686,7 @@ export default function Achievements() {
               type="button"
               onClick={() => setShowProjectVideo(false)}
               aria-label="Close video"
-              className="absolute -right-3 -top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-red-600 text-3xl text-white hover:bg-red-700"
+              className="absolute -top-3 -right-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-red-600 text-3xl text-white hover:bg-red-700"
             >
               &times;
             </button>

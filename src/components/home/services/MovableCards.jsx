@@ -1,5 +1,5 @@
-// src/components/home/services/MovableCards.jsx
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
@@ -8,27 +8,105 @@ import TextAnimation from "./TextAnimation";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* Entrance animations. They run on INNER elements only, so they never clash
-   with the GSAP scroll timeline that moves the outer elements. */
+const services = [
+  {
+    title: "Website Optimization & Redesign",
+    image: "/assets/images/services/website-optimization.webp",
+    alt: "Website optimization and redesign service for improved user experience and modern web design",
+    rotate: "12deg",
+  },
+  {
+    title: "Admin Dashboard Development",
+    image: "/assets/images/services/admin-dashboard.webp",
+    alt: "Custom admin dashboard development with a clean and organized user interface",
+    rotate: "8deg",
+  },
+  {
+    title: "Responsive UI Design",
+    image: "/assets/images/services/responsive-design.webp",
+    alt: "Responsive user interface design for mobile, tablet, and desktop screens",
+    rotate: "-10deg",
+  },
+  {
+    title: "Front-End Web Development",
+    image: "/assets/images/services/frontend-development.webp",
+    alt: "Front-end web development using modern web technologies and responsive layouts",
+    rotate: "-2deg",
+  },
+];
+
 const movableCSS = `
-@keyframes mvUp   { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
-@keyframes mvLine { from { transform: translateY(110%); } to { transform: none; } }
-@keyframes mvCard { from { opacity: 0; transform: translateY(90px) scale(.8) rotate(-6deg); } to { opacity: 1; transform: none; } }
+@keyframes mvUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 
-/* Hidden until the section is on screen */
-.mv-pre .mv-up, .mv-pre .mv-card { opacity: 0; }
-.mv-pre .mv-line { transform: translateY(110%); }
+@keyframes mvLine {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
+  }
+}
 
-.mv-line-wrap { display: block; overflow: hidden; padding-bottom: .1em; }
-.mv-line { display: block; }
+@keyframes mvCard {
+  from {
+    opacity: 0;
+    transform: translateY(90px) scale(.8) rotate(-6deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 
-/* "backwards" fill so hover effects keep working after the intro */
-.mv-anim .mv-up   { animation: mvUp .8s cubic-bezier(.22,1,.36,1) backwards; animation-delay: var(--d, 0ms); }
-.mv-anim .mv-line { animation: mvLine .9s cubic-bezier(.22,1,.36,1) backwards; animation-delay: var(--d, 0ms); }
-.mv-anim .mv-card { animation: mvCard 1s cubic-bezier(.22,1,.36,1) backwards; animation-delay: var(--d, 0ms); }
+.mv-pre .mv-up,
+.mv-pre .mv-card {
+  opacity: 0;
+}
+
+.mv-pre .mv-line {
+  transform: translateY(110%);
+}
+
+.mv-line-wrap {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .1em;
+}
+
+.mv-line {
+  display: block;
+}
+
+.mv-anim .mv-up {
+  animation: mvUp .8s cubic-bezier(.22,1,.36,1) backwards;
+  animation-delay: var(--d, 0ms);
+}
+
+.mv-anim .mv-line {
+  animation: mvLine .9s cubic-bezier(.22,1,.36,1) backwards;
+  animation-delay: var(--d, 0ms);
+}
+
+.mv-anim .mv-card {
+  animation: mvCard 1s cubic-bezier(.22,1,.36,1) backwards;
+  animation-delay: var(--d, 0ms);
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .mv-anim .mv-up, .mv-anim .mv-line, .mv-anim .mv-card { animation: none !important; }
+  .mv-anim .mv-up,
+  .mv-anim .mv-line,
+  .mv-anim .mv-card {
+    animation: none !important;
+  }
 }
 `;
 
@@ -41,95 +119,105 @@ export default function MovableCards() {
 
   const [isMobile, setIsMobile] = useState(false);
 
-  const services = [
-    {
-      title: "Website Optimization & Redesign",
-      image: "/assets/images/services/website-optimization.webp",
-      alt: "Website optimization and redesign service for improved user experience and modern web design",
-      rotate: "12deg",
-    },
-    {
-      title: "Admin Dashboard Development",
-      image: "/assets/images/services/admin-dashboard.webp",
-      alt: "Custom admin dashboard development with a clean and organized user interface",
-      rotate: "8deg",
-    },
-    {
-      title: "Responsive UI Design",
-      image: "/assets/images/services/responsive-design.webp",
-      alt: "Responsive user interface design for mobile, tablet, and desktop screens",
-      rotate: "-10deg",
-    },
-    {
-      title: "Front-End Web Development",
-      image: "/assets/images/services/frontend-development.webp",
-      alt: "Front-end web development using modern web technologies and responsive layouts",
-      rotate: "-2deg",
-    },
-  ];
-
-  // Start the entrance animation (on every load/refresh) once the section is visible
+  // Observe the section once; stop observing after its entrance animation starts.
   useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (reduceMotion.matches) {
+      section.classList.remove("mv-pre");
+      section.classList.add("mv-anim");
+      return;
+    }
+
+    const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.remove("mv-pre");
-          el.classList.add("mv-anim");
-          io.disconnect();
-        }
+        if (!entry.isIntersecting) return;
+
+        section.classList.remove("mv-pre");
+        section.classList.add("mv-anim");
+        observer.disconnect();
       },
       { threshold: 0.3 },
     );
-    io.observe(el);
-    return () => io.disconnect();
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
   }, []);
 
-  // Detect mobile
+  // Track only the mobile breakpoint instead of running state updates
+  // on every window resize event.
   useEffect(() => {
-    const checkScreen = () => {
-      setIsMobile(window.innerWidth < 768);
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+
+    const updateScreenSize = () => {
+      setIsMobile((previous) =>
+        previous === mediaQuery.matches ? previous : mediaQuery.matches,
+      );
     };
 
-    checkScreen();
-    window.addEventListener("resize", checkScreen);
+    updateScreenSize();
+    mediaQuery.addEventListener("change", updateScreenSize);
 
-    return () => window.removeEventListener("resize", checkScreen);
+    return () => {
+      mediaQuery.removeEventListener("change", updateScreenSize);
+    };
   }, []);
 
+  // Keep GSAP animations scoped to this section so cleanup does not
+  // kill ScrollTriggers belonging to other components.
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.set(cardsRef.current, { willChange: "transform, opacity" });
-      gsap.set([contentRef.current, mainHeadingRef.current], {
-        willChange: "transform, opacity",
-      });
+    const section = sectionRef.current;
 
-      if (!isMobile) {
-        gsap.set(textAnimationRef.current, { x: "100%", opacity: 0 });
+    if (!section) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (reduceMotion.matches) return;
+
+    const cards = cardsRef.current.filter(Boolean);
+    const content = contentRef.current;
+    const heading = mainHeadingRef.current;
+    const animatedText = textAnimationRef.current;
+
+    const ctx = gsap.context(() => {
+      if (!isMobile && animatedText) {
+        gsap.set(animatedText, {
+          x: "100%",
+          opacity: 0,
+        });
       }
 
-      const tl = gsap.timeline({
+      const timeline = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: section,
           start: "top top",
           end: isMobile ? "+=900" : "+=2500",
           scrub: true,
           pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
         },
       });
 
-      // Cards move up
-      tl.to(cardsRef.current, {
+      // Cards move upward and fade out.
+      timeline.to(cards, {
         y: -500,
         opacity: 0,
-        stagger: { each: 0.3, from: "end" },
+        stagger: {
+          each: 0.3,
+          from: "end",
+        },
         ease: "power2.inOut",
       });
 
-      // Content + Heading move
-      tl.to(
-        [contentRef.current, mainHeadingRef.current],
+      // Content and heading move out of view.
+      timeline.to(
+        [content, heading].filter(Boolean),
         {
           xPercent: -150,
           opacity: 0,
@@ -139,10 +227,10 @@ export default function MovableCards() {
         "-=0.4",
       );
 
-      // Text animation only desktop
-      if (!isMobile && textAnimationRef.current) {
-        tl.to(
-          textAnimationRef.current,
+      // Text animation runs only on desktop.
+      if (!isMobile && animatedText) {
+        timeline.to(
+          animatedText,
           {
             x: "0%",
             opacity: 1,
@@ -152,35 +240,36 @@ export default function MovableCards() {
           "-=0.2",
         );
       }
-    }, sectionRef);
+    }, section);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, [isMobile]);
 
   return (
     <section
       id="services"
       ref={sectionRef}
-      className="mv-pre relative flex flex-col items-center justify-center 
-      lg:min-h-[100vh] min-h-[90vh] overflow-hidden px-4 sm:px-6 lg:px-8"
+      className="mv-pre relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:min-h-screen lg:px-8"
     >
       <style>{movableCSS}</style>
 
-      {/* Top Content */}
+      {/* TOP CONTENT */}
       <div
         ref={contentRef}
-        className="absolute top-8 flex flex-col items-center text-center px-4 py-6"
+        className="absolute top-8 flex flex-col items-center px-4 py-6 text-center"
       >
         <h2
           style={{ "--d": "100ms" }}
-          className="mv-up lg:text-[38px] text-[26px] font-bold text-secondary font-primary tracking-wide "
+          className="mv-up font-primary text-[26px] font-bold tracking-wide text-secondary lg:text-[38px]"
         >
           Our Services
         </h2>
 
         <p
           style={{ "--d": "250ms" }}
-          className="mv-up mt-3 lg:max-w-2xl text-primary text-[15px] md:text-[18px] leading-relaxed font-secondary"
+          className="mv-up mt-3 font-secondary text-[15px] leading-relaxed text-primary md:text-[18px] lg:max-w-2xl"
         >
           I design and develop modern, high-performance web applications that
           blend creativity with functionality. From responsive interfaces to
@@ -189,17 +278,17 @@ export default function MovableCards() {
         </p>
       </div>
 
-      {/* Main Heading (lines slide up from a mask) */}
+      {/* MAIN HEADING */}
       <h3
         ref={mainHeadingRef}
-        className="text-center font-primary select-none font-semibold text-[#000080] leading-tight
-        md:text-[clamp(2rem,7vw,6rem)] lg:text-[50px] text-[30px] lg:mt-10 mt-24"
+        className="select-none text-center font-primary text-[30px] font-semibold leading-tight text-[#000080] md:text-[clamp(2rem,7vw,6rem)] lg:mt-10 lg:text-[50px]"
       >
         <span className="mv-line-wrap">
           <span className="mv-line" style={{ "--d": "400ms" }}>
             Delivering Digital
           </span>
         </span>
+
         <span className="mv-line-wrap">
           <span className="mv-line" style={{ "--d": "520ms" }}>
             Solutions
@@ -207,53 +296,39 @@ export default function MovableCards() {
         </span>
       </h3>
 
-      {/* Image Stack */}
-      <div
-        className="
-          absolute 
-          top-[380px] md:top-[380px] 
-          left-1/2 -translate-x-1/2 -translate-y-1/2
-          w-[160px] h-[160px]
-          sm:w-[190px] sm:h-[190px]
-          md:w-[210px] md:h-[210px]
-          lg:w-[240px] lg:h-[240px]
-          z-10 mt-20
-        "
-      >
-        {services.map((service, i) => (
+      {/* IMAGE STACK */}
+      <div className="absolute left-1/2 top-[380px] z-10 mt-20 h-[160px] w-[160px] -translate-x-1/2 -translate-y-1/2 sm:h-[190px] sm:w-[190px] md:h-[210px] md:w-[210px] lg:h-[240px] lg:w-[240px]">
+        {services.map((service, index) => (
           <div
-            key={i}
-            ref={(el) => (cardsRef.current[i] = el)}
+            key={service.title}
+            ref={(element) => {
+              cardsRef.current[index] = element;
+            }}
             style={{
               transform: `rotate(${service.rotate})`,
               backfaceVisibility: "hidden",
             }}
-            className="
-              absolute 
-              w-[180px] h-[230px]
-              sm:w-[180px] sm:h-[220px]
-              md:w-[250px] md:h-[290px]
-            "
+            className="absolute h-[230px] w-[180px] sm:h-[220px] sm:w-[180px] md:h-[290px] md:w-[250px]"
           >
-            {/* Entrance animation + hover live on this inner wrapper */}
+            {/* Inner wrapper keeps entrance animation separate from GSAP transforms. */}
             <div
-              style={{ "--d": `${700 + i * 140}ms` }}
-              className="mv-card w-full h-full transition-transform duration-300 hover:scale-[1.04]"
+              style={{ "--d": `${700 + index * 140}ms` }}
+              className="mv-card h-full w-full transition-transform duration-300 hover:scale-[1.04]"
             >
-              <div className="relative w-full h-full rounded-[16px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-2xl border-2 border-[#C2BFBF] bg-white">
+              <div className="relative h-full w-full overflow-hidden rounded-[16px] border-2 border-[#C2BFBF] bg-white shadow-2xl sm:rounded-[18px] md:rounded-[20px]">
                 <Image
                   src={service.image}
                   alt={service.alt}
                   title={service.title}
                   fill
-                  sizes="(max-width: 767px) 180px, (max-width: 1023px) 250px, 240px"
+                  sizes="(max-width: 767px) 180px, 250px"
                   className="object-cover"
                 />
 
-                <div className="absolute inset-0 bg-black/40 flex items-end p-4">
-                  <h3 className="text-white text-sm md:text-base font-semibold leading-snug">
+                <div className="absolute inset-0 flex items-end bg-black/40 p-4">
+                  <h4 className="text-sm font-semibold leading-snug text-white md:text-base">
                     {service.title}
-                  </h3>
+                  </h4>
                 </div>
               </div>
             </div>
@@ -261,11 +336,11 @@ export default function MovableCards() {
         ))}
       </div>
 
-      {/* Text Animation (Desktop only) */}
+      {/* DESKTOP TEXT ANIMATION */}
       {!isMobile && (
         <div
           ref={textAnimationRef}
-          className="absolute w-full h-full flex items-center justify-center"
+          className="absolute flex h-full w-full items-center justify-center"
         >
           <TextAnimation />
         </div>

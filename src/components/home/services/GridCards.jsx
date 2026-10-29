@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
@@ -6,6 +7,125 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaEye } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const services = [
+  {
+    title: "Front-End Development",
+    images: [
+      {
+        src: "/assets/images/services/frontend-development-1.webp",
+        alt: "Front-end web development interface built with modern web technologies",
+        title: "Front-End Web Development",
+      },
+      {
+        src: "/assets/images/services/frontend-development-2.webp",
+        alt: "Modern website interface showcasing front-end development",
+        title: "Modern Front-End Interface",
+      },
+      {
+        src: "/assets/images/services/frontend-development.webp",
+        alt: "Front-end development project with a responsive user interface",
+        title: "Front-End Development Project",
+      },
+    ],
+    description: "Modern, scalable web applications using React & Next.js.",
+    details:
+      "I build fast, scalable, and production-ready web applications using React, Next.js, and Tailwind CSS. My focus is on performance, clean architecture, reusable components, and SEO-friendly structure.",
+    features: [
+      "Modern responsive websites",
+      "Pixel-perfect UI implementation",
+      "Component-based architecture",
+      "SEO-friendly and optimized structure",
+    ],
+  },
+  {
+    title: "Responsive UI Development",
+    images: [
+      {
+        src: "/assets/images/services/responsive-design-1.webp",
+        alt: "Responsive website layout adapted for mobile, tablet, and desktop screens",
+        title: "Responsive Website Design",
+      },
+      {
+        src: "/assets/images/services/responsive-design.webp",
+        alt: "Responsive user interface designed for multiple screen sizes",
+        title: "Responsive UI Design",
+      },
+      {
+        src: "/assets/images/services/responsive-design-2.webp",
+        alt: "Mobile-first web interface with a flexible responsive layout",
+        title: "Mobile-First UI Development",
+      },
+    ],
+    description: "Mobile-first responsive interfaces across all devices.",
+    details:
+      "I design mobile-first user interfaces that adapt seamlessly across devices using CSS Grid, Flexbox, and performance optimization techniques.",
+    features: [
+      "Mobile-first approach",
+      "Cross-browser compatibility",
+      "CSS Grid & Flexbox layouts",
+      "Performance optimization",
+    ],
+  },
+  {
+    title: "Admin Dashboard Development",
+    images: [
+      {
+        src: "/assets/images/services/admin-dashboard.webp",
+        alt: "Admin dashboard interface for website data and management",
+        title: "Admin Dashboard Development",
+      },
+      {
+        src: "/assets/images/services/admin-dashboard-2.webp",
+        alt: "Dashboard interface displaying structured data and analytics",
+        title: "Dashboard Analytics Interface",
+      },
+      {
+        src: "/assets/images/services/admin-dashboard-1.webp",
+        alt: "Admin panel interface with organized management tools",
+        title: "Custom Admin Panel",
+      },
+    ],
+    description: "Structured dashboards with analytics & data management.",
+    details:
+      "I develop structured and scalable admin dashboards with interactive charts, clean UI architecture, and reusable components.",
+    features: [
+      "Custom admin panels",
+      "Analytics dashboards & charts",
+      "Reports & data integration",
+      "Clean component-based structure",
+    ],
+  },
+  {
+    title: "Website Redesign & Optimization",
+    images: [
+      {
+        src: "/assets/images/services/website-optimization.webp",
+        alt: "Website redesign and optimization for a modern user experience",
+        title: "Website Redesign and Optimization",
+      },
+      {
+        src: "/assets/images/services/website-optimization-1.webp",
+        alt: "Website performance optimization and modern interface design",
+        title: "Website Performance Optimization",
+      },
+      {
+        src: "/assets/images/services/website-optimization-2.webp",
+        alt: "Modernized website layout with an improved visual structure",
+        title: "Modern Website Redesign",
+      },
+    ],
+    description: "Transforming outdated websites into modern platforms.",
+    details:
+      "I modernize and optimize existing websites by improving UI design, restructuring code, and enhancing speed performance.",
+    features: [
+      "UI modernization",
+      "Speed optimization",
+      "Code refactoring",
+      "Improved UX structure",
+    ],
+  },
+];
 
 export default function GridCards() {
   const sectionRef = useRef(null);
@@ -15,212 +135,138 @@ export default function GridCards() {
   const [activeCard, setActiveCard] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const services = [
-    {
-      title: "Front-End Development",
-      images: [
-        {
-          src: "/assets/images/services/frontend-development-1.webp",
-          alt: "Front-end web development interface built with modern web technologies",
-          title: "Front-End Web Development",
-        },
-        {
-          src: "/assets/images/services/frontend-development-2.webp",
-          alt: "Modern website interface showcasing front-end development",
-          title: "Modern Front-End Interface",
-        },
-        {
-          src: "/assets/images/services/frontend-development.webp",
-          alt: "Front-end development project with a responsive user interface",
-          title: "Front-End Development Project",
-        },
-      ],
-      description: "Modern, scalable web applications using React & Next.js.",
-      details:
-        "I build fast, scalable, and production-ready web applications using React, Next.js, and Tailwind CSS. My focus is on performance, clean architecture, reusable components, and SEO-friendly structure.",
-      features: [
-        "Modern responsive websites",
-        "Pixel-perfect UI implementation",
-        "Component-based architecture",
-        "SEO-friendly and optimized structure",
-      ],
-    },
-    {
-      title: "Responsive UI Development",
-      images: [
-        {
-          src: "/assets/images/services/responsive-design-1.webp",
-          alt: "Responsive website layout adapted for mobile, tablet, and desktop screens",
-          title: "Responsive Website Design",
-        },
-        {
-          src: "/assets/images/services/responsive-design.webp",
-          alt: "Responsive user interface designed for multiple screen sizes",
-          title: "Responsive UI Design",
-        },
-        {
-          src: "/assets/images/services/responsive-design-2.webp",
-          alt: "Mobile-first web interface with a flexible responsive layout",
-          title: "Mobile-First UI Development",
-        },
-      ],
-      description: "Mobile-first responsive interfaces across all devices.",
-      details:
-        "I design mobile-first user interfaces that adapt seamlessly across devices using CSS Grid, Flexbox, and performance optimization techniques.",
-      features: [
-        "Mobile-first approach",
-        "Cross-browser compatibility",
-        "CSS Grid & Flexbox layouts",
-        "Performance optimization",
-      ],
-    },
-    {
-      title: "Admin Dashboard Development",
-      images: [
-        {
-          src: "/assets/images/services/admin-dashboard.webp",
-          alt: "Admin dashboard interface for website data and management",
-          title: "Admin Dashboard Development",
-        },
-        {
-          src: "/assets/images/services/admin-dashboard-2.webp",
-          alt: "Dashboard interface displaying structured data and analytics",
-          title: "Dashboard Analytics Interface",
-        },
-        {
-          src: "/assets/images/services/admin-dashboard-1.webp",
-          alt: "Admin panel interface with organized management tools",
-          title: "Custom Admin Panel",
-        },
-      ],
-      description: "Structured dashboards with analytics & data management.",
-      details:
-        "I develop structured and scalable admin dashboards with interactive charts, clean UI architecture, and reusable components.",
-      features: [
-        "Custom admin panels",
-        "Analytics dashboards & charts",
-        "Reports & data integration",
-        "Clean component-based structure",
-      ],
-    },
-    {
-      title: "Website Redesign & Optimization",
-      images: [
-        {
-          src: "/assets/images/services/website-optimization.webp",
-          alt: "Website redesign and optimization for a modern user experience",
-          title: "Website Redesign and Optimization",
-        },
-        {
-          src: "/assets/images/services/website-optimization-1.webp",
-          alt: "Website performance optimization and modern interface design",
-          title: "Website Performance Optimization",
-        },
-        {
-          src: "/assets/images/services/website-optimization-2.webp",
-          alt: "Modernized website layout with an improved visual structure",
-          title: "Modern Website Redesign",
-        },
-      ],
-      description: "Transforming outdated websites into modern platforms.",
-      details:
-        "I modernize and optimize existing websites by improving UI design, restructuring code, and enhancing speed performance.",
-      features: [
-        "UI modernization",
-        "Speed optimization",
-        "Code refactoring",
-        "Improved UX structure",
-      ],
-    },
-  ];
-
-  // GSAP animation (Desktop only)
+  // Desktop GSAP animation with component-specific cleanup.
   useEffect(() => {
-    if (window.innerWidth < 1024) return;
+    const section = sectionRef.current;
+    const leftImage = leftImageRef.current;
+    const cards = cardsRef.current;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=1500",
-        scrub: true,
-        pin: true,
-      },
-    });
+    if (!section || !leftImage || !cards) return;
 
-    tl.fromTo(
-      leftImageRef.current,
-      { y: -300, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.5, ease: "bounce.out" },
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    const reducedMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
     );
 
-    tl.fromTo(
-      cardsRef.current.children,
-      { y: 100, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.2,
-        duration: 1,
-        ease: "power3.out",
-      },
-      "-=0.5",
-    );
+    if (!desktopQuery.matches || reducedMotionQuery.matches) return;
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
-  }, []);
+    const ctx = gsap.context(() => {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "+=1500",
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-  // ESC close
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") setActiveCard(null);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+      timeline.fromTo(
+        leftImage,
+        { y: -300, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.5,
+          ease: "bounce.out",
+        },
+      );
 
-  // Lock background scroll
-  useEffect(() => {
-    if (activeCard) {
-      const scrollBarWidth =
-        window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${scrollBarWidth}px`;
-      setCurrentImageIndex(0);
-    } else {
-      document.body.style.overflow = "auto";
-      document.body.style.paddingRight = "0px";
-    }
+      timeline.fromTo(
+        cards.children,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.2,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.5",
+      );
+    }, section);
 
     return () => {
-      document.body.style.overflow = "auto";
-      document.body.style.paddingRight = "0px";
+      // Revert only this component's GSAP animations and ScrollTriggers.
+      ctx.revert();
     };
-  }, [activeCard]);
+  }, []);
 
-  // Auto image change
+  // Close the modal with Escape.
   useEffect(() => {
     if (!activeCard) return;
 
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) =>
-        prev === activeCard.images.length - 1 ? 0 : prev + 1,
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setActiveCard(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeCard]);
+
+  // Lock background scrolling while the modal is open.
+  useEffect(() => {
+    if (!activeCard) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+
+    const scrollBarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = "hidden";
+
+    if (scrollBarWidth > 0) {
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    }
+
+    setCurrentImageIndex(0);
+
+    return () => {
+      // Restore the styles that existed before opening the modal.
+      document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
+    };
+  }, [activeCard]);
+
+  // Rotate gallery images while the modal is open.
+  useEffect(() => {
+    if (!activeCard) return;
+
+    const imageCount = activeCard.images.length;
+
+    if (imageCount <= 1) return;
+
+    const interval = window.setInterval(() => {
+      setCurrentImageIndex((previousIndex) =>
+        previousIndex >= imageCount - 1 ? 0 : previousIndex + 1,
       );
     }, 2000);
 
-    return () => clearInterval(interval);
+    return () => {
+      window.clearInterval(interval);
+    };
   }, [activeCard]);
+
+  const currentImage = activeCard ? activeCard.images[currentImageIndex] : null;
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-16 md:py-24 px-4 sm:px-6 md:px-16 overflow-hidden"
+      className="relative w-full overflow-hidden px-4 py-16 sm:px-6 md:px-16 md:py-24"
     >
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between w-full max-w-7xl mx-auto gap-10 md:gap-12">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-10 md:gap-12 lg:flex-row lg:items-center">
         {/* LEFT VIDEO */}
         <div
           ref={leftImageRef}
-          className="w-full lg:w-1/2 h-[250px] sm:h-[320px] md:h-[400px] lg:h-[450px] rounded-2xl shadow-xl overflow-hidden"
+          className="h-[250px] w-full overflow-hidden rounded-2xl shadow-xl sm:h-[320px] md:h-[400px] lg:h-[450px] lg:w-1/2"
         >
           <video
             src="/assets/videos/video-2.mp4"
@@ -230,33 +276,35 @@ export default function GridCards() {
             loop
             muted
             playsInline
-            preload="metadata"
-            className="w-full h-full object-cover"
+            preload="none"
+            className="h-full w-full object-cover"
           />
         </div>
 
-        {/* RIGHT CARDS */}
-        <div ref={cardsRef} className="flex flex-col gap-6 w-full lg:w-1/2">
-          {services.map((service, index) => (
+        {/* RIGHT SERVICE CARDS */}
+        <div ref={cardsRef} className="flex w-full flex-col gap-6 lg:w-1/2">
+          {services.map((service) => (
             <div
-              key={index}
-              className="bg-white shadow-md rounded-xl p-4 flex items-center gap-4 hover:shadow-2xl transition"
+              key={service.title}
+              className="flex items-center gap-4 rounded-xl bg-white p-4 shadow-md transition hover:shadow-2xl"
             >
-              <div className="relative w-20 h-20 rounded-lg overflow-hidden">
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
                 <Image
                   src={service.images[0].src}
                   alt={service.images[0].alt}
                   title={service.images[0].title}
                   fill
+                  sizes="80px"
                   className="object-cover"
                 />
               </div>
 
-              <div className="flex-1">
-                <h4 className="lg:text-lg text-[15px] font-bold text-[#000080]">
+              <div className="min-w-0 flex-1">
+                <h4 className="text-[15px] font-bold text-[#000080] lg:text-lg">
                   {service.title}
                 </h4>
-                <p className="lg:text-sm text-[13px] text-gray-600">
+
+                <p className="text-[13px] text-gray-600 lg:text-sm">
                   {service.description}
                 </p>
               </div>
@@ -265,7 +313,7 @@ export default function GridCards() {
                 type="button"
                 onClick={() => setActiveCard(service)}
                 aria-label={`View ${service.title} details and images`}
-                className="shrink-0 text-[#000080] hover:scale-110 transition"
+                className="shrink-0 text-[#000080] transition hover:scale-110"
               >
                 <FaEye size={20} aria-hidden="true" />
               </button>
@@ -274,43 +322,44 @@ export default function GridCards() {
         </div>
       </div>
 
-      {/* MODAL */}
-      {activeCard && (
+      {/* SERVICE DETAILS MODAL */}
+      {activeCard && currentImage && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
           onClick={() => setActiveCard(null)}
         >
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="service-modal-title"
-            className="bg-white w-full max-w-md lg:max-w-[35%] rounded-2xl max-h-[75vh] overflow-y-auto p-6 relative"
-            onClick={(e) => e.stopPropagation()}
+            className="relative max-h-[75vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 lg:max-w-[35%]"
+            onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setActiveCard(null)}
               aria-label="Close service details"
-              className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
+              className="absolute right-4 top-4 text-xl text-gray-500 hover:text-black"
             >
               ✕
             </button>
 
-            <div className="relative w-full h-55 lg:h-82 rounded-xl overflow-hidden mb-4 mt-5">
+            <div className="relative mb-4 mt-5 h-55 w-full overflow-hidden rounded-xl lg:h-82">
               <Image
-                key={activeCard.images[currentImageIndex].src}
-                src={activeCard.images[currentImageIndex].src}
-                alt={activeCard.images[currentImageIndex].alt}
-                title={activeCard.images[currentImageIndex].title}
+                key={currentImage.src}
+                src={currentImage.src}
+                alt={currentImage.alt}
+                title={currentImage.title}
                 fill
                 sizes="(max-width: 767px) 90vw, 450px"
                 className="object-cover transition-opacity duration-700"
               />
             </div>
 
-            {/* Gallery indicators */}
+            {/* GALLERY INDICATORS */}
             <div
-              className="flex justify-center mt-2 gap-2"
+              className="mt-2 flex justify-center gap-2"
+              role="group"
               aria-label="Service image gallery"
             >
               {activeCard.images.map((image, index) => (
@@ -320,7 +369,7 @@ export default function GridCards() {
                   onClick={() => setCurrentImageIndex(index)}
                   aria-label={`Show image ${index + 1} of ${activeCard.title}`}
                   aria-pressed={currentImageIndex === index}
-                  className={`w-2 h-2 rounded-full transition ${
+                  className={`h-2 w-2 rounded-full transition ${
                     currentImageIndex === index ? "bg-[#000080]" : "bg-gray-300"
                   }`}
                 />
@@ -329,16 +378,16 @@ export default function GridCards() {
 
             <h3
               id="service-modal-title"
-              className="lg:text-2xl font-bold text-[#000080] mt-4 mb-3"
+              className="mt-4 mb-3 font-bold text-[#000080] lg:text-2xl"
             >
               {activeCard.title}
             </h3>
 
-            <p className="lg:text-base text-[14px] text-gray-700 mb-4 leading-relaxed">
+            <p className="mb-4 text-[14px] leading-relaxed text-gray-700 lg:text-base">
               {activeCard.details}
             </p>
 
-            <ul className="list-disc pl-5 space-y-2 lg:text-base text-[14px] text-gray-600">
+            <ul className="list-disc space-y-2 pl-5 text-[14px] text-gray-600 lg:text-base">
               {activeCard.features.map((feature) => (
                 <li key={feature}>{feature}</li>
               ))}
